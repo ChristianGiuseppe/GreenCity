@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">GreenCity</string>
+    <string name="email">Email</string>
+    <string name="accedi">Accedi</string>
+    <string name="clicca_qui">Registrati</string>
+    <string name="password">Password</string>
+</resources>
