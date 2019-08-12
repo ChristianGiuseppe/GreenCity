@@ -1,7 +1,13 @@
 <resources>
     <string name="app_name">GreenCity</string>
-    <string name="email">Email</string>
+    <string name="my_app_id">greencity-pfvds</string>
+    <string name="edit_email">Email</string>
     <string name="accedi">Accedi</string>
     <string name="clicca_qui">Registrati</string>
-    <string name="password">Password</string>
+    <string name="edit_password">Password</string>
+    <string name="title_activity_sign_in">SignIn</string>
+    <string name="name_green">Green</string>
+    <string name="name_city">City</string>
+    <string name="edit_cognome">Cognome</string>
+    <string name="edit_nome">Nome</string>
 </resources>
