@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val client = Stitch.initializeDefaultAppClient("greencity-pfvds")
+        val client = Stitch.initializeDefaultAppClient("stitchapp-oeziy")
         client.auth.loginWithCredential(AnonymousCredential()).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 Log.d(
