@@ -21,14 +21,14 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintVertical_bias="0.0"
-            app:layout_constraintDimensionRatio="1:1" >
+            app:layout_constraintDimensionRatio="1:1">
 
         <ImageView
                 android:id="@+id/logo_green_city"
                 android:layout_width="248dp"
                 android:layout_height="213dp"
                 android:layout_marginTop="16dp"
-                android:contentDescription="Green City"
+                android:contentDescription="@string/green_city"
                 android:layout_marginStart="16dp"
                 android:layout_marginBottom="16dp"
                 android:layout_marginEnd="16dp"
