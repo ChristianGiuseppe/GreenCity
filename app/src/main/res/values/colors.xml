@@ -3,4 +3,5 @@
     <color name="primary_color">#4CAF50</color>
     <color name="light_grey">#A2A0A0</color>
     <color name="name_city_signin">#F2383838</color>
+    <color name="background_navbar">#FFcccccc</color>
 </resources>

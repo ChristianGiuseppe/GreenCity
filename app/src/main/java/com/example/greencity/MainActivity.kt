@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.widget.Button
 import android.widget.TextView
 import com.mongodb.stitch.android.core.Stitch
 import com.mongodb.stitch.core.auth.providers.anonymous.AnonymousCredential
@@ -12,6 +13,7 @@ import com.mongodb.stitch.core.auth.providers.anonymous.AnonymousCredential
 class MainActivity : AppCompatActivity() {
 
     private var textSignIn: TextView? = null
+    private var btnLogin:Button? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,9 +33,15 @@ class MainActivity : AppCompatActivity() {
         }
         setContentView(R.layout.activity_main)
         textSignIn = findViewById(R.id.sign_in)
+        this.btnLogin = this.findViewById(R.id.login_btn)
         textSignIn?.setOnClickListener {
             val iSignIn = Intent(this, SignIn::class.java)
             startActivity(iSignIn)
+        }
+
+        btnLogin?.setOnClickListener {
+            val iLogin = Intent(this, Navbar::class.java)
+            startActivity(iLogin)
         }
 
     }

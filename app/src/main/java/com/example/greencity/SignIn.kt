@@ -26,8 +26,7 @@ class SignIn : AppCompatActivity() {
         //Setup connectionMongoDB with Util Class
         val client = ConnectionDBUtil.defaultAppClient()
         val mongoClient = ConnectionDBUtil.getServiceClient()
-        val collection = ConnectionDBUtil.getDB();
-        //end setup
+        val collection = ConnectionDBUtil.getDB()
 
         this.nameSignIn = findViewById<EditText>(R.id.signin_nome)
         this.surnameSignIn = findViewById<EditText>(R.id.signin_cognome)
@@ -43,7 +42,7 @@ class SignIn : AppCompatActivity() {
         val register: Button = findViewById(R.id.signin_btn)
 
         register.setOnClickListener {
-            var isValid = true;
+            var isValid = true
             //check if exists user on click registrati
             collection
                 .find()
@@ -70,7 +69,7 @@ class SignIn : AppCompatActivity() {
         }
     }
 
-    fun isValidPassword(password: String?): Boolean {
+    private fun isValidPassword(password: String?): Boolean {
         password?.let {
             val passwordPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$"
             val passwordMatcher = Regex(passwordPattern)
@@ -78,46 +77,46 @@ class SignIn : AppCompatActivity() {
         } ?: return false
     }
 
-    fun isEmailValid(email: String): Boolean {
+   private fun isEmailValid(email: String): Boolean {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
 
     private fun checkName() {
         if (nameSignIn?.text.toString().trim().isEmpty()) {
-            nameSignIn?.setError("Nome Obbligatorio");
+            nameSignIn?.error = "Nome Obbligatorio"
             isValid = false
         } else {
-            nameSignIn?.setError(null)
+            nameSignIn?.error = null
         }
     }
 
     private fun checkSurname() {
         if (surnameSignIn?.text.toString().trim().isEmpty()) {
-            surnameSignIn?.setError("Cognome Obbligatorio")
+            surnameSignIn?.error = "Cognome Obbligatorio"
             isValid = false
         } else {
-            surnameSignIn?.setError(null)
+            surnameSignIn?.error = null
         }
     }
 
     private fun checkEmail() {
         if (emailSignIn?.text.toString().trim().length == 0) {
-            emailSignIn?.setError("Email Obbligatorio")
+            emailSignIn?.error = "Email Obbligatorio"
             isValid = false
         } else {
             if (isEmailValid(emailSignIn?.text.toString())) {
                 Toast.makeText(this, "Valid Email", Toast.LENGTH_LONG).show()
-                emailSignIn?.setError(null)
+                emailSignIn?.error = null
             } else {
                 isValid = false
-                emailSignIn?.setError("Inserire una mail valida")
+                emailSignIn?.error = "Inserire una mail valida"
             }
         }
     }
 
     private fun checkExistEmail(it: String) {
         if (emailSignIn?.text.toString().trim().equals(it)) {
-            isValid = false;
+            isValid = false
             Log.i("EMAIL ESISTENTE", emailSignIn?.text.toString().trim())
             Toast.makeText(this, "Utente gia registrato con questa email", Toast.LENGTH_LONG).show()
         }
@@ -125,12 +124,12 @@ class SignIn : AppCompatActivity() {
 
     private fun checkPassword() {
         if (passwordSignIn?.text.toString().trim().length == 0) {
-            passwordSignIn?.setError("Password Obbligatorio");
+            passwordSignIn?.error = "Password Obbligatorio"
             isValid = false
         } else {
             if (!isValidPassword(passwordSignIn?.text.toString())) {
                 isValid = false
-                passwordSignIn?.setError("La password deve contenere 8 caratteri tra cui maiuscolo, minuscolo,numeri e caratteri speciali")
+                passwordSignIn?.error = "La password deve contenere 8 caratteri tra cui maiuscolo, minuscolo,numeri e caratteri speciali"
             }
         }
     }
@@ -143,7 +142,7 @@ class SignIn : AppCompatActivity() {
         document["password"] = passwordSignIn?.text.toString()
         document["user_id"] = client.auth.user!!.id
         collection.insertOne(document).addOnSuccessListener {
-            Log.d("STITCH", "inserito")
+            Log.i("STITCH", "inserito")
         }
     }
 }
