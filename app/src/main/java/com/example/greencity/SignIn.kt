@@ -36,16 +36,32 @@ class SignIn : AppCompatActivity() {
         val emailSignIn = findViewById(R.id.signin_email) as EditText;
         val passwordSignIn = findViewById(R.id.signin_password) as EditText;
         val document = Document()
-        var cursor = collection.find(eq("nome","luca"))
+        val users = mutableListOf<Document>()
 
-
-        Toast.makeText(this,cursor.toString(),Toast.LENGTH_LONG).show()
 
         val register: Button = findViewById(R.id.signin_btn)
 
         register.setOnClickListener {
             var isValid = true;
-
+            //check if exists user on click registrati
+            collection
+                .find()
+                .into(users)
+                .addOnSuccessListener {
+                    users.map {
+                        users.forEach {
+                            it.getString("email") // Extract only the 'email' field
+                            Log.i("LUCA2",it.getString("email").toString())
+                            if(emailSignIn.text.toString().trim() == it.getString("email")){
+                                isValid = false;
+                                Log.i("EMAIL ESISTENTE",emailSignIn.text.toString().trim())
+                                Toast.makeText(this,"Utente gia registrato con questa email",Toast.LENGTH_LONG).show()
+                            }
+                        }
+                        // of each document
+                    }
+                    // More code here
+                }
             if (nameSignIn.text.toString().trim().length == 0) {
                 nameSignIn.setError("Nome Obbligatorio");
                 isValid = false;
@@ -62,7 +78,7 @@ class SignIn : AppCompatActivity() {
                 emailSignIn.setError("Email Obbligatorio");
                 isValid = false;
             } else {
-                if(isEmailValid(emailSignIn.text.toString())){
+               if(isEmailValid(emailSignIn.text.toString())){
                     Toast.makeText(this,"Valid Email",Toast.LENGTH_LONG).show()
                     emailSignIn.setError(null);
                 }else{
