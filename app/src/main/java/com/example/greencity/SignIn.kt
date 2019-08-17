@@ -34,15 +34,9 @@ class SignIn : AppCompatActivity() {
         this.passwordSignIn = findViewById<EditText>(R.id.signin_password)
 
         val users = mutableListOf<Document>()
-        var cursor = collection.find(eq("nome", "luca"))
-
-
-        Toast.makeText(this, cursor.toString(), Toast.LENGTH_LONG).show()
-
         val register: Button = findViewById(R.id.signin_btn)
 
         register.setOnClickListener {
-            var isValid = true
             //check if exists user on click registrati
             collection
                 .find()
@@ -53,23 +47,27 @@ class SignIn : AppCompatActivity() {
                             // Extract only the 'email' field
                             var emailDB = it.getString("email")
                             Log.i("LUCA2", it.getString("email").toString())
-                            checkExistEmail(emailDB)
+                            if(!emailDB.isEmpty()){
+                                checkExistEmail(emailDB)
+                            }
                         }
                         // of each document
                     }
                     // More code here
                 }
-            checkName()
-            checkSurname()
-            checkEmail()
-            checkPassword()
-            if (isValid) {
+            var isName = checkName()
+            var isSurname = checkSurname()
+            var isEmail = checkEmail()
+            var isPw = checkPassword()
+            if (isName && isSurname && isEmail && isPw) {
                 sendUser(client, collection)
+            }else{
+                Log.i("ERRORLUCA",collection.toString())
             }
         }
     }
 
-    private fun isValidPassword(password: String?): Boolean {
+    private fun  isValidPassword(password: String?): Boolean {
         password?.let {
             val passwordPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$"
             val passwordMatcher = Regex(passwordPattern)
@@ -81,55 +79,64 @@ class SignIn : AppCompatActivity() {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
 
-    private fun checkName() {
+    private fun checkName(): Boolean{
         if (nameSignIn?.text.toString().trim().isEmpty()) {
             nameSignIn?.error = "Nome Obbligatorio"
-            isValid = false
+            return false
         } else {
             nameSignIn?.error = null
+            return true
         }
     }
 
-    private fun checkSurname() {
+    private fun checkSurname() : Boolean{
         if (surnameSignIn?.text.toString().trim().isEmpty()) {
             surnameSignIn?.error = "Cognome Obbligatorio"
-            isValid = false
+            return false;
         } else {
             surnameSignIn?.error = null
+            return true;
         }
     }
 
-    private fun checkEmail() {
+    private fun checkEmail(): Boolean {
         if (emailSignIn?.text.toString().trim().length == 0) {
             emailSignIn?.error = "Email Obbligatorio"
-            isValid = false
+            return false
         } else {
             if (isEmailValid(emailSignIn?.text.toString())) {
                 Toast.makeText(this, "Valid Email", Toast.LENGTH_LONG).show()
                 emailSignIn?.error = null
+                return true
             } else {
-                isValid = false
                 emailSignIn?.error = "Inserire una mail valida"
+                return false
             }
         }
     }
 
-    private fun checkExistEmail(it: String) {
+    private fun checkExistEmail(it: String): Boolean {
         if (emailSignIn?.text.toString().trim().equals(it)) {
-            isValid = false
             Log.i("EMAIL ESISTENTE", emailSignIn?.text.toString().trim())
             Toast.makeText(this, "Utente gia registrato con questa email", Toast.LENGTH_LONG).show()
+            return false
+        }
+        else{
+            return true
         }
     }
 
-    private fun checkPassword() {
+    private fun checkPassword() : Boolean{
         if (passwordSignIn?.text.toString().trim().length == 0) {
             passwordSignIn?.error = "Password Obbligatorio"
-            isValid = false
+            return false
         } else {
             if (!isValidPassword(passwordSignIn?.text.toString())) {
-                isValid = false
                 passwordSignIn?.error = "La password deve contenere 8 caratteri tra cui maiuscolo, minuscolo,numeri e caratteri speciali"
+                return false
+            }
+            else{
+                return true
             }
         }
     }
