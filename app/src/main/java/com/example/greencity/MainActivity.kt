@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
         val client = Stitch.initializeDefaultAppClient("stitchapp-oeziy")
         val client2 = ConnectionDBUtil.defaultAppClient()
         val mongoClient = ConnectionDBUtil.getServiceClient()
@@ -41,7 +42,6 @@ class MainActivity : AppCompatActivity() {
                 Log.e("myApp", "failed to log in", task.exception)
             }
         }
-        setContentView(R.layout.activity_main)
         textSignIn = findViewById(R.id.sign_in)
         this.btnLogin = this.findViewById(R.id.login_btn)
         textSignIn?.setOnClickListener {
@@ -51,7 +51,6 @@ class MainActivity : AppCompatActivity() {
 
         btnLogin?.setOnClickListener {
             val iLogin = Intent(this, Navbar::class.java)
-            Toast.makeText(this,emailAccedi?.text.toString(),Toast.LENGTH_LONG).show()
             val users = mutableListOf<Document>()
             //check if exists user on click registrati
             collection
@@ -60,14 +59,14 @@ class MainActivity : AppCompatActivity() {
                 .addOnSuccessListener {
                     users.map {
                         users.forEach {
-                            Log.i("Utente non regitsrato",emailAccedi?.text.toString())
                             // Extract only the 'email' field
-                            var emailDB = it.getString("email")
                             Log.i("LUCA2", it.getString("email").toString())
-                            if(emailAccedi?.text.toString().trim().equals(emailDB)){
-                                    startActivity(iLogin)
+                            if(emailAccedi?.text.toString().trim()== it.getString("email")){
+                                Log.i("Utente  registrato",emailAccedi?.text.toString())
+                                startActivity(iLogin)
+
                                 }else{
-                                    Log.i("Utente non regitsrato",emailAccedi?.text.toString())
+                                    Log.i("Utente non registrato",emailAccedi?.text.toString())
                                 }
                             }
                         }
