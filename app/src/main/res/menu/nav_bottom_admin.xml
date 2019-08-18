@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+            android:id="@+id/home"
+            android:icon="@drawable/ic_home"
+            android:checked="false"
+            android:title="Home">
+    </item>
+
+    <item
+            android:id="@+id/grafici"
+            android:icon="@drawable/ic_insert_chart"
+            android:checked="false"
+            android:title="Grafici">
+
+    </item>
+
+    <item
+            android:id="@+id/report_admin"
+            android:icon="@drawable/ic_report"
+            android:checked="false"
+            android:title="Mappa">
+    </item>
+
+</menu>

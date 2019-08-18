@@ -7,7 +7,6 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
 import com.mongodb.stitch.android.core.Stitch
 import com.mongodb.stitch.core.auth.providers.anonymous.AnonymousCredential
 import org.bson.Document
