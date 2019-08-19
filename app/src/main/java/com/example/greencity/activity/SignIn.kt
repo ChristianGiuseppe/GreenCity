@@ -1,4 +1,4 @@
-package com.example.greencity
+package com.example.greencity.activity
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -6,10 +6,11 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import com.mongodb.client.model.Filters.eq
+import com.example.greencity.R
 import com.mongodb.stitch.android.core.StitchAppClient
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection
 import org.bson.Document
+import com.example.greencity.ConnectionDBUtil as ConnectionDBUtil1
 
 
 class SignIn : AppCompatActivity() {
@@ -24,10 +25,12 @@ class SignIn : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)
         //Setup connectionMongoDB with Util Class
-        val client = ConnectionDBUtil.defaultAppClient()
-        val mongoClient = ConnectionDBUtil.getServiceClient()
-        val collection = ConnectionDBUtil.getDB()
+        val client = ConnectionDBUtil1.defaultAppClient()
+        val mongoClient = ConnectionDBUtil1.serviceClient
+        val collection = ConnectionDBUtil1.db
 
+
+        ConnectionDBUtil1.regioni
         this.nameSignIn = findViewById<EditText>(R.id.signin_nome)
         this.surnameSignIn = findViewById<EditText>(R.id.signin_cognome)
         this.emailSignIn = findViewById<EditText>(R.id.signin_email)

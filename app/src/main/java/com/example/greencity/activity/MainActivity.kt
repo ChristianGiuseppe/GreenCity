@@ -1,4 +1,4 @@
-package com.example.greencity
+package com.example.greencity.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,6 +7,8 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import com.example.greencity.ConnectionDBUtil
+import com.example.greencity.R
 import com.mongodb.stitch.android.core.Stitch
 import com.mongodb.stitch.core.auth.providers.anonymous.AnonymousCredential
 import org.bson.Document
@@ -23,11 +25,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val client = Stitch.initializeDefaultAppClient("stitchapp-oeziy")
-        val client2 = ConnectionDBUtil.defaultAppClient()
-        val mongoClient = ConnectionDBUtil.getServiceClient()
-        val collection = ConnectionDBUtil.getDB()
-        this.emailAccedi = findViewById<EditText>(R.id.email_user)
-        this.passwordAccedi = findViewById<EditText>(R.id.signin_password)
         client.auth.loginWithCredential(AnonymousCredential()).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 Log.d(
@@ -41,6 +38,13 @@ class MainActivity : AppCompatActivity() {
                 Log.e("myApp", "failed to log in", task.exception)
             }
         }
+        val client2 = ConnectionDBUtil.defaultAppClient()
+        val mongoClient = ConnectionDBUtil.serviceClient
+        val collection = ConnectionDBUtil.db
+
+        this.emailAccedi = findViewById<EditText>(R.id.email_user)
+        this.passwordAccedi = findViewById<EditText>(R.id.signin_password)
+
         textSignIn = findViewById(R.id.sign_in)
         this.btnLogin = this.findViewById(R.id.login_btn)
         textSignIn?.setOnClickListener {

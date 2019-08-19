@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background_navbar"
-        tools:context=".Navbar">
+        tools:context=".activity.Navbar">
 
 
     <android.support.constraint.ConstraintLayout
@@ -19,12 +19,14 @@
             app:layout_constraintHorizontal_bias="0.501"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
+
         <FrameLayout
                 android:id="@+id/fragments_container"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
         </FrameLayout>
+
     </android.support.constraint.ConstraintLayout>
 
     <android.support.constraint.ConstraintLayout
