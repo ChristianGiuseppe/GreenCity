@@ -9,6 +9,7 @@ import android.widget.EditText
 import android.widget.TextView
 import com.example.greencity.ConnectionDBUtil
 import com.example.greencity.R
+import com.google.android.gms.tasks.OnCompleteListener
 import com.mongodb.stitch.android.core.Stitch
 import com.mongodb.stitch.core.auth.providers.anonymous.AnonymousCredential
 import org.bson.Document
@@ -67,15 +68,14 @@ class MainActivity : AppCompatActivity() {
                             if(emailAccedi?.text.toString().trim()== it.getString("email")){
                                 Log.i("Utente  registrato",emailAccedi?.text.toString())
                                 startActivity(iLogin)
-
-                                }else{
-                                    Log.i("Utente non registrato",emailAccedi?.text.toString())
-                                }
+                            }else{
+                                Log.i("Utente non registrato",emailAccedi?.text.toString())
                             }
                         }
-                        // of each document
                     }
-                    // More code here
+                    // of each document
+                }
+            // More code here
                 }
         }
 
