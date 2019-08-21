@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import com.example.greencity.R
+import com.google.android.gms.tasks.OnCompleteListener
 import com.mongodb.stitch.android.core.StitchAppClient
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection
 import org.bson.Document
@@ -28,9 +29,40 @@ class SignIn : AppCompatActivity() {
         val client = ConnectionDBUtil1.defaultAppClient()
         val mongoClient = ConnectionDBUtil1.serviceClient
         val collection = ConnectionDBUtil1.db
+//      Lista delle regioni
+//      val collect:RemoteMongoCollection<Document>   = mongoClient.getDatabase("GreenCity").getCollection("Regioni")
+//      val filterDoc = Document()
+//      val findResults = collect.find(filterDoc)
+//      findResults.forEach { item -> Log.d("app", String.format("successfully found:  %s", item.toString())) }
+//      val itemsTask = findResults.into(ArrayList<Document>())
+//      itemsTask.addOnCompleteListener(OnCompleteListener {task->
+//          if (task.isSuccessful) {
+//              val items = task.result
+//              Log.d("app", String.format("successfully found %d documents", items.size))
+//              for (item in items) {
+//                  Log.d("app", String.format("successfully found:  %s", item.toString()))
+//              }
+//          } else {
+//              Log.e("app", "failed to find documents with: ", task.exception)
+//          }
+//      });
 
+        val findResultsUser = collection.find(Document())
+        findResultsUser.forEach { item -> Log.d("app", String.format("successfully found User:  %s", item.toString())) }
 
-        ConnectionDBUtil1.regioni
+        val itemsTaskUser = findResultsUser.into(ArrayList<Document>())
+        itemsTaskUser.addOnCompleteListener(OnCompleteListener {task->
+            if (task.isSuccessful) {
+                val items = task.result
+                Log.d("app", String.format("successfully found USER: %d documents", items.size))
+                for (item in items) {
+                    Log.d("app", String.format("successfully found USER:  %s", item.toString()))
+                }
+            } else {
+                Log.e("app", "failed to find documents with USER: ", task.exception)
+            }
+        });
+
         this.nameSignIn = findViewById<EditText>(R.id.signin_nome)
         this.surnameSignIn = findViewById<EditText>(R.id.signin_cognome)
         this.emailSignIn = findViewById<EditText>(R.id.signin_email)
