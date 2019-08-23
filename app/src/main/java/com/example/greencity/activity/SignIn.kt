@@ -7,10 +7,15 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import com.example.greencity.R
+import com.example.greencity.pojo.Regioni
 import com.google.android.gms.tasks.OnCompleteListener
+import com.mongodb.MongoClientSettings
 import com.mongodb.stitch.android.core.StitchAppClient
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection
 import org.bson.Document
+import org.bson.codecs.configuration.CodecRegistries.fromProviders
+import org.bson.codecs.configuration.CodecRegistries.fromRegistries
+import org.bson.codecs.pojo.PojoCodecProvider
 import com.example.greencity.ConnectionDBUtil as ConnectionDBUtil1
 
 
@@ -29,40 +34,48 @@ class SignIn : AppCompatActivity() {
         val client = ConnectionDBUtil1.defaultAppClient()
         val mongoClient = ConnectionDBUtil1.serviceClient
         val collection = ConnectionDBUtil1.db
-//      Lista delle regioni
-//      val collect:RemoteMongoCollection<Document>   = mongoClient.getDatabase("GreenCity").getCollection("Regioni")
-//      val filterDoc = Document()
-//      val findResults = collect.find(filterDoc)
-//      findResults.forEach { item -> Log.d("app", String.format("successfully found:  %s", item.toString())) }
-//      val itemsTask = findResults.into(ArrayList<Document>())
-//      itemsTask.addOnCompleteListener(OnCompleteListener {task->
-//          if (task.isSuccessful) {
-//              val items = task.result
-//              Log.d("app", String.format("successfully found %d documents", items.size))
-//              for (item in items) {
-//                  Log.d("app", String.format("successfully found:  %s", item.toString()))
-//              }
-//          } else {
-//              Log.e("app", "failed to find documents with: ", task.exception)
-//          }
-//      });
-
-        val findResultsUser = collection.find(Document())
-        findResultsUser.forEach { item -> Log.d("app", String.format("successfully found User:  %s", item.toString())) }
-
-        val itemsTaskUser = findResultsUser.into(ArrayList<Document>())
-        itemsTaskUser.addOnCompleteListener(OnCompleteListener {task->
+        val pojoCodecRegistries = fromRegistries(
+            MongoClientSettings.getDefaultCodecRegistry(),
+            fromProviders(PojoCodecProvider.builder().automatic(true).build())
+        )
+        val regioniLista: ArrayList<Regioni> = ArrayList()
+        val collect: RemoteMongoCollection<Regioni> =
+            mongoClient.getDatabase("GreenCity").getCollection("Regioni", Regioni::class.java)
+                .withCodecRegistry(pojoCodecRegistries)
+        val filterDoc = Document()
+        val findResults = collect.find(filterDoc)
+        findResults.forEach { item -> Log.d("app", String.format("successfully found:  %s", item.toString())) }
+        val itemsTask = findResults.into(regioniLista)
+        itemsTask.addOnCompleteListener(OnCompleteListener { task ->
             if (task.isSuccessful) {
                 val items = task.result
-                Log.d("app", String.format("successfully found USER: %d documents", items.size))
+                Log.d("app", String.format("successfully found %d documents", items.size))
                 for (item in items) {
-                    Log.d("app", String.format("successfully found USER:  %s", item.toString()))
+                    Log.d("app", "" + item.nomeRegione)
                 }
             } else {
-                Log.e("app", "failed to find documents with USER: ", task.exception)
+                Log.e("app", "failed to find documents with: ", task.exception)
             }
         });
 
+
+        regioniLista.forEach{regione-> System.out.println("Regione: "+regione.nomeRegione)}
+        /*  val findResultsUser = collection.find(Document())
+          findResultsUser.forEach { item -> Log.d("app", String.format("successfully found User:  %s", item.toString())) }
+
+          val itemsTaskUser = findResultsUser.into(ArrayList<Document>())
+          itemsTaskUser.addOnCompleteListener(OnCompleteListener {task->
+              if (task.isSuccessful) {
+                  val items = task.result
+                  Log.d("app", String.format("successfully found USER: %d documents", items.size))
+                  for (item in items) {
+                      Log.d("app", String.format("successfully found USER:  %s", item.toString()))
+                  }
+              } else {
+                  Log.e("app", "failed to find documents with USER: ", task.exception)
+              }
+          });
+  */
         this.nameSignIn = findViewById<EditText>(R.id.signin_nome)
         this.surnameSignIn = findViewById<EditText>(R.id.signin_cognome)
         this.emailSignIn = findViewById<EditText>(R.id.signin_email)
@@ -82,7 +95,7 @@ class SignIn : AppCompatActivity() {
                             // Extract only the 'email' field
                             var emailDB = it.getString("email")
                             Log.i("LUCA2", it.getString("email").toString())
-                            if(!emailDB.isEmpty()){
+                            if (!emailDB.isEmpty()) {
                                 checkExistEmail(emailDB)
                             }
                         }
@@ -96,13 +109,13 @@ class SignIn : AppCompatActivity() {
             var isPw = checkPassword()
             if (isName && isSurname && isEmail && isPw) {
                 sendUser(client, collection)
-            }else{
-                Log.i("ERRORLUCA",collection.toString())
+            } else {
+                Log.i("ERRORLUCA", collection.toString())
             }
         }
     }
 
-    private fun  isValidPassword(password: String?): Boolean {
+    private fun isValidPassword(password: String?): Boolean {
         password?.let {
             val passwordPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$"
             val passwordMatcher = Regex(passwordPattern)
@@ -110,11 +123,11 @@ class SignIn : AppCompatActivity() {
         } ?: return false
     }
 
-   private fun isEmailValid(email: String): Boolean {
+    private fun isEmailValid(email: String): Boolean {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
 
-    private fun checkName(): Boolean{
+    private fun checkName(): Boolean {
         if (nameSignIn?.text.toString().trim().isEmpty()) {
             nameSignIn?.error = "Nome Obbligatorio"
             return false
@@ -124,7 +137,7 @@ class SignIn : AppCompatActivity() {
         }
     }
 
-    private fun checkSurname() : Boolean{
+    private fun checkSurname(): Boolean {
         if (surnameSignIn?.text.toString().trim().isEmpty()) {
             surnameSignIn?.error = "Cognome Obbligatorio"
             return false;
@@ -155,22 +168,21 @@ class SignIn : AppCompatActivity() {
             Log.i("EMAIL ESISTENTE", emailSignIn?.text.toString().trim())
             Toast.makeText(this, "Utente gia registrato con questa email", Toast.LENGTH_LONG).show()
             return false
-        }
-        else{
+        } else {
             return true
         }
     }
 
-    private fun checkPassword() : Boolean{
+    private fun checkPassword(): Boolean {
         if (passwordSignIn?.text.toString().trim().length == 0) {
             passwordSignIn?.error = "Password Obbligatorio"
             return false
         } else {
             if (!isValidPassword(passwordSignIn?.text.toString())) {
-                passwordSignIn?.error = "La password deve contenere 8 caratteri tra cui maiuscolo, minuscolo,numeri e caratteri speciali"
+                passwordSignIn?.error =
+                    "La password deve contenere 8 caratteri tra cui maiuscolo, minuscolo,numeri e caratteri speciali"
                 return false
-            }
-            else{
+            } else {
                 return true
             }
         }
