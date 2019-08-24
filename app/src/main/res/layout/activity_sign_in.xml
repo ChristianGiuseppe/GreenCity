@@ -127,7 +127,7 @@
                 android:layout_marginTop="16dp"
                 android:textSize="@dimen/text_size_edit_text"
                 android:maxLines="1"
-                android:drawableStart="@drawable/ic_email_black"
+                android:drawableStart="@drawable/ic_lock_black"
                 android:drawableTint="@android:color/white"
                 android:textColor="@android:color/white"
                 android:textColorHint="@android:color/white"
@@ -141,21 +141,21 @@
                 android:autofillHints=""/>
 
         <Spinner
-                android:id="@+id/signin_regione"
+                android:id="@+id/signin_regione_spinner"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-
+                android:backgroundTint="@android:color/holo_purple"
                 app:layout_constraintTop_toBottomOf="@+id/signin_password"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-        />
+                app:layout_constraintEnd_toEndOf="parent"/>
+
         <Spinner
                 android:id="@+id/signin_provincia"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                app:layout_constraintTop_toBottomOf="@+id/signin_regione"
+                app:layout_constraintTop_toBottomOf="@+id/signin_regione_spinner"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
         <Button

@@ -3,19 +3,14 @@ package com.example.greencity.activity
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
+import android.view.View
+import android.widget.*
+import com.example.greencity.NewDBUtil
 import com.example.greencity.R
 import com.example.greencity.pojo.Regioni
-import com.google.android.gms.tasks.OnCompleteListener
-import com.mongodb.MongoClientSettings
 import com.mongodb.stitch.android.core.StitchAppClient
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection
 import org.bson.Document
-import org.bson.codecs.configuration.CodecRegistries.fromProviders
-import org.bson.codecs.configuration.CodecRegistries.fromRegistries
-import org.bson.codecs.pojo.PojoCodecProvider
 import com.example.greencity.ConnectionDBUtil as ConnectionDBUtil1
 
 
@@ -24,42 +19,36 @@ class SignIn : AppCompatActivity() {
     private var surnameSignIn: EditText? = null
     private var emailSignIn: EditText? = null
     private var passwordSignIn: EditText? = null
-
-    private var isValid = true
+    private var spinnerRegioni: Spinner? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)
+        this.nameSignIn = findViewById<EditText>(R.id.signin_nome)
+        this.surnameSignIn = findViewById<EditText>(R.id.signin_cognome)
+        this.emailSignIn = findViewById<EditText>(R.id.signin_email)
+        this.passwordSignIn = findViewById<EditText>(R.id.signin_password)
+        this.spinnerRegioni = findViewById<Spinner>(R.id.signin_regione_spinner)
         //Setup connectionMongoDB with Util Class
         val client = ConnectionDBUtil1.defaultAppClient()
         val mongoClient = ConnectionDBUtil1.serviceClient
         val collection = ConnectionDBUtil1.db
-        val pojoCodecRegistries = fromRegistries(
-            MongoClientSettings.getDefaultCodecRegistry(),
-            fromProviders(PojoCodecProvider.builder().automatic(true).build())
-        )
-        val regioniLista: ArrayList<Regioni> = ArrayList()
-        val collect: RemoteMongoCollection<Regioni> =
-            mongoClient.getDatabase("GreenCity").getCollection("Regioni", Regioni::class.java)
-                .withCodecRegistry(pojoCodecRegistries)
-        val filterDoc = Document()
-        val findResults = collect.find(filterDoc)
-        findResults.forEach { item -> Log.d("app", String.format("successfully found:  %s", item.toString())) }
-        val itemsTask = findResults.into(regioniLista)
-        itemsTask.addOnCompleteListener(OnCompleteListener { task ->
-            if (task.isSuccessful) {
-                val items = task.result
-                Log.d("app", String.format("successfully found %d documents", items.size))
-                for (item in items) {
-                    Log.d("app", "" + item.nomeRegione)
-                }
-            } else {
-                Log.e("app", "failed to find documents with: ", task.exception)
+
+        val dbUtil = NewDBUtil()
+        val regioniLista: ArrayList<Regioni> = dbUtil.listaRegioni;
+
+        val regioniAdapter: ArrayAdapter<Regioni> = ArrayAdapter(this, android.R.layout.simple_spinner_item, regioniLista)
+        regioniAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        this.spinnerRegioni?.adapter = regioniAdapter
+        spinnerRegioni?.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                spinnerRegioni?.setSelection(position)
             }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {}
         });
 
 
-        regioniLista.forEach{regione-> System.out.println("Regione: "+regione.nomeRegione)}
         /*  val findResultsUser = collection.find(Document())
           findResultsUser.forEach { item -> Log.d("app", String.format("successfully found User:  %s", item.toString())) }
 
@@ -76,10 +65,6 @@ class SignIn : AppCompatActivity() {
               }
           });
   */
-        this.nameSignIn = findViewById<EditText>(R.id.signin_nome)
-        this.surnameSignIn = findViewById<EditText>(R.id.signin_cognome)
-        this.emailSignIn = findViewById<EditText>(R.id.signin_email)
-        this.passwordSignIn = findViewById<EditText>(R.id.signin_password)
 
         val users = mutableListOf<Document>()
         val register: Button = findViewById(R.id.signin_btn)

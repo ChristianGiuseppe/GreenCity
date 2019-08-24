@@ -30,4 +30,9 @@ public class Regioni implements Serializable {
     public void setNomiCapoluoghi(ArrayList<String> nomiCapoluoghi) {
         this.nomiCapoluoghi = nomiCapoluoghi;
     }
+
+    @Override
+    public String toString() {
+        return nomeRegione.toString();
+    }
 }
