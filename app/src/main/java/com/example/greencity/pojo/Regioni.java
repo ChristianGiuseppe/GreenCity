@@ -3,10 +3,9 @@ package com.example.greencity.pojo;
 
 import org.bson.codecs.pojo.annotations.BsonProperty;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Regioni implements Serializable {
+public class Regioni {
 
     @BsonProperty("nomeRegione")
     private  String nomeRegione;
@@ -33,6 +32,6 @@ public class Regioni implements Serializable {
 
     @Override
     public String toString() {
-        return nomeRegione.toString();
+        return nomeRegione;
     }
 }
