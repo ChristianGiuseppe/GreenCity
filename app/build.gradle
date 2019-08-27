@@ -8,8 +8,8 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.example.greencity"
-        minSdkVersion 26
-        targetSdkVersion 28
+        minSdkVersion 24
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -43,4 +43,5 @@ dependencies {
     implementation 'org.mongodb:stitch-android-services-http:4.5.0'
     implementation 'org.mongodb:stitch-android-services-mongodb-remote:4.5.0'
     implementation 'org.mongodb:stitch-android-services-twilio:4.5.0'
+    implementation 'com.google.android.gms:play-services-maps:15.0.0'
 }

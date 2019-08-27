@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnLogin?.setOnClickListener {
-            val iLogin = Intent(this, Navbar::class.java)
+            val iLogin = Intent(this, MapsTest::class.java)
             val users = mutableListOf<Document>()
             //check if exists user on click registrati
             collection
