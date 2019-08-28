@@ -44,7 +44,8 @@ class MainActivity : AppCompatActivity() {
         this.progressBar = findViewById(R.id.progress_circular_signin)
 
         textSignIn?.setOnClickListener {
-            RecuperaDati().execute()
+            val dbUtil = NewDBUtil()
+            dbUtil.getListaRegioni(applicationContext)
         }
 
         btnLogin?.setOnClickListener {
@@ -74,26 +75,12 @@ class MainActivity : AppCompatActivity() {
         }
 
    inner class RecuperaDati: AsyncTask<Void, Void,Void> (){
-       var iSignIn: Intent? = null
-
-       override fun onPreExecute() {
-           super.onPreExecute()
-           layoutProgress?.visibility = View.VISIBLE
-           iSignIn = Intent(applicationContext, SignIn::class.java)
-       }
 
        override fun doInBackground(vararg p0: Void?): Void? {
-           val dbUtil = NewDBUtil()
-           val informazioniGenerali = InformazioniGenerali.getInformazioniGenerali()
-           informazioniGenerali.regioni = dbUtil.listaRegioni
-           Thread.sleep(1000)
-           return null
-       }
 
-       override fun onPostExecute(result: Void?) {
-           super.onPostExecute(result)
-           layoutProgress?.visibility  = View.GONE;
-           startActivity(iSignIn)
+           layoutProgress?.visibility = View.VISIBLE
+
+           return null
        }
    }
 

@@ -5,7 +5,8 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.widget.*
-import com.example.greencity.Adapters.SpinAdapter
+import com.example.greencity.Adapters.SpinAdapterComune
+import com.example.greencity.Adapters.SpinAdapterRegione
 import com.example.greencity.R
 import com.example.greencity.pojo.InformazioniGenerali
 import com.example.greencity.pojo.Regioni
@@ -21,31 +22,45 @@ class SignIn : AppCompatActivity() {
     private var emailSignIn: EditText? = null
     private var passwordSignIn: EditText? = null
     private var spinnerRegioni: Spinner? = null
+    private var spinnerComuni: Spinner? = null
     private var regioniLista : ArrayList<Regioni>? = null
-    private var spinAdapter: SpinAdapter? = null
+    private var comunilista : List<String>? = null
+    private var spinAdapterRegione: SpinAdapterRegione? = null
+    private var spinAdapterComuni: SpinAdapterComune? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val informazioniGenerali = InformazioniGenerali.getInformazioniGenerali()
-        regioniLista = informazioniGenerali.regioni
-        spinAdapter = SpinAdapter(applicationContext, android.R.layout.simple_spinner_item, regioniLista)
+        regioniLista = informazioniGenerali.regioni as ArrayList<Regioni>?
+        spinAdapterRegione = SpinAdapterRegione(
+            applicationContext,
+            android.R.layout.simple_spinner_item,
+            regioniLista
+        )
         setContentView(R.layout.activity_sign_in)
-        this.nameSignIn = findViewById<EditText>(R.id.signin_nome)
-        this.surnameSignIn = findViewById<EditText>(R.id.signin_cognome)
-        this.emailSignIn = findViewById<EditText>(R.id.signin_email)
-        this.passwordSignIn = findViewById<EditText>(R.id.signin_password)
-        this.spinnerRegioni = findViewById<Spinner>(R.id.signin_regione_spinner)
+        this.nameSignIn = findViewById(R.id.signin_nome)
+        this.surnameSignIn = findViewById(R.id.signin_cognome)
+        this.emailSignIn = findViewById(R.id.signin_email)
+        this.passwordSignIn = findViewById(R.id.signin_password)
+        this.spinnerRegioni = findViewById(R.id.signin_regione_spinner)
+        this.spinnerComuni = findViewById(R.id.signin_provincia_spinner)
 
         //Setup connectionMongoDB with Util Class
         val client = ConnectionDBUtil1.defaultAppClient()
         val mongoClient = ConnectionDBUtil1.serviceClient
         val collection = ConnectionDBUtil1.db
 
-        spinnerRegioni?.adapter = spinAdapter
+        spinnerRegioni?.adapter = spinAdapterRegione
         spinnerRegioni?.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
             override fun onItemSelected(parent:AdapterView<*>, view: View, position: Int, id: Long){
-               var listaComuni: ArrayList<String>
-
+               Log.e("COMUNI", "COMUNE SELECTED")
+                comunilista = regioniLista?.get(position)?.nomiCapoluoghi
+                spinAdapterComuni = SpinAdapterComune(
+                    applicationContext,
+                    android.R.layout.simple_spinner_item,
+                    comunilista as java.util.ArrayList<String>?
+                )
+                spinnerComuni?.adapter = spinAdapterComuni
         }
 
             override fun onNothingSelected(parent: AdapterView<*>){

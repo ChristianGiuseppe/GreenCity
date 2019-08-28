@@ -1,10 +1,11 @@
 package com.example.greencity.pojo;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class InformazioniGenerali {
     private static InformazioniGenerali informazioniGenerali = null;
-    private ArrayList<Regioni> regioni = null;
+    private List<Regioni> regioni = null;
     private InformazioniGenerali(){
         regioni = new ArrayList<>();
     }
@@ -15,11 +16,11 @@ public class InformazioniGenerali {
         return informazioniGenerali;
     }
 
-    public ArrayList<Regioni> getRegioni() {
+    public List<Regioni> getRegioni() {
         return regioni;
     }
 
-    public void setRegioni(ArrayList<Regioni> regioni) {
+    public void setRegioni(List<Regioni> regioni) {
         this.regioni = regioni;
     }
 }

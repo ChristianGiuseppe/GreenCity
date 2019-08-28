@@ -6,19 +6,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
 import com.example.greencity.pojo.Regioni;
 
 import java.util.ArrayList;
 
-public class SpinAdapter extends ArrayAdapter<Regioni> {
+public class SpinAdapterComune extends ArrayAdapter<String> {
 
     // Your sent context
     private Context context;
     // Your custom values for the spinner (User)
-    private ArrayList<Regioni> values;
+    private ArrayList<String> values;
 
-    public SpinAdapter(Context context, int textViewResourceId,
-                       ArrayList<Regioni> values) {
+    public SpinAdapterComune(Context context, int textViewResourceId,
+                             ArrayList<String> values) {
         super(context, textViewResourceId, values);
         this.context = context;
         this.values = values;
@@ -36,7 +37,7 @@ public class SpinAdapter extends ArrayAdapter<Regioni> {
         label.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
         // Then you can get the current item using the values array (Users array) and the current position
         // You can NOW reference each method you has created in your bean object (User class)
-        label.setText(values.get(position).getNomeRegione());
+        label.setText(values.get(position));
 
         // And finally return your dynamic (or custom) view for each spinner item
         return label;
@@ -50,7 +51,7 @@ public class SpinAdapter extends ArrayAdapter<Regioni> {
         TextView label = (TextView) super.getDropDownView(position, convertView, parent);
         label.setTextColor(Color.BLACK);
         label.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-        label.setText(values.get(position).getNomeRegione());
+        label.setText(values.get(position));
         return label;
     }
 }

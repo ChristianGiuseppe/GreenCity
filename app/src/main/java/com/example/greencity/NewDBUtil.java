@@ -1,7 +1,15 @@
 package com.example.greencity;
 
+import android.content.Context;
+import android.content.Intent;
+
+import com.example.greencity.activity.SignIn;
+import com.example.greencity.pojo.InformazioniGenerali;
 import com.example.greencity.pojo.Regioni;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.mongodb.MongoClientSettings;
+import com.mongodb.lang.NonNull;
 import com.mongodb.stitch.android.core.Stitch;
 import com.mongodb.stitch.android.core.StitchAppClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteFindIterable;
@@ -13,6 +21,7 @@ import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
@@ -31,12 +40,17 @@ public class NewDBUtil {
        remoteMongoDatabase = remoteMongoClient.getDatabase("GreenCity");
    }
 
-    public ArrayList<Regioni> getListaRegioni(){
+    public void getListaRegioni(Context context){
         ArrayList<Regioni> regioni = new ArrayList<>();
         RemoteMongoCollection collectionRegione =remoteMongoDatabase.getCollection("Regioni", Regioni.class).withCodecRegistry(codecRegistry);
         Document documentFilter = new Document();
         RemoteFindIterable<Regioni> resultFind = collectionRegione.find(documentFilter);
-        resultFind.into(regioni);
-        return regioni;
+        Task<List<Regioni>> itemsTask =resultFind.into(regioni);
+        itemsTask.addOnCompleteListener(task -> {
+            InformazioniGenerali informazioniGenerali = InformazioniGenerali.getInformazioniGenerali();
+            informazioniGenerali.setRegioni(task.getResult());
+            Intent iSignin = new Intent(context, SignIn.class);
+            context.startActivity(iSignin);
+        });
     }
 }
