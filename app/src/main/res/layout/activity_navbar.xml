@@ -6,8 +6,8 @@
         android:id="@+id/root"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background_navbar"
-        tools:context=".activity.Navbar">
+        android:background="@color/background_"
+        tools:context=".activity.">
 
 
     <android.support.constraint.ConstraintLayout

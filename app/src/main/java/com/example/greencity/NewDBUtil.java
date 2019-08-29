@@ -2,6 +2,9 @@ package com.example.greencity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.constraint.ConstraintLayout;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.example.greencity.activity.SignIn;
 import com.example.greencity.pojo.InformazioniGenerali;
@@ -40,7 +43,8 @@ public class NewDBUtil {
        remoteMongoDatabase = remoteMongoClient.getDatabase("GreenCity");
    }
 
-    public void getListaRegioni(Context context){
+    public void getListaRegioni(Context context , ConstraintLayout constraintLayout, ProgressBar progressBar){
+        constraintLayout.setVisibility(View.VISIBLE);
         ArrayList<Regioni> regioni = new ArrayList<>();
         RemoteMongoCollection collectionRegione =remoteMongoDatabase.getCollection("Regioni", Regioni.class).withCodecRegistry(codecRegistry);
         Document documentFilter = new Document();
@@ -50,6 +54,8 @@ public class NewDBUtil {
             InformazioniGenerali informazioniGenerali = InformazioniGenerali.getInformazioniGenerali();
             informazioniGenerali.setRegioni(task.getResult());
             Intent iSignin = new Intent(context, SignIn.class);
+            iSignin.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            constraintLayout.setVisibility(View.GONE);
             context.startActivity(iSignin);
         });
     }

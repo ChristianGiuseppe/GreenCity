@@ -1,12 +1,10 @@
 package com.example.greencity.activity
 
 import android.content.Intent
-import android.os.AsyncTask
 import android.os.Bundle
 import android.support.constraint.ConstraintLayout
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
@@ -14,7 +12,6 @@ import android.widget.TextView
 import com.example.greencity.ConnectionDBUtil
 import com.example.greencity.NewDBUtil
 import com.example.greencity.R
-import com.example.greencity.pojo.InformazioniGenerali
 import com.mongodb.stitch.android.core.Stitch
 import com.mongodb.stitch.core.auth.providers.anonymous.AnonymousCredential
 import org.bson.Document
@@ -45,11 +42,11 @@ class MainActivity : AppCompatActivity() {
 
         textSignIn?.setOnClickListener {
             val dbUtil = NewDBUtil()
-            dbUtil.getListaRegioni(applicationContext)
+            dbUtil.getListaRegioni(applicationContext, layoutProgress, progressBar)
         }
 
         btnLogin?.setOnClickListener {
-            val iLogin = Intent(this, MapsTest::class.java)
+            val iLogin = Intent(this, SplashGreenCity::class.java)
             val users = mutableListOf<Document>()
             //check if exists user on click registrati
             collection
@@ -73,15 +70,4 @@ class MainActivity : AppCompatActivity() {
             // More code here
                 }
         }
-
-   inner class RecuperaDati: AsyncTask<Void, Void,Void> (){
-
-       override fun doInBackground(vararg p0: Void?): Void? {
-
-           layoutProgress?.visibility = View.VISIBLE
-
-           return null
-       }
-   }
-
 }
