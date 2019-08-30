@@ -4,22 +4,18 @@
     <item
             android:id="@+id/home"
             android:icon="@drawable/ic_home"
-            android:checked="false"
             android:title="Home">
     </item>
 
     <item
             android:id="@+id/mappa_user"
             android:icon="@drawable/ic_map"
-            android:checked="false"
             android:title="Mappa">
     </item>
 
     <item
             android:id="@+id/report_user"
-            android:icon="@drawable/ic_report"
-            android:iconTint="@color/cardview_dark_background"
-            android:checked="false"
+            android:icon="@drawable/ic_report_add"
             android:title="Reports">
 
     </item>

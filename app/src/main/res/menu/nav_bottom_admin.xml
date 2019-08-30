@@ -10,13 +10,12 @@
             android:id="@+id/grafici"
             android:icon="@drawable/ic_insert_chart"
             android:title="Grafici">
-
     </item>
 
     <item
             android:id="@+id/report_admin"
             android:icon="@drawable/ic_report"
-            android:title="Mappa">
+            android:title="Report">
     </item>
 
 </menu>

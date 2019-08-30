@@ -14,7 +14,8 @@ class SplashGreenCity : AppCompatActivity() {
         Handler().postDelayed({
                 val iLogin = Intent(this, Navbar::class.java)
                 startActivity(iLogin)
-            },            5000)
+                finish()
+            },5000)
 
     }
 }
