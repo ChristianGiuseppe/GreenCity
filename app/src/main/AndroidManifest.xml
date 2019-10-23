@@ -24,7 +24,7 @@
         </activity>
         <activity android:name=".activity.SplashGreenCity"></activity>
         <activity android:name=".activity.Navbar"></activity>
-        <activity android:name=".activity.MapsTest"
+        <activity android:name=".activity.MapsActivity"
                   android:label="@string/title_activity_sign_in"
                   android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
