@@ -1,5 +1,5 @@
 <resources>
-    <!-- Base application theme. -->
+    <!-- Base application theme -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowActionBar">false</item>
@@ -7,12 +7,23 @@
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:textViewStyle">@style/GreenCityEditText</item>
+        <item name="android:editTextStyle">@style/GreenCityEditText</item>
+        <item name="android:buttonStyle">@style/ButtonGreenCity</item>
     </style>
 
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
+    <!--STILE SPINNER-->
     <style name="mySpinnerItemStyle" parent="@android:style/Widget.Holo.DropDownItem.Spinner">
         <item name="android:textColor">@android:color/white</item>
     </style>
 
+    <!--STILE BOTTONE-->
     <style name="ButtonGreenCity">
         <item name="android:elevation">8dp</item>
         <item name="android:paddingLeft">19dp</item>
@@ -21,20 +32,19 @@
         <item name="android:textColor">@android:color/white</item>
     </style>
 
-    <style name="RobotoTextViewStyle" parent="android:Widget.TextView">
-        <item name="android:fontFamily">sans-serif-light</item>
+    <!--STILE TESTO-->
+    <style name="GreenCityTextView" parent="android:Widget.Holo.TextView">
+        <item name="android:fontFamily">sans-serif-smallcaps</item>
+        <item name="android:typeface">monospace</item>
     </style>
 
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
+    <style name="GreenCityEditText" parent="android:Widget.Holo.EditText">
+        <item name="android:fontFamily">sans-serif-smallcaps</item>
+        <item name="android:typeface">monospace</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
-
+    <!--STILE CARD GRAFICI-->
     <style name="CardChart" parent="CardView">
-
         <item name="android:layout_gravity">center</item>
         <item name="cardCornerRadius">30dp</item>
         <item name="android:backgroundTint">@color/card_color</item>

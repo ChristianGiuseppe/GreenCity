@@ -4,18 +4,16 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".fragment.Graph">
+        tools:context=".fragment.Graph"
+        android:layout_margin="8dp">
 
     <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="48dp"
-            android:fontFamily="sans-serif-smallcaps"
             android:text="Grafici Report"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:typeface="monospace"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
