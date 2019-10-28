@@ -1,9 +1,9 @@
 package com.example.greencity.activity
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import androidx.appcompat.app.AppCompatActivity
 import com.example.greencity.R
 
 class SplashGreenCity : AppCompatActivity() {
@@ -15,7 +15,7 @@ class SplashGreenCity : AppCompatActivity() {
                 val iLogin = Intent(this, Navbar::class.java)
                 startActivity(iLogin)
                 finish()
-            },5000)
+        }, 3000)
 
     }
 }
