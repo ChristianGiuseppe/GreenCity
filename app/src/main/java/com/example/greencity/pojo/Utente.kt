@@ -1,30 +1,21 @@
 package com.example.greencity.pojo
 
-import kotlin.properties.Delegates
+import com.google.firebase.database.IgnoreExtraProperties
 
+@IgnoreExtraProperties
 class Utente {
-    constructor() {}
-    constructor(
-        nome: String,
-        cognome: String,
-        regione: String,
-        capoluogo: String,
-        email: String,
-        password: String
-    ) {
-        this.nome = nome
-        this.cognome = cognome
-        this.capoluogo = capoluogo
-        this.regione = regione
-        this.email = email
-        this.password = password
+    var nome: String? = null
+    var email: String? = null
+    var cognome: String? = null
+    var password: String? = null
+    constructor() {
+        // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
-    private var nome: String by Delegates.notNull()
-    private var cognome: String by Delegates.notNull()
-    private var regione: String by Delegates.notNull()
-    private var capoluogo: String by Delegates.notNull()
-    private var email: String by Delegates.notNull()
-    private var password: String by Delegates.notNull()
-
+    constructor(username: String?, email: String?,surname: String?,password: String?) {
+        this.nome = username
+        this.email = email
+        this.cognome = surname
+        this.password = password
+    }
 }

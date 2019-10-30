@@ -10,8 +10,10 @@ import com.example.greencity.Adapters.SpinAdapterRegione
 import com.example.greencity.R
 import com.example.greencity.pojo.InformazioniGenerali
 import com.example.greencity.pojo.Regioni
+import com.example.greencity.pojo.Utente
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.auth.User
 
 
 class SignIn : AppCompatActivity() {
@@ -86,7 +88,8 @@ class SignIn : AppCompatActivity() {
 
     private fun creaUtente(nome: String, cognome: String, email: String, password: String) {
         Toast.makeText(this, "Ecco$nome", Toast.LENGTH_LONG).show()
-        database.child("users").child("Nome").setValue(nome)
+        val user = Utente(nome,cognome,email,password)
+        database.child("users").push().setValue(user)
     }
 
 
