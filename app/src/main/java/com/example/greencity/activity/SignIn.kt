@@ -28,45 +28,24 @@ class SignIn : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val informazioniGenerali = InformazioniGenerali.getInformazioniGenerali()
-        regioniLista = informazioniGenerali.regioni as ArrayList<Regioni>?
-        spinAdapterRegione = SpinAdapterRegione(
-            applicationContext,
-            android.R.layout.simple_spinner_item,
-            regioniLista
-        )
         setContentView(R.layout.activity_sign_in)
+
         this.nameSignIn = findViewById(R.id.signin_nome)
         this.surnameSignIn = findViewById(R.id.signin_cognome)
         this.emailSignIn = findViewById(R.id.signin_email)
         this.passwordSignIn = findViewById(R.id.signin_password)
         this.spinnerRegioni = findViewById(R.id.signin_regione_spinner)
         this.spinnerComuni = findViewById(R.id.signin_provincia_spinner)
-
+        regioniLista = InformazioniGenerali.getInformazioniGenerali().regioni as ArrayList<Regioni>?
+        spinAdapterRegione = SpinAdapterRegione(
+            applicationContext,
+            android.R.layout.simple_spinner_item,
+            regioniLista
+        )
         spinnerRegioni?.adapter = spinAdapterRegione
-        spinnerRegioni?.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
-            override fun onItemSelected(parent:AdapterView<*>, view: View, position: Int, id: Long){
-               Log.e("COMUNI", "COMUNE SELECTED")
-                comunilista = regioniLista?.get(position)?.nomiCapoluoghi
-                spinAdapterComuni = SpinAdapterComune(
-                    applicationContext,
-                    android.R.layout.simple_spinner_item,
-                    comunilista as java.util.ArrayList<String>?
-                )
-                spinnerComuni?.adapter = spinAdapterComuni
-        }
-
-            override fun onNothingSelected(parent: AdapterView<*>){
-
-            }
-        }
-
-
 
         val register: Button = findViewById(R.id.signin_btn)
-
         register.setOnClickListener {
-
             val isName = checkName()
             val isSurname = checkSurname()
             val isEmail = checkEmail()
@@ -76,16 +55,25 @@ class SignIn : AppCompatActivity() {
                     this.nameSignIn?.text!!.toString(),
                     this.surnameSignIn?.text!!.toString(),
                     this.emailSignIn?.text!!.toString(),
-                    this.passwordSignIn?.text!!.toString()
+                    this.passwordSignIn?.text!!.toString(),
+                    this.spinnerRegioni?.selectedItem.toString(),
+                    this.spinnerComuni?.selectedItem.toString()
                 )
             }
         }
     }
 
-    private fun creaUtente(nome: String, cognome: String, email: String, password: String) {
-        Toast.makeText(this, "Ecco$nome", Toast.LENGTH_LONG).show()
-        val user = Utente(nome,cognome,email,password)
+    private fun creaUtente(
+        nome: String,
+        cognome: String,
+        email: String,
+        password: String,
+        regione: String,
+        capoluogo: String
+    ) {
+        val user = Utente(nome, cognome, email, password, regione, capoluogo)
         DBFirebase.getDbFirebase().signIn(user)
+        finish()
     }
 
 
@@ -162,4 +150,28 @@ class SignIn : AppCompatActivity() {
         }
     }
 
+    override fun onStart() {
+        super.onStart()
+        spinnerRegioni?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View,
+                position: Int,
+                id: Long
+            ) {
+                Log.e("COMUNI", "COMUNE SELECTED")
+                comunilista = regioniLista?.get(position)?.capoluoghi
+                spinAdapterComuni = SpinAdapterComune(
+                    applicationContext,
+                    android.R.layout.simple_spinner_item,
+                    comunilista as java.util.ArrayList<String>?
+                )
+                spinnerComuni?.adapter = spinAdapterComuni
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+
+            }
+        }
+    }
 }

@@ -5,8 +5,9 @@ import java.util.List;
 
 public class InformazioniGenerali {
     private static InformazioniGenerali informazioniGenerali = null;
-    private List<Regioni> regioni = null;
-    private InformazioniGenerali(){
+    private List<Regioni> regioni;
+
+    public InformazioniGenerali() {
         regioni = new ArrayList<>();
     }
 
