@@ -68,6 +68,7 @@
                 android:textSize="18sp"
                 android:inputType="textPersonName"
                 android:hint="@string/edit_nome"
+                android:backgroundTint="@android:color/white"
                 android:ems="10" android:maxLines="1"
                 android:textColor="@android:color/white"
                 android:textColorHint="@android:color/white"
@@ -88,13 +89,12 @@
                 android:maxLines="1"
                 android:textColor="@android:color/white"
                 android:textColorHint="@android:color/white"
+                android:backgroundTint="@android:color/white"
                 android:importantForAutofill="no"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/signin_nome"
                 app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintTop_toTopOf="parent"
-
-               />
+                app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
                 android:id="@+id/signin_email"
@@ -111,6 +111,7 @@
                 android:drawableTint="@android:color/white"
                 android:textColor="@android:color/white"
                 android:textColorHint="@android:color/white"
+                android:backgroundTint="@android:color/white"
                 android:drawablePadding="10dp"
                 android:ems="10"
                 android:importantForAutofill="no"
@@ -132,6 +133,7 @@
                 android:drawableTint="@android:color/white"
                 android:textColor="@android:color/white"
                 android:textColorHint="@android:color/white"
+                android:backgroundTint="@android:color/white"
                 android:hint="@string/edit_password"
                 android:drawablePadding="10dp"
                 android:ems="10"
@@ -146,6 +148,7 @@
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="16dp"
+                android:backgroundTint="@android:color/white"
                 app:layout_constraintTop_toBottomOf="@+id/signin_password"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
@@ -155,6 +158,7 @@
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="16dp"
+                android:backgroundTint="@android:color/white"
                 app:layout_constraintTop_toBottomOf="@+id/signin_regione_spinner"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>

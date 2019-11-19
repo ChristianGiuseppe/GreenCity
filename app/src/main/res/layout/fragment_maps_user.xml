@@ -6,77 +6,6 @@
              android:layout_height="match_parent"
              android:background="@android:color/holo_red_light"
              tools:context=".fragment.MapsUser">
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginTop="100dp"
-            android:layout_marginLeft="300dp"
-            android:backgroundTint="@android:color/background_light"
-            android:contentDescription="Aggiungi Reports"
-            android:src="@drawable/ic_report_add"
-            app:maxImageSize="48dp" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="104dp"
-            android:elevation="8dp"
-            android:background="@drawable/section_round_map">
-
-        <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_horizontal"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-
-            <CheckBox
-                    android:id="@+id/check_cavi"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginEnd="24dp"
-                    android:button="@drawable/selector_cable"
-                    android:gravity="center" />
-
-
-            <CheckBox
-                    android:id="@+id/check_cassonetto"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginEnd="24dp"
-                    android:button="@drawable/selector_dumpster"
-                    android:gravity="center" />
-
-            <CheckBox
-                    android:id="@+id/check_rifiuti_ingombranti"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginEnd="24dp"
-                    android:button="@drawable/selector_garbage"
-                    android:gravity="center" />
-
-            <CheckBox
-                    android:id="@+id/check_pulisci_strade"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:button="@drawable/selector_sweeper_working"
-                    android:gravity="center" />
-        </LinearLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/wrappe_fragment_maps"
@@ -90,10 +19,26 @@
                 android:layout_height="match_parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
 
-
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/open_marker_dialog"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="16dp"
+                android:backgroundTint="@android:color/background_light"
+                android:contentDescription="@string/aggiungi_reports"
+                android:src="@drawable/ic_report_add"
+                app:fabCustomSize="72dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:maxImageSize="72dp" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

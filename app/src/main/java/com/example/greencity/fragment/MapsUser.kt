@@ -4,12 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import androidx.fragment.app.Fragment
+import com.example.greencity.CustomDialog
 import com.example.greencity.R
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.Marker
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
 /**
@@ -19,6 +22,7 @@ import com.google.android.gms.maps.model.Marker
 class MapsUser : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     private lateinit var mapGreenCity: GoogleMap;
+    private lateinit var btnMarker: FloatingActionButton
 
     /**
      * @callback onMapReady: viene invocata nel momento in cui la mappa può' essere visualizzata
@@ -50,4 +54,18 @@ class MapsUser : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener
         val root: View = inflater.inflate(R.layout.fragment_maps_user, container, false)
         return root
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        btnMarker = view.findViewById(R.id.open_marker_dialog)
+        btnMarker.setOnClickListener {
+            val markerDialog = CustomDialog(this.context)
+            markerDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            markerDialog.setContentView(R.layout.activity_custom_dialog)
+            val v = markerDialog.window?.decorView
+            v?.setBackgroundResource(android.R.color.transparent);
+            markerDialog.show()
+        }
+    }
+
 }
