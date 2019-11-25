@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import android.widget.Button
 import androidx.fragment.app.Fragment
 import com.example.greencity.CustomDialog
 import com.example.greencity.R
@@ -23,6 +24,7 @@ class MapsUser : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener
 
     private lateinit var mapGreenCity: GoogleMap;
     private lateinit var btnMarker: FloatingActionButton
+    private var btnConferma: Button? = null
 
     /**
      * @callback onMapReady: viene invocata nel momento in cui la mappa può' essere visualizzata
@@ -58,6 +60,7 @@ class MapsUser : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         btnMarker = view.findViewById(R.id.open_marker_dialog)
+        btnConferma = view.findViewById(R.id.buttonConferma)
         btnMarker.setOnClickListener {
             val markerDialog = CustomDialog(this.context)
             markerDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -65,6 +68,9 @@ class MapsUser : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener
             val v = markerDialog.window?.decorView
             v?.setBackgroundResource(android.R.color.transparent);
             markerDialog.show()
+        }
+        btnConferma?.setOnClickListener {
+
         }
     }
 

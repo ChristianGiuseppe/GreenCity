@@ -142,6 +142,7 @@
                 style="@style/ButtonDialogMarker"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/buttonConferma"
                 android:layout_gravity="start"
                 android:layout_weight="1"
                 android:text="@string/conferma"
