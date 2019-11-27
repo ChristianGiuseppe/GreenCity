@@ -35,6 +35,7 @@ class SplashGreenCity : AppCompatActivity() {
                         var nextIt = iterator.next()
                         var mark: Markers? = nextIt.getValue(Markers::class.java)
                         listMarkers.add(mark)
+
                     }
                     val informazioniGenerali = InformazioniGenerali.getInformazioniGenerali()
                     informazioniGenerali.markers = listMarkers

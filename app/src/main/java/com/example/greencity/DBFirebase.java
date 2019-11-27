@@ -14,6 +14,7 @@ public class DBFirebase {
 
     public void signIn(Utente user) {
         databaseReference.child("users").push().setValue(user);
+
     }
 
     public static DBFirebase getDbFirebase() {

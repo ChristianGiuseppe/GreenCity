@@ -1,19 +1,31 @@
 package com.example.greencity.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.Button
+import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.greencity.CustomDialog
+import com.example.greencity.DBFirebase
 import com.example.greencity.R
+import com.example.greencity.activity.SplashGreenCity
+import com.example.greencity.pojo.InformazioniGenerali
+import com.example.greencity.pojo.Utente
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.Marker
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 
 /**
@@ -59,8 +71,8 @@ class MapsUser : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         btnMarker = view.findViewById(R.id.open_marker_dialog)
-        btnConferma = view.findViewById(R.id.buttonConferma)
         btnMarker.setOnClickListener {
             val markerDialog = CustomDialog(this.context)
             markerDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -68,10 +80,14 @@ class MapsUser : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener
             val v = markerDialog.window?.decorView
             v?.setBackgroundResource(android.R.color.transparent);
             markerDialog.show()
-        }
-        btnConferma?.setOnClickListener {
+
 
         }
+
+
+
     }
+
+
 
 }

@@ -6,6 +6,16 @@ import java.util.List;
 public class InformazioniGenerali {
     private static InformazioniGenerali informazioniGenerali = null;
     private Utente user = null;
+    private String idUs = null;
+
+    public String getIdUs() {
+        return idUs;
+    }
+
+    public void setIdUs(String idUs) {
+        this.idUs = idUs;
+    }
+
     private List<Regioni> regioni;
     private List<Markers>markers;
 

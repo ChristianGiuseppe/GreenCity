@@ -79,13 +79,14 @@ class MainActivity : AppCompatActivity() {
                         var nextIt = iterator.next()
 
                         var users: Utente? = nextIt.getValue(Utente::class.java)
-
+                        var keyUser: String? = nextIt.key
                         var emailEdit: String = emailAccedi?.text.toString()
                         var passwordEdit = passwordAccedi?.text.toString()
                         //VERIFICO CHE IL LOGIN E' STATO EFFETTUATO CORRETTAMENTE
                         if(emailEdit?.trim().length>0 || passwordEdit?.trim().length>0){
                             if(users?.email  == emailEdit.trim() && users?.password == passwordEdit.trim() ){
                                 InformazioniGenerali.getInformazioniGenerali().user = users
+                                InformazioniGenerali.getInformazioniGenerali().idUs = keyUser
                                 val iLogin = Intent(this, SplashGreenCity::class.java)
                                 startActivity(iLogin)
                                 break
