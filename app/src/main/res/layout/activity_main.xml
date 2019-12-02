@@ -25,15 +25,16 @@
 
         <ImageView
                 android:id="@+id/logo_green_city"
-                android:layout_width="248dp"
-                android:layout_height="213dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:src="@drawable/logo_icon_green_city"
                 android:contentDescription="@string/green_city"
                 android:layout_marginStart="16dp"
                 android:layout_marginBottom="16dp"
                 android:layout_marginEnd="16dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:srcCompat="@drawable/ic_green_city"
+
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
