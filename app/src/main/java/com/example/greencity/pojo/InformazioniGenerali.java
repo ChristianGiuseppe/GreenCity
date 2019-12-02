@@ -5,15 +5,39 @@ import java.util.List;
 
 public class InformazioniGenerali {
     private static InformazioniGenerali informazioniGenerali = null;
-    private List<Regioni> regioni = null;
-    private InformazioniGenerali(){
-        regioni = new ArrayList<>();
+    private Utente user = null;
+    private String idUs = null;
+
+    public String getIdUs() {
+        return idUs;
     }
+
+    public void setIdUs(String idUs) {
+        this.idUs = idUs;
+    }
+
+    private List<Regioni> regioni;
+    private List<Markers>markers;
+
+    public InformazioniGenerali() {
+        regioni = new ArrayList<>();
+        markers =  new ArrayList<>();
+    }
+
+
 
     public static InformazioniGenerali getInformazioniGenerali() {
         if(informazioniGenerali==null)
             informazioniGenerali = new InformazioniGenerali();
         return informazioniGenerali;
+    }
+
+    public  Utente getUser() {
+        return user;
+    }
+
+    public  void setUser(Utente user) {
+        this.user = user;
     }
 
     public List<Regioni> getRegioni() {
@@ -23,4 +47,14 @@ public class InformazioniGenerali {
     public void setRegioni(List<Regioni> regioni) {
         this.regioni = regioni;
     }
+
+    public List<Markers> getMarkers() {
+        return markers;
+    }
+
+    public void setMarkers(List<Markers> markers) {
+        this.markers = markers;
+    }
+
+
 }

@@ -1,0 +1,37 @@
+package com.example.greencity;
+
+import com.example.greencity.pojo.Utente;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+public class DBFirebase {
+    private static DBFirebase dbFirebase = null;
+    private DatabaseReference databaseReference;
+
+    public DBFirebase() {
+        this.databaseReference = FirebaseDatabase.getInstance().getReference();
+    }
+
+    public void signIn(Utente user) {
+        databaseReference.child("users").push().setValue(user);
+
+    }
+
+    public static DBFirebase getDbFirebase() {
+        if (dbFirebase == null)
+            dbFirebase = new DBFirebase();
+        return dbFirebase;
+    }
+
+    public static void setDbFirebase(DBFirebase dbFirebase) {
+        DBFirebase.dbFirebase = dbFirebase;
+    }
+
+    public DatabaseReference getDatabaseReference() {
+        return databaseReference;
+    }
+
+    public void setDatabaseReference(DatabaseReference databaseReference) {
+        this.databaseReference = databaseReference;
+    }
+}

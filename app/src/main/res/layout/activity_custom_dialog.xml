@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/dialog_markers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/dialog_form"
+        android:paddingStart="32dp"
+        android:paddingEnd="32dp"
+        tools:context=".CustomDialog">
+
+    <ImageView
+            android:id="@+id/image_marker_dialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:background="@drawable/ic_location_on_road"
+            android:contentDescription="@string/marker_image"
+            app:layout_constraintBottom_toTopOf="@+id/tipologia_markers_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+            android:id="@+id/tipologia_markers_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@string/tipologia_marker"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/tipologia_markers"
+            app:layout_constraintEnd_toEndOf="@+id/tipologia_markers"
+            app:layout_constraintStart_toStartOf="@+id/tipologia_markers" />
+
+    <Spinner
+            android:id="@+id/tipologia_markers"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@android:color/white"
+            app:layout_constraintBottom_toTopOf="@+id/titolo_markers"
+            app:layout_constraintEnd_toEndOf="@+id/title_markers"
+            app:layout_constraintHorizontal_bias="1.0"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintStart_toStartOf="@+id/title_markers" />
+
+    <TextView
+            android:id="@+id/titolo_markers"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@string/titolo_marker"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/title_markers"
+            app:layout_constraintEnd_toEndOf="@+id/title_markers"
+            app:layout_constraintStart_toStartOf="@+id/title_markers" />
+
+    <EditText
+            android:id="@+id/title_markers"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/round_description"
+            android:backgroundTint="@android:color/white"
+            android:gravity="top|start"
+            android:hint="@string/inserisci_titolo_marker"
+            android:importantForAutofill="no"
+            android:inputType="none"
+            android:paddingStart="8dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="8dp"
+            android:paddingBottom="8dp"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@+id/description_problem_title"
+            app:layout_constraintEnd_toEndOf="@+id/description_problem"
+            app:layout_constraintStart_toStartOf="@+id/description_problem" />
+
+    <TextView
+            android:id="@+id/description_problem_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:importantForAutofill="no"
+            android:singleLine="true"
+            android:text="@string/descrizione_marker"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/description_problem"
+            app:layout_constraintEnd_toEndOf="@+id/description_problem"
+            app:layout_constraintStart_toStartOf="@+id/description_problem" />
+
+    <EditText
+            android:id="@+id/description_problem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/round_description"
+            android:backgroundTint="@android:color/white"
+            android:gravity="top|start"
+            android:hint="@string/inserisci_descrizione"
+            android:importantForAutofill="no"
+            android:inputType="none"
+            android:lines="6"
+            android:maxLines="6"
+            android:minLines="6"
+            android:paddingStart="8dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="8dp"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+            app:layout_constraintEnd_toEndOf="@+id/linearLayout"
+            app:layout_constraintStart_toStartOf="@+id/linearLayout" />
+
+    <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="32dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+                style="@style/ButtonDialogMarker"
+                android:id="@+id/buttonCancella"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginEnd="16dp"
+                android:layout_weight="1"
+                android:background="@drawable/cancel_dialog"
+                android:text="@string/cancella"
+                android:textColor="@android:color/white" />
+
+        <Button
+                style="@style/ButtonDialogMarker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/buttonConferma"
+                android:layout_gravity="start"
+                android:layout_weight="1"
+                android:text="@string/conferma"
+                android:textColor="@android:color/white" />
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

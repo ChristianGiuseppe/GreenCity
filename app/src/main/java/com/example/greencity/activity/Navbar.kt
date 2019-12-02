@@ -1,11 +1,11 @@
 package com.example.greencity.activity
 
 import android.os.Bundle
-import android.support.design.widget.BottomNavigationView
-import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.example.greencity.R
 import com.example.greencity.fragment.*
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
 class Navbar : AppCompatActivity() {
@@ -22,7 +22,7 @@ class Navbar : AppCompatActivity() {
     private fun initBar() {
         bottomNav = findViewById(R.id.bottom_navigation_bar)
         bottomNav?.menu?.clear()
-        if (true)
+        if (false)
             bottomNav?.inflateMenu(R.menu.nav_bottom_admin)
         else
             bottomNav?.inflateMenu(R.menu.nav_bottom_user)

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="aggiungi_reports">Aggiungi Reports</string>
+    <string name="cancella">CANCELLA</string>
+    <string name="conferma">CONFERMA</string>
+    <string name="marker_image">marker image</string>
+    <string name="descrizione_marker">DESCRIZIONE</string>
+    <string name="inserisci_titolo_marker">Inserisci il problema del marker</string>
+    <string name="tipologia_marker">TIPOLOGIA MARKER</string>
+</resources>

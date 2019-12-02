@@ -17,6 +17,15 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="country_prompt">Seleziona la Regione</string>
+    <string name="aggiungi_reports">Aggiungi Reports</string>
+    <string name="cancella">CANCELLA</string>
+    <string name="conferma">CONFERMA</string>
+    <string name="marker_image">marker image</string>
+    <string name="descrizione_marker">DESCRIZIONE</string>
+    <string name="inserisci_descrizione">Inserisci la descrizione del problema</string>
+    <string name="inserisci_titolo_marker">Inserisci il problema del marker</string>
+    <string name="titolo_marker">TITOLO</string>
+    <string name="tipologia_marker">TIPOLOGIA MARKER</string>
     <string-array name="country_arrays">
         <item>Abruzzo</item>
         <item>Basilicata</item>
