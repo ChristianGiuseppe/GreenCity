@@ -38,6 +38,11 @@
         <item name="android:background">@drawable/confirm_dialog</item>
     </style>
 
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
     <!--STILE CARD GRAFICI-->
     <style name="CardChart" parent="CardView">
         <item name="android:layout_gravity">center</item>
