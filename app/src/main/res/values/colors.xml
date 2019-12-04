@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary_color">#4CAF50</color>
     <color name="light_grey">#A2A0A0</color>
     <color name="name_city_signin">#F2383838</color>
     <color name="background_">#FFCCCCCC</color>
     <color name="trasparent_grey">#40000000</color>
     <color name="black_frosted">#221e23</color>
+    <color name="primary_color">#4caf50</color>
+    <color name="primaryLightColor">#80e27e</color>
+    <color name="primaryDarkColor">#087f23</color>
+    <color name="secondaryColor">#ffed8a</color>
+    <color name="secondaryLightColor">#ffffbb</color>
+    <color name="secondaryDarkColor">#cabb5b</color>
+    <color name="primaryTextColor">#000000</color>
+    <color name="secondaryTextColor">#000000</color>
+    <color name="yellow_state">#ffdd00</color>
+    <color name="orange_state">#f4940d</color>
+    <color name="red_state">#e40719</color>
+    <color name="green_state">#4caf50</color>
     <color name="card_color">#EEEEEE</color>
 </resources>

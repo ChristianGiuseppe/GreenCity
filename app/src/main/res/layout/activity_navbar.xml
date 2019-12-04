@@ -16,7 +16,7 @@
             android:layout_height="0dp"
             app:layout_constraintBottom_toTopOf="@+id/ConstrainMenu"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.501"
+            app:layout_constraintHorizontal_bias="0.501 "
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
