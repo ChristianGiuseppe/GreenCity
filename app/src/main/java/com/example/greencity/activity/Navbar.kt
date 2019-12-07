@@ -1,6 +1,8 @@
 package com.example.greencity.activity
 
+import android.content.Context
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.greencity.DBFirebase
@@ -27,40 +29,68 @@ class Navbar : AppCompatActivity() {
         initBar()
     }
 
-    //aggiungere il ruolo all'utente se il suo ruolo è admin allora si carica il menu admin altrimenti si carica il menu dell'user
     private fun initBar() {
         bottomNav = findViewById(R.id.bottom_navigation_bar)
         bottomNav?.menu?.clear()
+        val sharedPreferences = getSharedPreferences("SP_INFO", Context.MODE_PRIVATE)
+        val idUsSP = sharedPreferences?.getString("IDUSER","").toString()
         var isValid = false
+        bottomNav?.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         DBFirebase.getDbFirebase().databaseReference.addValueEventListener(object :
             ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                var countChildren : Long = 0
+                var countChildren: Long = 0
+                if (InformazioniGenerali.getInformazioniGenerali().idUs != null){
                 val snapshotIterator = dataSnapshot.child("users").child(InformazioniGenerali.getInformazioniGenerali().idUs).children
                 val iterator = snapshotIterator.iterator()
                 while (iterator.hasNext()) {
                     countChildren++
                     var nextIt = iterator.next()
                     var keyAdmin = nextIt.key?.equals("admin")
-                    if(keyAdmin == true){
-                       var valAdmin = nextIt.value?.equals("true")
-                        if(valAdmin == true){
+                    if (keyAdmin == true) {
+                        var valAdmin = nextIt.value?.equals("true")
+                        if (valAdmin == true) {
                             isValid = true
 
                         }
                     }
-                    if (isValid){
+                    if (isValid) {
                         bottomNav?.inflateMenu(R.menu.nav_bottom_admin)
                         break
-                    }
-
-                    else{
+                    } else {
                         bottomNav?.inflateMenu(R.menu.nav_bottom_user)
-                        bottomNav?.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+
 
                         break
                     }
 
+                }
+            }
+                else{
+                    val snapshotIterator = dataSnapshot.child("users").child(idUsSP).children
+                    val iterator = snapshotIterator.iterator()
+                    while (iterator.hasNext()) {
+                        countChildren++
+                        var nextIt = iterator.next()
+                        var keyAdmin = nextIt.key?.equals("admin")
+                        if (keyAdmin == true) {
+                            var valAdmin = nextIt.value?.equals("true")
+                            if (valAdmin == true) {
+                                isValid = true
+
+                            }
+                        }
+                        if (isValid) {
+                            bottomNav?.inflateMenu(R.menu.nav_bottom_admin)
+                            break
+                        } else {
+                            bottomNav?.inflateMenu(R.menu.nav_bottom_user)
+
+
+                            break
+                        }
+
+                    }
                 }
             }
             override fun onCancelled(databaseError: DatabaseError) {}

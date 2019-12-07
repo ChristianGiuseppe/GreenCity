@@ -1,11 +1,13 @@
 package com.example.greencity.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.Button
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.greencity.CustomDialog
 import com.example.greencity.DBFirebase
@@ -45,6 +47,7 @@ class MapsUser : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener
         mapGreenCity = mappa
         mapGreenCity?.uiSettings?.isZoomControlsEnabled = true
         mapGreenCity?.setOnMarkerClickListener(this)
+
 
 
         //var usersCurrent: Utente? = InformazioniGenerali.getInformazioniGenerali().user
@@ -93,6 +96,7 @@ class MapsUser : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
     }
 
     override fun onCreateView(
@@ -135,6 +139,7 @@ class MapsUser : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener
     override fun onActivityCreated(savedInstanceState: Bundle?) {
 
         super.onActivityCreated(savedInstanceState)
+
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(this)
     }
