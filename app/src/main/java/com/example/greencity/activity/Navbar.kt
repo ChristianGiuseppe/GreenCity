@@ -22,7 +22,7 @@ class Navbar : AppCompatActivity() {
     private fun initBar() {
         bottomNav = findViewById(R.id.bottom_navigation_bar)
         bottomNav?.menu?.clear()
-        if (false)
+        if (true)
             bottomNav?.inflateMenu(R.menu.nav_bottom_admin)
         else
             bottomNav?.inflateMenu(R.menu.nav_bottom_user)
