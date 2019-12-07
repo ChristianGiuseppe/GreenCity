@@ -29,4 +29,6 @@
     <string name="gps_message">Il tuo GPS sembra essere disabilitato, vuoi abilitarlo?</string>
     <string name="positive_message">Si</string>
     <string name="negative_message">No</string>
+    <string name="title_char_report">GRAFICI REPORT</string>
+    <string name="open_card">Apri</string>
 </resources>

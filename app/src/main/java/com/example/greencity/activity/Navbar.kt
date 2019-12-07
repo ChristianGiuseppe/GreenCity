@@ -57,7 +57,7 @@ class Navbar : AppCompatActivity() {
                     else{
                         bottomNav?.inflateMenu(R.menu.nav_bottom_user)
                         bottomNav?.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-                        loadFragment(Home())
+
                         break
                     }
 
@@ -65,7 +65,7 @@ class Navbar : AppCompatActivity() {
             }
             override fun onCancelled(databaseError: DatabaseError) {}
         })
-
+        loadFragment(Home())
     }
 
     private fun loadFragment(fragment: Fragment) {
