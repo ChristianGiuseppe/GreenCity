@@ -26,26 +26,7 @@
     <string name="inserisci_titolo_marker">Inserisci il problema del marker</string>
     <string name="titolo_marker">TITOLO</string>
     <string name="tipologia_marker">TIPOLOGIA MARKER</string>
-    <string-array name="country_arrays">
-        <item>Abruzzo</item>
-        <item>Basilicata</item>
-        <item>Calabria</item>
-        <item>Campania</item>
-        <item>Emilia-Romagna</item>
-        <item>Friuli-Venezia Giulia</item>
-        <item>Lazio</item>
-        <item>Liguria</item>
-        <item>Lombardia</item>
-        <item>Marche</item>
-        <item>Molise</item>
-        <item>Piemonte</item>
-        <item>Puglia</item>
-        <item>Sardegna</item>
-        <item>Sicilia</item>
-        <item>Toscana</item>
-        <item>Trentino-Alto Adige</item>
-        <item>Umbria</item>
-        <item>Valle d\'Aosta</item>
-        <item>Veneto</item>
-    </string-array>
+    <string name="gps_message">Il tuo GPS sembra essere disabilitato, vuoi abilitarlo?</string>
+    <string name="positive_message">Si</string>
+    <string name="negative_message">No</string>
 </resources>
