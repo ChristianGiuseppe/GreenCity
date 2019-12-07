@@ -1,30 +1,28 @@
 package com.example.greencity.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.Button
-import android.widget.TextView
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.greencity.CustomDialog
 import com.example.greencity.DBFirebase
 import com.example.greencity.R
-import com.example.greencity.activity.SplashGreenCity
 import com.example.greencity.pojo.InformazioniGenerali
+import com.example.greencity.pojo.Markers
 import com.example.greencity.pojo.Utente
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
 
@@ -34,7 +32,7 @@ import com.google.firebase.database.ValueEventListener
  */
 class MapsUser : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
-    private lateinit var mapGreenCity: GoogleMap;
+    private  var mapGreenCity: GoogleMap ? = null
     private lateinit var btnMarker: FloatingActionButton
     private var btnConferma: Button? = null
 
@@ -45,8 +43,48 @@ class MapsUser : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener
      */
     override fun onMapReady(mappa: GoogleMap) {
         mapGreenCity = mappa
-        mapGreenCity.uiSettings.isZoomControlsEnabled = true
-        mapGreenCity.setOnMarkerClickListener(this)
+        mapGreenCity?.uiSettings?.isZoomControlsEnabled = true
+        mapGreenCity?.setOnMarkerClickListener(this)
+
+
+        //var usersCurrent: Utente? = InformazioniGenerali.getInformazioniGenerali().user
+        //var idUser :String ? = InformazioniGenerali.getInformazioniGenerali().idUs
+        //var listMarkers: ArrayList<LatLng?> = ArrayList()
+        DBFirebase.getDbFirebase().databaseReference.addValueEventListener(object :
+            ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val snapshotIterator = dataSnapshot.child("users").child(InformazioniGenerali.getInformazioniGenerali().idUs).children
+                val iterator = snapshotIterator.iterator()
+                while (iterator.hasNext()) {
+                    var isValid = false
+                    var nextIt = iterator.next()
+                    var finishMarkCognome = nextIt.key?.equals("cognome")
+                    var finishMarkNome = nextIt.key?.equals("nome")
+                    var finishMarkEmail = nextIt.key?.equals("email")
+                    var finishMarkPassword = nextIt.key?.equals("password")
+                    var finishMarkAdmin =  nextIt.key?.equals("admin")
+
+
+                    if(finishMarkCognome == true || finishMarkNome == true || finishMarkEmail == true || finishMarkPassword == true || finishMarkAdmin == true){
+                        isValid = true
+                    }
+
+
+                    if(isValid == false){
+                            var marker: Markers? = nextIt.getValue(Markers::class.java)
+                            var latitude = marker?.latitudine?.toDouble()
+                            var longitude = marker?.longitudine?.toDouble()
+                            var pos : LatLng = LatLng(latitude!!, longitude!!)
+                        val markerOptions = MarkerOptions().position(pos)
+
+                        mapGreenCity?.addMarker(markerOptions)
+                        mapGreenCity?.animateCamera(CameraUpdateFactory.newLatLngZoom(pos, 5f))
+                        }
+                }
+            }
+            override fun onCancelled(databaseError: DatabaseError) {}
+        })
+
     }
 
     override fun onMarkerClick(p0: Marker?): Boolean {
@@ -65,12 +103,14 @@ class MapsUser : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(this)
+
         val root: View = inflater.inflate(R.layout.fragment_maps_user, container, false)
         return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
 
         btnMarker = view.findViewById(R.id.open_marker_dialog)
         btnMarker.setOnClickListener {
@@ -84,10 +124,20 @@ class MapsUser : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener
 
         }
 
+        /*btnConferma?.setOnClickListener {
+            Log.i("entro","dentrobutton")
+            DBFirebase.getDbFirebase().databaseReference.child(idUser.toString()).child("Marker").push().setValue("nome")
 
+        }*/
 
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+
+        super.onActivityCreated(savedInstanceState)
+        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
+        mapFragment?.getMapAsync(this)
+    }
 
 
 }

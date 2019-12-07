@@ -71,7 +71,7 @@ class SignIn : AppCompatActivity() {
         regione: String,
         capoluogo: String
     ) {
-        val user = Utente(nome, cognome, email, password, regione, capoluogo)
+        val user = Utente(nome, cognome, email, password, regione, capoluogo,"false")
         DBFirebase.getDbFirebase().signIn(user)
         finish()
     }

@@ -10,6 +10,7 @@ class Utente {
     var password: String? = null
     var regione: String? = null
     var capoluogo: String? = null
+    var isAdmin: String? = null
     constructor() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
@@ -20,7 +21,8 @@ class Utente {
         cognome: String?,
         password: String?,
         regione: String?,
-        capoluogo: String?
+        capoluogo: String?,
+        isAdmin: String?
     ) {
         this.nome = nome
         this.email = email
@@ -28,6 +30,7 @@ class Utente {
         this.password = password
         this.regione = regione
         this.capoluogo = capoluogo
+        this.isAdmin = isAdmin
     }
 
 

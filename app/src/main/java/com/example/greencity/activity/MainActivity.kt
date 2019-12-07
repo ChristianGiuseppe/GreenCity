@@ -75,9 +75,10 @@ class MainActivity : AppCompatActivity() {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     val snapshotIterator = dataSnapshot.child("users").children
                     val iterator = snapshotIterator.iterator()
+                    var countChildren : Long = 0
                     while (iterator.hasNext()) {
                         var nextIt = iterator.next()
-
+                        countChildren++
                         var users: Utente? = nextIt.getValue(Utente::class.java)
                         var keyUser: String? = nextIt.key
                         var emailEdit: String = emailAccedi?.text.toString()
@@ -90,14 +91,18 @@ class MainActivity : AppCompatActivity() {
                                 val iLogin = Intent(this, SplashGreenCity::class.java)
                                 startActivity(iLogin)
                                 break
-                            }else{
-                                Toast.makeText(applicationContext,"Email o password non corrette",Toast.LENGTH_LONG).show()
+                            }
+                            else{
+                                if(dataSnapshot.child("users").childrenCount == countChildren){
+                                    Toast.makeText(applicationContext,"Email o password non corrette",Toast.LENGTH_LONG).show()
+                                }
                             }
                         }
                         else{
                             Toast.makeText(applicationContext,"Email e password obbligatori",Toast.LENGTH_LONG).show()
                         }
                     }
+
                 }
                 override fun onCancelled(databaseError: DatabaseError) {}
             })
