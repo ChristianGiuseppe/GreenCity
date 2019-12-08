@@ -47,6 +47,8 @@ class MapsUser : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener
         mapGreenCity = mappa
         mapGreenCity?.uiSettings?.isZoomControlsEnabled = true
         mapGreenCity?.setOnMarkerClickListener(this)
+        val sharedPreferences = context?.getSharedPreferences("SP_INFO", Context.MODE_PRIVATE)
+        val idUsSP = sharedPreferences?.getString("IDUSER","").toString()
 
 
 
@@ -56,35 +58,68 @@ class MapsUser : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener
         DBFirebase.getDbFirebase().databaseReference.addValueEventListener(object :
             ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val snapshotIterator = dataSnapshot.child("users").child(InformazioniGenerali.getInformazioniGenerali().idUs).children
-                val iterator = snapshotIterator.iterator()
-                while (iterator.hasNext()) {
-                    var isValid = false
-                    var nextIt = iterator.next()
-                    var finishMarkCognome = nextIt.key?.equals("cognome")
-                    var finishMarkNome = nextIt.key?.equals("nome")
-                    var finishMarkEmail = nextIt.key?.equals("email")
-                    var finishMarkPassword = nextIt.key?.equals("password")
-                    var finishMarkAdmin =  nextIt.key?.equals("admin")
+                if(InformazioniGenerali.getInformazioniGenerali().idUs != null){
+                    val snapshotIterator = dataSnapshot.child("users").child(InformazioniGenerali.getInformazioniGenerali().idUs).children
+                    val iterator = snapshotIterator.iterator()
+                    while (iterator.hasNext()) {
+                        var isValid = false
+                        var nextIt = iterator.next()
+                        var finishMarkCognome = nextIt.key?.equals("cognome")
+                        var finishMarkNome = nextIt.key?.equals("nome")
+                        var finishMarkEmail = nextIt.key?.equals("email")
+                        var finishMarkPassword = nextIt.key?.equals("password")
+                        var finishMarkAdmin =  nextIt.key?.equals("admin")
 
 
-                    if(finishMarkCognome == true || finishMarkNome == true || finishMarkEmail == true || finishMarkPassword == true || finishMarkAdmin == true){
-                        isValid = true
-                    }
+                        if(finishMarkCognome == true || finishMarkNome == true || finishMarkEmail == true || finishMarkPassword == true || finishMarkAdmin == true){
+                            isValid = true
+                        }
 
 
-                    if(isValid == false){
+                        if(isValid == false){
                             var marker: Markers? = nextIt.getValue(Markers::class.java)
                             var latitude = marker?.latitudine?.toDouble()
                             var longitude = marker?.longitudine?.toDouble()
                             var pos : LatLng = LatLng(latitude!!, longitude!!)
-                        val markerOptions = MarkerOptions().position(pos)
+                            val markerOptions = MarkerOptions().position(pos)
 
-                        mapGreenCity?.addMarker(markerOptions)
-                        mapGreenCity?.animateCamera(CameraUpdateFactory.newLatLngZoom(pos, 5f))
+                            mapGreenCity?.addMarker(markerOptions)
+                            mapGreenCity?.animateCamera(CameraUpdateFactory.newLatLngZoom(pos, 5f))
                         }
+                    }
                 }
-            }
+                else{
+                    val snapshotIterator = dataSnapshot.child("users").child(idUsSP.toString()).children
+                    val iterator = snapshotIterator.iterator()
+                    while (iterator.hasNext()) {
+                        var isValid = false
+                        var nextIt = iterator.next()
+                        var finishMarkCognome = nextIt.key?.equals("cognome")
+                        var finishMarkNome = nextIt.key?.equals("nome")
+                        var finishMarkEmail = nextIt.key?.equals("email")
+                        var finishMarkPassword = nextIt.key?.equals("password")
+                        var finishMarkAdmin =  nextIt.key?.equals("admin")
+
+
+                        if(finishMarkCognome == true || finishMarkNome == true || finishMarkEmail == true || finishMarkPassword == true || finishMarkAdmin == true){
+                            isValid = true
+                        }
+
+
+                        if(isValid == false){
+                            var marker: Markers? = nextIt.getValue(Markers::class.java)
+                            var latitude = marker?.latitudine?.toDouble()
+                            var longitude = marker?.longitudine?.toDouble()
+                            var pos : LatLng = LatLng(latitude!!, longitude!!)
+                            val markerOptions = MarkerOptions().position(pos)
+
+                            mapGreenCity?.addMarker(markerOptions)
+                            mapGreenCity?.animateCamera(CameraUpdateFactory.newLatLngZoom(pos, 5f))
+                        }
+                    }
+                }
+                }
+
             override fun onCancelled(databaseError: DatabaseError) {}
         })
 

@@ -45,8 +45,10 @@ class SplashGreenCity : AppCompatActivity() {
                     TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
                 }
             })
-                startActivity(iLogin)
-                finish()
+
+            startActivity(iLogin)
+            finish() // finish the current activity
+
         }, 3000)
 
     }

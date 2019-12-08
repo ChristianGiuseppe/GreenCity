@@ -1,6 +1,9 @@
 package com.example.greencity.activity
 
+import android.app.ActivityManager
+import android.app.PendingIntent.getActivity
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -29,6 +32,10 @@ class Navbar : AppCompatActivity() {
         initBar()
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finishAffinity()
+    }
     private fun initBar() {
         bottomNav = findViewById(R.id.bottom_navigation_bar)
         bottomNav?.menu?.clear()

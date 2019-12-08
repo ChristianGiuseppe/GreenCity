@@ -44,6 +44,8 @@ class MainActivity : AppCompatActivity() {
         checkLocationPemission()
     }
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(com.example.greencity.R.layout.activity_main)
@@ -64,7 +66,12 @@ class MainActivity : AppCompatActivity() {
         saveLogin = sharedPreferences.getBoolean("SAVELOGIN",false)
         if(saveLogin == true) {
             val iLogin = Intent(this, SplashGreenCity::class.java)
+            iLogin.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or
+                    Intent.FLAG_ACTIVITY_NEW_TASK)
+
+
             startActivity(iLogin)
+            finish() // finish the current activity
             //Toast.makeText(applicationContext,sharedPreferences.getString("EMAIL",""),Toast.LENGTH_LONG).show()
         }
 
@@ -126,7 +133,9 @@ class MainActivity : AppCompatActivity() {
                                 }
 
                                     InformazioniGenerali.getInformazioniGenerali().user = users
+                                    if(keyUser != null){
                                     InformazioniGenerali.getInformazioniGenerali().idUs = keyUser
+                                    }
                                     val iLogin = Intent(this, SplashGreenCity::class.java)
                                     startActivity(iLogin)
                                     break
