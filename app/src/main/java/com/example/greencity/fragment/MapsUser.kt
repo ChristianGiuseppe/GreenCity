@@ -1,20 +1,22 @@
 package com.example.greencity.fragment
 
+import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
+import android.location.LocationManager
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.Button
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.greencity.CustomDialog
 import com.example.greencity.DBFirebase
 import com.example.greencity.R
 import com.example.greencity.pojo.InformazioniGenerali
 import com.example.greencity.pojo.Markers
-import com.example.greencity.pojo.Utente
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -37,6 +39,13 @@ class MapsUser : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener
     private  var mapGreenCity: GoogleMap ? = null
     private lateinit var btnMarker: FloatingActionButton
     private var btnConferma: Button? = null
+    private lateinit var locationManager: LocationManager
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        locationManager = context!!.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+    }
+
 
     /**
      * @callback onMapReady: viene invocata nel momento in cui la mappa può' essere visualizzata
@@ -129,10 +138,6 @@ class MapsUser : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -149,8 +154,9 @@ class MapsUser : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
+        if (isLocationEnabled()) {
+            buildAlertMessageNoGps();
+        }
         btnMarker = view.findViewById(R.id.open_marker_dialog)
         btnMarker.setOnClickListener {
             val markerDialog = CustomDialog(this.context)
@@ -167,8 +173,21 @@ class MapsUser : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener
             Log.i("entro","dentrobutton")
             DBFirebase.getDbFirebase().databaseReference.child(idUser.toString()).child("Marker").push().setValue("nome")
 
-        }*/
+       */
+    }
 
+    private fun buildAlertMessageNoGps() {
+        val builder: AlertDialog.Builder = AlertDialog.Builder(context!!);
+        builder.setMessage(getString(R.string.gps_message))
+            .setCancelable(false)
+            .setPositiveButton(getString(R.string.positive_message)) { dialog, id ->
+                startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+            }
+            .setNegativeButton(getString(R.string.negative_message)) { dialog, id ->
+                dialog.cancel();
+            }
+        val alert: AlertDialog = builder.create();
+        alert.show();
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -177,6 +196,10 @@ class MapsUser : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener
 
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(this)
+    }
+
+    private fun isLocationEnabled(): Boolean {
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
     }
 
 

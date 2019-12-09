@@ -2,4 +2,5 @@
 <resources>
     <string name="title_char_report">GRAFICI REPORT</string>
     <string name="open_card">Apri</string>
+    <string name="remember">Ricordami</string>
 </resources>
