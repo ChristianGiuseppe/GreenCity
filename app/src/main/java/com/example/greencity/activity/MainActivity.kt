@@ -2,7 +2,6 @@ package com.example.greencity.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.greencity.DBFirebase
@@ -12,10 +11,6 @@ import com.example.greencity.pojo.Utente
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
-import androidx.core.app.ComponentActivity.ExtraData
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import android.R
 import android.content.Context
 import android.content.pm.PackageManager
 import android.widget.*
@@ -137,7 +132,10 @@ class MainActivity : AppCompatActivity() {
                                     InformazioniGenerali.getInformazioniGenerali().idUs = keyUser
                                     }
                                     val iLogin = Intent(this, SplashGreenCity::class.java)
+                                    iLogin?.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or
+                                        Intent.FLAG_ACTIVITY_NEW_TASK)
                                     startActivity(iLogin)
+                                    finish()
                                     break
 
 

@@ -21,12 +21,12 @@
             app:layout_constraintVertical_bias="0.0">
 
         <TextView
-                android:id="@+id/textView"
+                android:id="@+id/textViewWelcomeUs"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="32dp"
-                android:text="Benvenuto\nLorem Ipsum"
+                android:text="Benvenuto\n"
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/font_size_title"
                 android:textStyle="bold"
@@ -42,12 +42,13 @@
         <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/logOutImg"
                 android:src="@drawable/ic_exit_green_city"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.52"
-                app:layout_constraintStart_toEndOf="@+id/textView"
-                app:layout_constraintTop_toTopOf="@+id/textView" />
+                app:layout_constraintStart_toEndOf="@+id/textViewWelcomeUs"
+                app:layout_constraintTop_toTopOf="@+id/textViewWelcomeUs" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
