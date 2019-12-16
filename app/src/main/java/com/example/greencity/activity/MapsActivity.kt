@@ -58,7 +58,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         }
         val fab = findViewById<FloatingActionButton>(R.id.fab)
         fab.setOnClickListener {
-            loadPlacePicker()
+            createLocationRequest()
         }
 
         createLocationRequest()

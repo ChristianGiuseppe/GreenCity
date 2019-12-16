@@ -1,11 +1,16 @@
 package com.example.greencity.fragment
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
+import android.location.Location
+import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,6 +41,7 @@ import com.google.firebase.database.ValueEventListener
  */
 class MapsUser : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
+    private var editor2: SharedPreferences.Editor? = null
     private  var mapGreenCity: GoogleMap ? = null
     private lateinit var btnMarker: FloatingActionButton
     private var btnConferma: Button? = null
@@ -44,6 +50,7 @@ class MapsUser : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         locationManager = context!!.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+
     }
 
 
@@ -52,14 +59,18 @@ class MapsUser : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener
      * in questo caso nel momento in cui è pronta vengono settati i paramentri necessari
      * per la visualizzazione.
      */
+    @SuppressLint("MissingPermission")
     override fun onMapReady(mappa: GoogleMap) {
         mapGreenCity = mappa
         mapGreenCity?.uiSettings?.isZoomControlsEnabled = true
         mapGreenCity?.setOnMarkerClickListener(this)
         val sharedPreferences = context?.getSharedPreferences("SP_INFO", Context.MODE_PRIVATE)
+        val sharedPreferences2 = context?.getSharedPreferences("SP_INFO2", Context.MODE_PRIVATE)
         val idUsSP = sharedPreferences?.getString("IDUSER","").toString()
-
-
+        editor2 = sharedPreferences2?.edit()
+        locationManager?.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0f, locationListener)
+        editor2?.clear()
+        editor2?.commit()
 
         //var usersCurrent: Utente? = InformazioniGenerali.getInformazioniGenerali().user
         //var idUser :String ? = InformazioniGenerali.getInformazioniGenerali().idUs
@@ -93,7 +104,7 @@ class MapsUser : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener
                             val markerOptions = MarkerOptions().position(pos)
 
                             mapGreenCity?.addMarker(markerOptions)
-                            mapGreenCity?.animateCamera(CameraUpdateFactory.newLatLngZoom(pos, 5f))
+                            //mapGreenCity?.animateCamera(CameraUpdateFactory.newLatLngZoom(pos, 5f))
                         }
                     }
                 }
@@ -123,7 +134,7 @@ class MapsUser : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener
                             val markerOptions = MarkerOptions().position(pos)
 
                             mapGreenCity?.addMarker(markerOptions)
-                            mapGreenCity?.animateCamera(CameraUpdateFactory.newLatLngZoom(pos, 5f))
+                            //mapGreenCity?.animateCamera(CameraUpdateFactory.newLatLngZoom(pos, 5f))
                         }
                     }
                 }
@@ -132,6 +143,22 @@ class MapsUser : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener
             override fun onCancelled(databaseError: DatabaseError) {}
         })
 
+    }
+
+    //define the listener
+    private val locationListener: LocationListener = object : LocationListener {
+        override fun onLocationChanged(location: Location) {
+            val currentLatLng = LatLng(location.latitude, location.longitude)
+            val markerOptions = MarkerOptions().position(currentLatLng)
+            mapGreenCity?.addMarker(markerOptions)
+            mapGreenCity?.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 10f))
+            editor2?.putString("LATITUDE",location.latitude.toString())
+            editor2?.putString("LONGITUDE",location.longitude.toString())
+            editor2?.commit()
+        }
+        override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
+        override fun onProviderEnabled(provider: String) {}
+        override fun onProviderDisabled(provider: String) {}
     }
 
     override fun onMarkerClick(p0: Marker?): Boolean {
@@ -154,8 +181,8 @@ class MapsUser : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (isLocationEnabled()) {
-            buildAlertMessageNoGps();
+        if (!isLocationEnabled()) {
+            buildAlertMessageNoGps()
         }
         btnMarker = view.findViewById(R.id.open_marker_dialog)
         btnMarker.setOnClickListener {

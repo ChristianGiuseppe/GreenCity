@@ -156,8 +156,9 @@ class Navbar : AppCompatActivity() {
                                 }
 
                             }
-                            loadFragment(Home())
+
                             bottomNav?.inflateMenu(R.menu.nav_bottom_user)
+                            loadFragment(Home())
 
                         }
                     }
