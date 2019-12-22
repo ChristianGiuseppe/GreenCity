@@ -11,6 +11,8 @@ class Markers {
     var priorita: String? = null
     var latitudine: String? = null
     var longitudine: String? = null
+    var stato: String? = null
+    var dataOra:  String? =  null
     constructor() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
@@ -22,7 +24,9 @@ class Markers {
         colore: String?,
         priorita: String?,
         latitudine: String?,
-        longitudine: String?
+        longitudine: String?,
+        stato: String ?,
+        dataOra: String ?
 
     ) {
         this.titolo = titolo
@@ -32,6 +36,8 @@ class Markers {
         this.priorita = priorita
         this.latitudine = latitudine
         this.longitudine = longitudine
+        this.stato =  stato
+        this.dataOra = dataOra
     }
 
 

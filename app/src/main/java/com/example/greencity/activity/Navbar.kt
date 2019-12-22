@@ -85,7 +85,8 @@ class Navbar : AppCompatActivity() {
                             }
 
                         }
-                        bottomNav?.inflateMenu(R.menu.nav_bottom_admin)
+
+                        //bottomNav?.inflateMenu(R.menu.nav_bottom_admin)
                         loadFragment(Home())
                         break
                     }  else {
@@ -101,7 +102,7 @@ class Navbar : AppCompatActivity() {
                             }
 
                         }
-                        bottomNav?.inflateMenu(R.menu.nav_bottom_user)
+                        //bottomNav?.inflateMenu(R.menu.nav_bottom_user)
                         loadFragment(Home())
                     }
 
@@ -139,7 +140,7 @@ class Navbar : AppCompatActivity() {
                                 }
 
                             }
-                            bottomNav?.inflateMenu(R.menu.nav_bottom_admin)
+                            //bottomNav?.inflateMenu(R.menu.nav_bottom_admin)
                             loadFragment(Home())
                             break
                         }
@@ -156,8 +157,7 @@ class Navbar : AppCompatActivity() {
                                 }
 
                             }
-
-                            bottomNav?.inflateMenu(R.menu.nav_bottom_user)
+                            //bottomNav?.inflateMenu(R.menu.nav_bottom_user)
                             loadFragment(Home())
 
                         }
@@ -166,6 +166,12 @@ class Navbar : AppCompatActivity() {
             }
             override fun onCancelled(databaseError: DatabaseError) {}
         })
+        if(isValid){
+            bottomNav?.inflateMenu(R.menu.nav_bottom_admin)
+        }else{
+            bottomNav?.inflateMenu(R.menu.nav_bottom_user)
+        }
+
         loadFragment(Home())
     }
 

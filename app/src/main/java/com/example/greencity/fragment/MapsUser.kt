@@ -138,7 +138,7 @@ class MapsUser : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener
                         }
                     }
                 }
-                }
+            }
 
             override fun onCancelled(databaseError: DatabaseError) {}
         })
@@ -199,7 +199,6 @@ class MapsUser : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener
         /*btnConferma?.setOnClickListener {
             Log.i("entro","dentrobutton")
             DBFirebase.getDbFirebase().databaseReference.child(idUser.toString()).child("Marker").push().setValue("nome")
-
        */
     }
 
