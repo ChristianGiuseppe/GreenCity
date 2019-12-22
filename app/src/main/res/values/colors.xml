@@ -18,4 +18,5 @@
     <color name="red_state">#e40719</color>
     <color name="green_state">#4caf50</color>
     <color name="card_color">#EEEEEE</color>
+    <color name="wait_report">#ff6d00</color>
 </resources>

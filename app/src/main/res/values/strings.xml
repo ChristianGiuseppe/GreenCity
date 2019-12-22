@@ -32,4 +32,11 @@
     <string name="title_char_report">GRAFICI REPORT</string>
     <string name="open_card">Apri</string>
     <string name="remember">Ricordami</string>
+    <string name="logout">logout</string>
+    <string name="benvenuto_n">Benvenuto</string>
+    <string name="totale_report">TOTALE REPORT</string>
+    <string name="confermate">CONFERMATE</string>
+    <string name="rifiutate">RIFIUTATE</string>
+    <string name="reject">RIFIUTATE</string>
+    <string name="waiting">IN ATTESA</string>
 </resources>

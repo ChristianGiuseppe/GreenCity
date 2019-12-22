@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="32dp"
-                android:text="Benvenuto\n"
+                android:text="@string/benvenuto_n"
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/font_size_title"
                 android:textStyle="bold"
@@ -40,15 +40,16 @@
 
 
         <ImageView
+                android:id="@+id/logOutImg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/logOutImg"
                 android:src="@drawable/ic_exit_green_city"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.52"
                 app:layout_constraintStart_toEndOf="@+id/textViewWelcomeUs"
-                app:layout_constraintTop_toTopOf="@+id/textViewWelcomeUs" />
+                app:layout_constraintTop_toTopOf="@+id/textViewWelcomeUs"
+                android:contentDescription="@string/logout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -61,8 +62,202 @@
             android:background="@drawable/background_home"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+            app:layout_constraintVertical_bias="0.0">
+
+        <GridLayout
+                android:id="@+id/grid_reject_and_done"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="14dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="16dp"
+                android:alignmentMode="alignMargins"
+                android:columnCount="3"
+                android:columnOrderPreserved="false"
+                android:rowCount="1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_weight="2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+            <!--CARD ADMIN-->
+            <!--1 CARD TOTALE CARD CONFERMATE-->
+            <androidx.cardview.widget.CardView
+                    android:id="@+id/card_done"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginBottom="32dp"
+                    android:backgroundTint="@color/primary_color"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="8dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/wrap_card_done"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                    <TextView
+                            android:id="@+id/report_confermati"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginEnd="8dp"
+                            android:text="@string/confermate"
+                            android:textColor="@android:color/white"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.0" />
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:text="3"
+                            android:textColor="@android:color/white"
+                            android:textSize="32sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="@+id/report_confermati"
+                            app:layout_constraintStart_toStartOf="@+id/report_confermati"
+                            app:layout_constraintTop_toBottomOf="@id/report_confermati">
+
+                    </TextView>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+            <!--END CONFERMATE-->
+
+
+            <!--CARD ADMIN-->
+            <!--2 CARD TOTALE CARD ATTESA-->
+            <androidx.cardview.widget.CardView
+                    android:id="@+id/card_waiting"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginBottom="32dp"
+                    android:backgroundTint="@color/wait_report"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="8dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/wrap_card_waiting"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    <TextView
+                            android:id="@+id/report_in_attesa"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginEnd="16dp"
+                            android:text="@string/waiting"
+                            android:textColor="@android:color/white"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.0" />
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:text="3"
+                            android:textColor="@android:color/white"
+                            android:textSize="32sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="@+id/report_in_attesa"
+                            app:layout_constraintStart_toStartOf="@+id/report_in_attesa"
+                            app:layout_constraintTop_toBottomOf="@id/report_in_attesa">
+
+                    </TextView>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                    android:id="@+id/card_reject"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginBottom="32dp"
+                    android:backgroundTint="@color/red_state"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="8dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/wrap_card_reject"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    <TextView
+                            android:id="@+id/report_rifiutati"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginEnd="16dp"
+                            android:text="@string/reject"
+                            android:textColor="@android:color/white"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.0" />
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:text="3"
+                            android:textColor="@android:color/white"
+                            android:textSize="32sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="@+id/report_rifiutati"
+                            app:layout_constraintStart_toStartOf="@+id/report_rifiutati"
+                            app:layout_constraintTop_toBottomOf="@id/report_rifiutati">
+
+                    </TextView>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </GridLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
