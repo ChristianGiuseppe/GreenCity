@@ -22,6 +22,10 @@ public class DBFirebase {
             dbFirebase = new DBFirebase();
         return dbFirebase;
     }
+    public static DBFirebase setDbFirebaseNull() {
+        dbFirebase = null;
+        return dbFirebase;
+    }
 
     public static void setDbFirebase(DBFirebase dbFirebase) {
         DBFirebase.dbFirebase = dbFirebase;

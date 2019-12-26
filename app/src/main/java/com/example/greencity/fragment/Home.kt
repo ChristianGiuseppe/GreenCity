@@ -73,9 +73,10 @@ class Home : Fragment() {
                         var finishMarkEmail = nextIt.key?.equals("email")
                         var finishMarkPassword = nextIt.key?.equals("password")
                         var finishMarkAdmin =  nextIt.key?.equals("admin")
+                        var finishMarkCapoluogo =  nextIt.key?.equals("capoluogo")
+                        var finishMarkRegione =  nextIt.key?.equals("regione")
 
-
-                        if(finishMarkCognome == true || finishMarkNome == true || finishMarkEmail == true || finishMarkPassword == true || finishMarkAdmin == true){
+                        if(finishMarkCognome == true || finishMarkCapoluogo ==  true || finishMarkRegione == true  || finishMarkNome == true || finishMarkEmail == true || finishMarkPassword == true || finishMarkAdmin == true){
                             isValid = true
                         }
 
@@ -101,9 +102,10 @@ class Home : Fragment() {
                         var finishMarkEmail = nextIt.key?.equals("email")
                         var finishMarkPassword = nextIt.key?.equals("password")
                         var finishMarkAdmin =  nextIt.key?.equals("admin")
+                        var finishMarkCapoluogo =  nextIt.key?.equals("capoluogo")
+                        var finishMarkRegione =  nextIt.key?.equals("regione")
 
-
-                        if(finishMarkCognome == true || finishMarkNome == true || finishMarkEmail == true || finishMarkPassword == true || finishMarkAdmin == true){
+                        if(finishMarkCognome == true || finishMarkCapoluogo ==  true || finishMarkRegione == true  || finishMarkNome == true || finishMarkEmail == true || finishMarkPassword == true || finishMarkAdmin == true){
                             isValid = true
                         }
 
@@ -130,11 +132,13 @@ class Home : Fragment() {
         logOutImg?.isClickable = true
 
         logOutImg?.setOnClickListener {
+            DBFirebase.setDbFirebaseNull()
             editor?.clear()
             editor?.commit()
+            editor2?.clear()
+            editor2?.commit()
             val iLogin = Intent (context, MainActivity::class.java)
-            iLogin.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or
-                    Intent.FLAG_ACTIVITY_NEW_TASK)
+            iLogin.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP )
             startActivity(iLogin)
 
 

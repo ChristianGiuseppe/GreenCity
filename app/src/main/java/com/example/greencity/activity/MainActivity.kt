@@ -112,18 +112,23 @@ class MainActivity : AppCompatActivity() {
                         countChildren++
                         var users: Utente? = nextIt.getValue(Utente::class.java)
                         var keyUser: String? = nextIt.key
+
                         var emailEdit: String = emailAccedi?.text.toString()
                         var passwordEdit = passwordAccedi?.text.toString()
                         //VERIFICO CHE IL LOGIN E' STATO EFFETTUATO CORRETTAMENTE
                         if(emailEdit?.trim().length>0 || passwordEdit?.trim().length>0){
                             if(users?.email  == emailEdit.trim() && users?.password == passwordEdit.trim() ){
                                 if(saveloginCheckbox?.isChecked!!){
+                                    var keyAdmin: String? = users?.isAdmin
                                     val isRic = saveloginCheckbox?.isChecked!!
                                     //inserire i dati nelle shared preferences
                                     editor.putString("EMAIL",emailEdit?.trim())
                                     editor.putString("PASSWORD",passwordEdit?.trim())
                                     editor.putBoolean("SAVELOGIN",isRic)
                                     editor.putString("IDUSER",keyUser)
+                                    if (keyAdmin != null) {
+                                        editor.putString("ADMIN",keyAdmin)
+                                    }
                                     editor.commit()
                                 }
 

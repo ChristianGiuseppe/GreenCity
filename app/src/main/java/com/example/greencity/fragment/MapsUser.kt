@@ -89,9 +89,10 @@ class MapsUser : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener
                         var finishMarkEmail = nextIt.key?.equals("email")
                         var finishMarkPassword = nextIt.key?.equals("password")
                         var finishMarkAdmin =  nextIt.key?.equals("admin")
+                        var finishMarkCapoluogo =  nextIt.key?.equals("capoluogo")
+                        var finishMarkRegione =  nextIt.key?.equals("regione")
 
-
-                        if(finishMarkCognome == true || finishMarkNome == true || finishMarkEmail == true || finishMarkPassword == true || finishMarkAdmin == true){
+                        if(finishMarkCognome == true || finishMarkCapoluogo ==  true || finishMarkRegione == true  || finishMarkNome == true || finishMarkEmail == true || finishMarkPassword == true || finishMarkAdmin == true){
                             isValid = true
                         }
 
@@ -119,9 +120,10 @@ class MapsUser : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener
                         var finishMarkEmail = nextIt.key?.equals("email")
                         var finishMarkPassword = nextIt.key?.equals("password")
                         var finishMarkAdmin =  nextIt.key?.equals("admin")
+                        var finishMarkCapoluogo =  nextIt.key?.equals("capoluogo")
+                        var finishMarkRegione =  nextIt.key?.equals("regione")
 
-
-                        if(finishMarkCognome == true || finishMarkNome == true || finishMarkEmail == true || finishMarkPassword == true || finishMarkAdmin == true){
+                        if(finishMarkCognome == true || finishMarkCapoluogo ==  true || finishMarkRegione == true  || finishMarkNome == true || finishMarkEmail == true || finishMarkPassword == true || finishMarkAdmin == true){
                             isValid = true
                         }
 

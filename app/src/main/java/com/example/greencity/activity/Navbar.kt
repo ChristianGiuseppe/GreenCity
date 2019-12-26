@@ -37,6 +37,7 @@ class Navbar : AppCompatActivity() {
         initBar()
     }
 
+
     override fun onBackPressed() {
         super.onBackPressed()
         finishAffinity()
@@ -48,6 +49,7 @@ class Navbar : AppCompatActivity() {
         //Edit shared  preferences (per inserire i dati da ricordare)
         val editor = sharedPreferences.edit()
         val idUsSP = sharedPreferences?.getString("IDUSER","").toString()
+        val isAdm = sharedPreferences?.getString("ADMIN","")
         var isValid = false
 
         bottomNav?.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
@@ -162,17 +164,22 @@ class Navbar : AppCompatActivity() {
 
                         }
                     }
+
                 }
+
             }
+
+
             override fun onCancelled(databaseError: DatabaseError) {}
+
         })
-        if(isValid){
+        if(isAdm.equals("true")){
             bottomNav?.inflateMenu(R.menu.nav_bottom_admin)
         }else{
             bottomNav?.inflateMenu(R.menu.nav_bottom_user)
         }
-
         loadFragment(Home())
+
     }
 
     private fun loadFragment(fragment: Fragment) {
@@ -212,6 +219,11 @@ class Navbar : AppCompatActivity() {
             }
         }
         return@OnNavigationItemSelectedListener false
+    }
+
+    override fun onResume() {
+        super.onResume()
+        initBar()
     }
 
 
