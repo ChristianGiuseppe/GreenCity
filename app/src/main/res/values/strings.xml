@@ -39,4 +39,8 @@
     <string name="rifiutate">RIFIUTATE</string>
     <string name="reject">RIFIUTATE</string>
     <string name="waiting">IN ATTESA</string>
+    <string name="i_miei_report">I MIEI REPORT</string>
+    <string name="placeholder_title">Placeholder Title</string>
+    <string name="placeholder_date">Placeholder date</string>
+    <string name="inbox">inbox</string>
 </resources>

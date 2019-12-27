@@ -9,29 +9,30 @@
         tools:context=".fragment.Graph">
 
     <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/grafici_report_title"
+            style="@style/GreenCityTextTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
             android:text="@string/title_char_report"
             android:textColor="@android:color/white"
-            android:textSize="34sp"
-            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.01999998" />
+            app:layout_constraintVertical_bias="0.060000002" />
 
     <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="TODO"
             android:src="@drawable/ic_leaves"
-            app:layout_constraintBottom_toBottomOf="@+id/textView2"
+            app:layout_constraintBottom_toBottomOf="@+id/grafici_report_title"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView2"
-            app:layout_constraintTop_toTopOf="@+id/textView2"
+            app:layout_constraintStart_toEndOf="@+id/grafici_report_title"
+            app:layout_constraintTop_toTopOf="@+id/grafici_report_title"
             app:layout_constraintVertical_bias="0.0" />
 
     <GridLayout
@@ -49,7 +50,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2">
+            app:layout_constraintTop_toBottomOf="@+id/grafici_report_title">
 
         <!--RIGA 1-->
         <!--COLONNA 1-->
@@ -78,7 +79,6 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="24dp"
                         android:layout_marginEnd="8dp"
-                        android:contentDescription="TODO"
                         android:src="@drawable/ic_pie_chart"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"

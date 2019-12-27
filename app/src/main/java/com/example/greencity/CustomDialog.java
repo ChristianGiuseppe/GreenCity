@@ -2,10 +2,13 @@ package com.example.greencity;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import com.example.greencity.activity.SplashGreenCity;
 import com.example.greencity.pojo.InformazioniGenerali;
 import com.example.greencity.pojo.Markers;
 
@@ -25,10 +28,8 @@ public class CustomDialog extends Dialog {
         super.onCreate(savedInstanceState);
         SharedPreferences mPrefs = getContext().getSharedPreferences("SP_INFO",Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = mPrefs.edit();
-        SharedPreferences mPrefs2 = getContext().getSharedPreferences("SP_INFO2",Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor2 = mPrefs2.edit();
-        String lat = mPrefs2.getString("LATITUDE","");
-        String longi = mPrefs2.getString("LONGITUDE","");
+        String lat = mPrefs.getString("LATITUDE", "");
+        String longi = mPrefs.getString("LONGITUDE", "");
         String idUsSP = mPrefs.getString("IDUSER","").toString();
         setContentView(R.layout.activity_custom_dialog);
         CustomDialog c = new CustomDialog(getContext());
@@ -47,6 +48,8 @@ public class CustomDialog extends Dialog {
                 }else{
                     DBFirebase.getDbFirebase().getDatabaseReference().child("users").child(idUsSP).push().setValue(m);
                 }
+                Intent i = new Intent(getContext(), SplashGreenCity.class);
+                getContext().startActivity(i);
                 dismiss();
             }
         });

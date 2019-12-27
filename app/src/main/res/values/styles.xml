@@ -13,6 +13,7 @@
         <item name="android:textColor">@android:color/white</item>
     </style>
 
+    <!--STILE BUTTONE GREEN-->
     <style name="ButtonGreenCity">
         <item name="android:elevation">8dp</item>
         <item name="android:paddingLeft">19dp</item>
@@ -21,16 +22,42 @@
         <item name="android:textColor">@android:color/white</item>
     </style>
 
-    <!--STILE TESTO-->
-    <style name="GreenCityTextView" parent="android:Widget.Holo.TextView">
-        <item name="android:fontFamily">sans-serif-smallcaps</item>
-        <item name="android:typeface">monospace</item>
+    <!--STILE TESTO TITLE-->
+    <style parent="android:Widget.Holo.TextView" name="GreenCityTextTitle">
+        <item name="android:fontFamily">sans-serif-black</item>
+        <item name="android:textSize">34sp</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
+    <!--STILE TESTO LINK-->
+    <style parent="android:Widget.Holo.TextView" name="GreenCityTextLink">
+        <item name="android:fontFamily">sans-serif-black</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+
+    <!--STILE TESTO TITLE CARDS-->
+    <style parent="android:Widget.Holo.TextView" name="GreenCItyTextTitleCards">
+        <item name="android:fontFamily">sans-serif-black</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+
+    <!--STILE EDIT TEXT FORM-->
     <style name="GreenCityEditText" parent="android:Widget.Holo.EditText">
         <item name="android:fontFamily">sans-serif-smallcaps</item>
         <item name="android:typeface">monospace</item>
     </style>
+
+    <!--STILE CARD GRAFICI-->
+    <style name="CardChart" parent="CardView">
+        <item name="android:layout_gravity">center</item>
+        <item name="cardCornerRadius">30dp</item>
+        <item name="android:backgroundTint">@color/card_color</item>
+    </style>
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
@@ -41,12 +68,5 @@
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-    </style>
-
-    <!--STILE CARD GRAFICI-->
-    <style name="CardChart" parent="CardView">
-        <item name="android:layout_gravity">center</item>
-        <item name="cardCornerRadius">30dp</item>
-        <item name="android:backgroundTint">@color/card_color</item>
     </style>
 </resources>

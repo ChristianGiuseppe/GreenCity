@@ -32,7 +32,7 @@
                 android:layout_marginBottom="16dp"
                 android:backgroundTint="@android:color/background_light"
                 android:contentDescription="@string/aggiungi_reports"
-                android:src="@drawable/ic_report_add"
+                android:src="@drawable/ic_inbox_ad"
                 app:fabCustomSize="72dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
