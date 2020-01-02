@@ -16,6 +16,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.Button
+import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import com.example.greencity.CustomDialog
 import com.example.greencity.DBFirebase
@@ -44,7 +45,7 @@ class MapsUser : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener
     private var editor2: SharedPreferences.Editor? = null
     private  var mapGreenCity: GoogleMap ? = null
     private lateinit var btnMarker: FloatingActionButton
-    private var btnConferma: Button? = null
+    private var  pbMaps :  ProgressBar ? = null
     private lateinit var locationManager: LocationManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -157,6 +158,7 @@ class MapsUser : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener
             editor2?.putString("LATITUDE",location.latitude.toString())
             editor2?.putString("LONGITUDE",location.longitude.toString())
             editor2?.commit()
+            pbMaps?.visibility = View.INVISIBLE
         }
         override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
         override fun onProviderEnabled(provider: String) {}
@@ -187,17 +189,19 @@ class MapsUser : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener
             buildAlertMessageNoGps()
         }
         btnMarker = view.findViewById(R.id.open_marker_dialog)
-        btnMarker.setOnClickListener {
-            val markerDialog = CustomDialog(this.context)
-            markerDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-            markerDialog.setContentView(R.layout.activity_custom_dialog)
-            val v = markerDialog.window?.decorView
-            v?.setBackgroundResource(android.R.color.transparent);
-            markerDialog.show()
+        pbMaps = view.findViewById(R.id.mapsProgress)
+            btnMarker.setOnClickListener {
+                if(pbMaps?.visibility  ==  View.INVISIBLE) {
+                val markerDialog = CustomDialog(this.context)
+                markerDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                markerDialog.setContentView(R.layout.activity_custom_dialog)
+                val v = markerDialog.window?.decorView
+                v?.setBackgroundResource(android.R.color.transparent);
+                markerDialog.show()
 
 
+            }
         }
-
         /*btnConferma?.setOnClickListener {
             Log.i("entro","dentrobutton")
             DBFirebase.getDbFirebase().databaseReference.child(idUser.toString()).child("Marker").push().setValue("nome")

@@ -17,10 +17,13 @@ import com.example.greencity.pojo.Markers
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import kotlinx.android.synthetic.main.fragment_home.*
 
 class Home : Fragment() {
     private var textWelcomeUser: TextView? = null
-    private var textCountReports: TextView? = null
+    private var inAttesaTextCountReports: TextView? = null
+    private var ConfermatoTextCountReports: TextView? = null
+    private var RifiutatoTextCountReports: TextView? = null
     private var logOutImg : ImageView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,9 +55,12 @@ class Home : Fragment() {
         val idUsSP = sharedPreferences?.getString("IDUSER","").toString()
         val editor = sharedPreferences?.edit()
         val editor2 = sharedPreferences2?.edit()
-        textCountReports =  view.findViewById(R.id.inAttesaCountText)
-        var countR = 0
-
+        inAttesaTextCountReports =  view.findViewById(R.id.inAttesaCountText)
+        ConfermatoTextCountReports = view.findViewById(R.id.inConfermaCountText)
+        RifiutatoTextCountReports = view.findViewById(R.id.inRifiutoCountText)
+        var countAttes = 0
+        var countRifiuto = 0
+        var countConferma = 0
         DBFirebase.getDbFirebase().databaseReference.addValueEventListener(object :
             ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
@@ -85,9 +91,20 @@ class Home : Fragment() {
                             var marker: Markers? = nextIt.getValue(Markers::class.java)
                             var reportsState = marker?.stato
                             if(reportsState != ""){
-                                countR ++
-                                textCountReports?.text = countR.toString()
+                                if(reportsState == "In Attesa"){
+                                    countAttes ++
+                                    inAttesaTextCountReports?.text = countAttes.toString()
+                                }
+                                else if(reportsState == "Confermato"){
+                                    countConferma ++
+                                    inConfermaCountText?.text = countConferma.toString()
+                                }
+                                else if(reportsState == "Rifutato"){
+                                    countRifiuto ++
+                                    inRifiutoCountText?.text = countRifiuto.toString()
+                                }
                             }
+                            InformazioniGenerali.getInformazioniGenerali().markers = listOf(marker)
                         }
                     }
                 }
@@ -114,9 +131,20 @@ class Home : Fragment() {
                             var marker: Markers? = nextIt.getValue(Markers::class.java)
                             var reportsState = marker?.stato
                             if(reportsState != ""){
-                                 countR ++
-                                textCountReports?.text = countR.toString()
+                                if(reportsState == "In Attesa"){
+                                    countAttes ++
+                                    inAttesaTextCountReports?.text = countAttes.toString()
+                                }
+                                else if(reportsState == "Confermato"){
+                                    countConferma ++
+                                    inConfermaCountText?.text = countConferma.toString()
+                                }
+                                else if(reportsState == "Rifutato"){
+                                    countRifiuto ++
+                                    inRifiutoCountText?.text = countRifiuto.toString()
+                                }
                             }
+                            InformazioniGenerali.getInformazioniGenerali().markers = listOf(marker)
                         }
                     }
                 }

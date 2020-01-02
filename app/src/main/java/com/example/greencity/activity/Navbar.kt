@@ -82,7 +82,8 @@ class Navbar : AppCompatActivity() {
                                 editor.putString("WELCOMEUSER",nextIt.value.toString())
                                 editor.commit()
                                 //textWelcomeUser?.text = nextIt.value.toString()
-                            }else{
+                            }
+                            else{
                                 continue
                             }
 
