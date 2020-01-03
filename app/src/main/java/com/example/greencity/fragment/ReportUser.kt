@@ -43,7 +43,6 @@ class ReportUser : Fragment() {
         // Inflate the layout for this fragment
         val v: View = inflater.inflate(R.layout.fragment_report_user, container, false)
         listViewMarkers = v.findViewById(R.id.lista_report)
-        //TODO DA SOSTITUIRE MOCK LISTA REPORT
 
         var markersAdapter: MarkersAdapter =
             MarkersAdapter(context!!, R.layout.report_user_item, listaReportUser)

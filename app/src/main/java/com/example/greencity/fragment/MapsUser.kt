@@ -3,11 +3,13 @@ package com.example.greencity.fragment
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
@@ -50,7 +52,10 @@ class MapsUser : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         locationManager = context!!.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+
+
 
     }
 
@@ -169,12 +174,26 @@ class MapsUser : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
+    fun buildDialog(c: Context): androidx.appcompat.app.AlertDialog.Builder {
+
+        val builder = androidx.appcompat.app.AlertDialog.Builder(c)
+        builder.setTitle("Nessuna connessione ad Internet trovata")
+        builder.setMessage("Per utilizzare l'app hai bisogno di una connessione mobile o wifi. Premi OK per uscire")
+
+        builder.setPositiveButton("Ok",
+            DialogInterface.OnClickListener { dialog, which -> activity?.finish() })
+
+        return builder
+    }
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(this)
@@ -192,6 +211,7 @@ class MapsUser : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener
         pbMaps = view.findViewById(R.id.mapsProgress)
             btnMarker.setOnClickListener {
                 if(pbMaps?.visibility  ==  View.INVISIBLE) {
+
                 val markerDialog = CustomDialog(this.context)
                 markerDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
                 markerDialog.setContentView(R.layout.activity_custom_dialog)

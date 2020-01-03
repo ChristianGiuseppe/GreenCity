@@ -23,14 +23,14 @@
     </style>
 
     <!--STILE TESTO TITLE-->
-    <style parent="android:Widget.Holo.TextView" name="GreenCityTextTitle">
+    <style name="GreenCityTextTitle" parent="android:Widget.Holo.TextView">
         <item name="android:fontFamily">sans-serif-black</item>
         <item name="android:textSize">34sp</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <!--STILE TESTO LINK-->
-    <style parent="android:Widget.Holo.TextView" name="GreenCityTextLink">
+    <style name="GreenCityTextLink" parent="android:Widget.Holo.TextView">
         <item name="android:fontFamily">sans-serif-black</item>
         <item name="android:textSize">24sp</item>
         <item name="android:textStyle">bold</item>
@@ -38,7 +38,7 @@
 
 
     <!--STILE TESTO TITLE CARDS-->
-    <style parent="android:Widget.Holo.TextView" name="GreenCItyTextTitleCards">
+    <style name="GreenCItyTextTitleCards" parent="android:Widget.Holo.TextView">
         <item name="android:fontFamily">sans-serif-black</item>
         <item name="android:textSize">16sp</item>
         <item name="android:textStyle">bold</item>
@@ -58,8 +58,9 @@
         <item name="android:backgroundTint">@color/card_color</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="ButtonDialogMarker" parent="Widget.AppCompat.Button">
         <item name="android:background">@drawable/confirm_dialog</item>

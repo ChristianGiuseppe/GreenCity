@@ -43,4 +43,5 @@
     <string name="placeholder_title">Placeholder Title</string>
     <string name="placeholder_date">Placeholder date</string>
     <string name="inbox">inbox</string>
+    <string name="title_activity_pie_">Pie_Activity</string>
 </resources>

@@ -13,10 +13,17 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import android.content.Context
 import android.content.pm.PackageManager
+import android.net.ConnectivityManager
+import android.util.Log
 import android.widget.*
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.greencity.Constants
+import android.content.DialogInterface
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import androidx.appcompat.app.AlertDialog
 
 
 class MainActivity : AppCompatActivity() {
@@ -45,6 +52,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(com.example.greencity.R.layout.activity_main)
 
+        val cm = baseContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+        val networkInfo  =  cm.activeNetworkInfo
+
+
+
         val sharedPreferences = getSharedPreferences("SP_INFO", Context.MODE_PRIVATE)
 
         this.emailAccedi = findViewById(com.example.greencity.R.id.email_user)
@@ -57,113 +70,140 @@ class MainActivity : AppCompatActivity() {
         //Edit shared  preferences (per inserire i dati da ricordare)
         val editor = sharedPreferences.edit()
 
-
-        saveLogin = sharedPreferences.getBoolean("SAVELOGIN",false)
-        if(saveLogin == true) {
-            val iLogin = Intent(this, SplashGreenCity::class.java)
-            iLogin.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or
-                    Intent.FLAG_ACTIVITY_NEW_TASK)
-
-
-            startActivity(iLogin)
-            finish() // finish the current activity
-            //Toast.makeText(applicationContext,sharedPreferences.getString("EMAIL",""),Toast.LENGTH_LONG).show()
-        }
+        if(networkInfo != null && networkInfo.isConnected) {
+            saveLogin = sharedPreferences.getBoolean("SAVELOGIN", false)
+            if (saveLogin == true) {
+                val iLogin = Intent(this, SplashGreenCity::class.java)
+                iLogin.addFlags(
+                    Intent.FLAG_ACTIVITY_CLEAR_TOP or
+                            Intent.FLAG_ACTIVITY_NEW_TASK
+                )
 
 
+                startActivity(iLogin)
+                finish() // finish the current activity
+                //Toast.makeText(applicationContext,sharedPreferences.getString("EMAIL",""),Toast.LENGTH_LONG).show()
+            }
 
-        textSignIn?.setOnClickListener {
-            var list: ArrayList<Regioni?> = ArrayList()
-            DBFirebase.getDbFirebase().databaseReference.addValueEventListener(object :
-                ValueEventListener {
-                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    val snapshotIterator = dataSnapshot.child("regioni").children
-                    val iterator = snapshotIterator.iterator()
-                    while (iterator.hasNext()) {
-                        var nextIt = iterator.next()
-                        var reg: Regioni? = nextIt.getValue(Regioni::class.java)
-                        list.add(reg)
+
+
+            textSignIn?.setOnClickListener {
+                var list: ArrayList<Regioni?> = ArrayList()
+                DBFirebase.getDbFirebase().databaseReference.addValueEventListener(object :
+                    ValueEventListener {
+                    override fun onDataChange(dataSnapshot: DataSnapshot) {
+                        val snapshotIterator = dataSnapshot.child("regioni").children
+                        val iterator = snapshotIterator.iterator()
+                        while (iterator.hasNext()) {
+                            var nextIt = iterator.next()
+                            var reg: Regioni? = nextIt.getValue(Regioni::class.java)
+                            list.add(reg)
+                        }
+                        val informazioniGenerali = InformazioniGenerali.getInformazioniGenerali()
+                        informazioniGenerali.regioni = list
+                        val iSignin = Intent(baseContext, SignIn::class.java)
+                        startActivity(iSignin)
                     }
-                    val informazioniGenerali = InformazioniGenerali.getInformazioniGenerali()
-                    informazioniGenerali.regioni = list
-                    val iSignin = Intent(baseContext, SignIn::class.java)
-                    startActivity(iSignin)
-                }
 
-                override fun onCancelled(databaseError: DatabaseError) {}
-            })
+                    override fun onCancelled(databaseError: DatabaseError) {}
+                })
 
-        }
+            }
 
 
 
 
 
-        btnLogin?.setOnClickListener {
+            btnLogin?.setOnClickListener {
 
-            DBFirebase.getDbFirebase().databaseReference.addValueEventListener(object :
-                ValueEventListener {
-                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    val snapshotIterator = dataSnapshot.child("users").children
-                    val iterator = snapshotIterator.iterator()
-                    var countChildren : Long = 0
-                    while (iterator.hasNext()) {
-                        var nextIt = iterator.next()
-                        countChildren++
-                        var users: Utente? = nextIt.getValue(Utente::class.java)
-                        var keyUser: String? = nextIt.key
+                DBFirebase.getDbFirebase().databaseReference.addValueEventListener(object :
+                    ValueEventListener {
+                    override fun onDataChange(dataSnapshot: DataSnapshot) {
+                        val snapshotIterator = dataSnapshot.child("users").children
+                        val iterator = snapshotIterator.iterator()
+                        var countChildren: Long = 0
+                        while (iterator.hasNext()) {
+                            var nextIt = iterator.next()
+                            countChildren++
+                            var users: Utente? = nextIt.getValue(Utente::class.java)
+                            var keyUser: String? = nextIt.key
 
-                        var emailEdit: String = emailAccedi?.text.toString()
-                        var passwordEdit = passwordAccedi?.text.toString()
-                        //VERIFICO CHE IL LOGIN E' STATO EFFETTUATO CORRETTAMENTE
-                        if(emailEdit?.trim().length>0 || passwordEdit?.trim().length>0){
-                            if(users?.email  == emailEdit.trim() && users?.password == passwordEdit.trim() ){
-                                if(saveloginCheckbox?.isChecked!!){
-                                    var keyAdmin: String? = users?.isAdmin
-                                    val isRic = saveloginCheckbox?.isChecked!!
-                                    //inserire i dati nelle shared preferences
-                                    editor.putString("EMAIL",emailEdit?.trim())
-                                    editor.putString("PASSWORD",passwordEdit?.trim())
-                                    editor.putBoolean("SAVELOGIN",isRic)
-                                    editor.putString("IDUSER",keyUser)
-                                    if (keyAdmin != null) {
-                                        editor.putString("ADMIN",keyAdmin)
+                            var emailEdit: String = emailAccedi?.text.toString()
+                            var passwordEdit = passwordAccedi?.text.toString()
+                            //VERIFICO CHE IL LOGIN E' STATO EFFETTUATO CORRETTAMENTE
+                            if (emailEdit?.trim().length > 0 || passwordEdit?.trim().length > 0) {
+                                if (users?.email == emailEdit.trim() && users?.password == passwordEdit.trim()) {
+                                    if (saveloginCheckbox?.isChecked!!) {
+                                        var keyAdmin: String? = users?.isAdmin
+                                        val isRic = saveloginCheckbox?.isChecked!!
+                                        //inserire i dati nelle shared preferences
+                                        editor.putString("EMAIL", emailEdit?.trim())
+                                        editor.putString("PASSWORD", passwordEdit?.trim())
+                                        editor.putBoolean("SAVELOGIN", isRic)
+                                        editor.putString("IDUSER", keyUser)
+                                        if (keyAdmin != null) {
+                                            editor.putString("ADMIN", keyAdmin)
+                                        }
+                                        editor.commit()
                                     }
-                                    editor.commit()
-                                }
 
                                     InformazioniGenerali.getInformazioniGenerali().user = users
-                                    if(keyUser != null){
-                                    InformazioniGenerali.getInformazioniGenerali().idUs = keyUser
+                                    if (keyUser != null) {
+                                        InformazioniGenerali.getInformazioniGenerali().idUs =
+                                            keyUser
                                     }
                                     val iLogin = Intent(this, SplashGreenCity::class.java)
-                                    iLogin?.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or
-                                        Intent.FLAG_ACTIVITY_NEW_TASK)
+                                    iLogin?.addFlags(
+                                        Intent.FLAG_ACTIVITY_CLEAR_TOP or
+                                                Intent.FLAG_ACTIVITY_NEW_TASK
+                                    )
                                     startActivity(iLogin)
                                     finish()
                                     break
 
 
-
-                            }
-                            else{
-                                if(dataSnapshot.child("users").childrenCount == countChildren){
-                                    Toast.makeText(applicationContext,"Email o password non corrette",Toast.LENGTH_LONG).show()
+                                } else {
+                                    if (dataSnapshot.child("users").childrenCount == countChildren) {
+                                        Toast.makeText(
+                                            applicationContext,
+                                            "Email o password non corrette",
+                                            Toast.LENGTH_LONG
+                                        ).show()
+                                    }
                                 }
+                            } else {
+                                Toast.makeText(
+                                    applicationContext,
+                                    "Email e password obbligatori",
+                                    Toast.LENGTH_LONG
+                                ).show()
                             }
                         }
-                        else{
-                            Toast.makeText(applicationContext,"Email e password obbligatori",Toast.LENGTH_LONG).show()
-                        }
+
                     }
 
-                }
-                override fun onCancelled(databaseError: DatabaseError) {}
+                    override fun onCancelled(databaseError: DatabaseError) {}
+                })
+
+
+            }
+        }else{
+            buildDialog(this).show()
+        }
+    }
+
+    fun buildDialog(c: Context): AlertDialog.Builder {
+
+        val builder = AlertDialog.Builder(c)
+        builder.setTitle("Nessuna connessione ad Internet trovata")
+        builder.setMessage("Per utilizzare l'app hai bisogno di una connessione mobile o wifi. Premi OK per uscire")
+
+        builder.setPositiveButton("Ok",
+            DialogInterface.OnClickListener { dialog, which ->
+                finish()
             })
 
-
-
-        }
+        return builder
     }
 
     private fun checkLocationPemission() {

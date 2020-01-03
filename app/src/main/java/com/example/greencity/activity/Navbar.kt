@@ -3,12 +3,15 @@ package com.example.greencity.activity
 import android.app.ActivityManager
 import android.app.PendingIntent.getActivity
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.util.AttributeSet
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.greencity.DBFirebase
@@ -33,6 +36,7 @@ class Navbar : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_navbar)
+
 
         initBar()
     }
@@ -190,8 +194,25 @@ class Navbar : AppCompatActivity() {
         transaction.commit()
     }
 
+    fun buildDialog(c: Context): AlertDialog.Builder {
+
+        val builder = AlertDialog.Builder(c)
+        builder.setTitle("Nessuna connessione ad Internet trovata")
+        builder.setMessage("Per utilizzare l'app hai bisogno di una connessione mobile o wifi. Premi OK per uscire")
+
+        builder.setPositiveButton("Ok",
+            DialogInterface.OnClickListener { dialog, which -> finish() })
+
+        return builder
+    }
+
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
+        val cm = baseContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+        val networkInfo  =  cm.activeNetworkInfo
+
+        if(networkInfo != null && networkInfo.isConnected) {
         when (item.itemId) {
             R.id.home -> {
                 if (!bottomNav?.menu?.getItem(0)?.isChecked()!!)
@@ -218,6 +239,9 @@ class Navbar : AppCompatActivity() {
                     loadFragment(ReportAdmin())
                 return@OnNavigationItemSelectedListener true
             }
+        }
+        }else{
+            buildDialog(this).show()
         }
         return@OnNavigationItemSelectedListener false
     }

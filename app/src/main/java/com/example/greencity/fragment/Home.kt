@@ -48,6 +48,8 @@ class Home : Fragment() {
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val sharedPreferences = context?.getSharedPreferences("SP_INFO", Context.MODE_PRIVATE)
@@ -167,9 +169,8 @@ class Home : Fragment() {
             editor2?.commit()
             val iLogin = Intent (context, MainActivity::class.java)
             iLogin.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP )
+            activity?.finish()
             startActivity(iLogin)
-
-
         }
 
     }

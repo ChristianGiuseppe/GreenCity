@@ -16,9 +16,11 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
-
+        <activity
+                android:name=".activity.Pie_Activity"
+                android:label="@string/title_activity_pie_"
+                android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".CustomDialog" />
-
         <activity
                 android:name=".activity.MainActivity"
                 android:launchMode="singleInstance">
@@ -28,19 +30,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
                 android:name=".activity.SplashGreenCity"
                 android:launchMode="singleInstance" />
-
         <activity
                 android:name=".activity.Navbar"
                 android:launchMode="singleInstance" />
-
         <activity
-                android:launchMode="singleInstance"
                 android:name=".activity.SignIn"
                 android:label="@string/title_activity_sign_in"
+                android:launchMode="singleInstance"
                 android:theme="@style/AppTheme.NoActionBar" />
 
         <meta-data
