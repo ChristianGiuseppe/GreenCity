@@ -93,7 +93,7 @@ class Home : Fragment() {
                             var marker: Markers? = nextIt.getValue(Markers::class.java)
                             var reportsState = marker?.stato
                             if(reportsState != ""){
-                                if(reportsState == "In Attesa"){
+                                if (reportsState == "WAIT") {
                                     countAttes ++
                                     inAttesaTextCountReports?.text = countAttes.toString()
                                 }
@@ -106,7 +106,7 @@ class Home : Fragment() {
                                     inRifiutoCountText?.text = countRifiuto.toString()
                                 }
                             }
-                            InformazioniGenerali.getInformazioniGenerali().markers = listOf(marker)
+                            //  InformazioniGenerali.getInformazioniGenerali().markers = arrayListOf(marker)
                         }
                     }
                 }
@@ -146,7 +146,7 @@ class Home : Fragment() {
                                     inRifiutoCountText?.text = countRifiuto.toString()
                                 }
                             }
-                            InformazioniGenerali.getInformazioniGenerali().markers = listOf(marker)
+                            //       InformazioniGenerali.getInformazioniGenerali().markers = arrayListOf(marker)
                         }
                     }
                 }

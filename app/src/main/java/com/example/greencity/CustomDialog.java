@@ -8,18 +8,15 @@ import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 
-import com.example.greencity.fragment.MapsUser;
 import com.example.greencity.pojo.InformazioniGenerali;
 import com.example.greencity.pojo.Markers;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
-import java.util.Map;
 
 public class CustomDialog extends Dialog {
     private Button btnConferma;
@@ -42,15 +39,17 @@ public class CustomDialog extends Dialog {
         btnConferma = findViewById(R.id.buttonConferma);
         btnCancella = findViewById(R.id.buttonCancella);
         String idUser = InformazioniGenerali.getInformazioniGenerali().getIdUs();
+        TextView titoloText = (TextView) findViewById(R.id.title_markers);
+        TextView descrizioneText = (TextView) findViewById(R.id.description_problem);
         btnConferma.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Date currentTime = Calendar.getInstance().getTime();
                 if (isNetworkConnected()) {
                     //Passare l oggetto Marker che viene creato dalla Dialog
-                    Markers m = new Markers("titolo", "", "", "arancione", "", lat, longi, "In Attesa", currentTime.toString());
+                    Markers m = new Markers(titoloText.getText().toString(), descrizioneText.getText().toString(), "arancione", lat, longi, "WAIT", currentTime.toString());
                     if (idUsSP == null || idUsSP == "") {
-                        DBFirebase.getDbFirebase().getDatabaseReference().child("users").child(idUser).push().setValue(m);
+                        DBFirebase.getDbFirebase().getDatabaseReference().child("users").child(idUser).child("lista_report").push().setValue(m);
 
                     } else {
                         DBFirebase.getDbFirebase().getDatabaseReference().child("users").child(idUsSP).push().setValue(m);

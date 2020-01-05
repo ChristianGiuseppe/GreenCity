@@ -9,7 +9,7 @@ public class InformazioniGenerali {
     private Utente user = null;
     private String idUs = null;
     private List<Regioni> regioni;
-    private List<Markers> markers;
+    private ArrayList<Markers> markers;
 
     public InformazioniGenerali() {
         regioni = new ArrayList<>();
@@ -55,11 +55,11 @@ public class InformazioniGenerali {
         this.regioni = regioni;
     }
 
-    public List<Markers> getMarkers() {
+    public ArrayList<Markers> getMarkers() {
         return markers;
     }
 
-    public void setMarkers(List<Markers> markers) {
+    public void setMarkers(ArrayList<Markers> markers) {
         this.markers = markers;
     }
 

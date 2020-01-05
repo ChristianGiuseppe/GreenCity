@@ -9,15 +9,12 @@ import android.content.SharedPreferences
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
-import android.net.ConnectivityManager
 import android.os.Bundle
 import android.provider.Settings
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
-import android.widget.Button
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import com.example.greencity.CustomDialog
@@ -85,7 +82,9 @@ class MapsUser : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener
             ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 if(InformazioniGenerali.getInformazioniGenerali().idUs != null){
-                    val snapshotIterator = dataSnapshot.child("users").child(InformazioniGenerali.getInformazioniGenerali().idUs).children
+                    val snapshotIterator = dataSnapshot.child("users")
+                        .child(InformazioniGenerali.getInformazioniGenerali().idUs)
+                        .child("lista_report").children
                     val iterator = snapshotIterator.iterator()
                     while (iterator.hasNext()) {
                         var isValid = false

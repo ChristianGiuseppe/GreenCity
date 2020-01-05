@@ -18,11 +18,11 @@ import com.example.greencity.pojo.Markers;
 import java.util.List;
 import java.util.Objects;
 
-public class MarkersAdapter extends ArrayAdapter<Markers> {
+public class MarkersUserAdapter extends ArrayAdapter<Markers> {
 
     private List<Markers> markersList;
 
-    public MarkersAdapter(@NonNull Context context, int resource, @NonNull List<Markers> objects) {
+    public MarkersUserAdapter(@NonNull Context context, int resource, @NonNull List<Markers> objects) {
         super(context, resource, objects);
         markersList = objects;
     }
