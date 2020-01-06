@@ -1,10 +1,13 @@
 package com.example.greencity.activity
 
+import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.greencity.Adapters.SpinAdapterComune
 import com.example.greencity.Adapters.SpinAdapterRegione
@@ -61,6 +64,10 @@ class SignIn : AppCompatActivity() {
                     this.spinnerComuni?.selectedItem.toString()
                 )
 
+
+
+
+
             }
         }
     }
@@ -73,10 +80,25 @@ class SignIn : AppCompatActivity() {
         regione: String,
         capoluogo: String
     ) {
+        buildDialog(this).show()
         val user = Utente(nome,cognome,email,password,regione,capoluogo,"false")
         DBFirebase.getDbFirebase().signIn(user)
-
 }
+
+    fun buildDialog(c: Context): AlertDialog.Builder {
+
+        val builder = AlertDialog.Builder(c)
+        builder.setTitle("Registrazione avvenuta con successo")
+        builder.setMessage("Premi OK per tornare alla home")
+
+        builder.setPositiveButton("Ok",
+            DialogInterface.OnClickListener { dialog, which ->
+                finish()
+            })
+
+        return builder
+    }
+
 
 
     private fun isValidPassword(password: String?): Boolean {
@@ -117,7 +139,7 @@ class SignIn : AppCompatActivity() {
             return false
         } else {
             if (isEmailValid(emailSignIn?.text.toString())) {
-                Toast.makeText(this, "Valid Email", Toast.LENGTH_LONG).show()
+                //Toast.makeText(this, "Valid Email", Toast.LENGTH_LONG).show()
                 emailSignIn?.error = null
                 return true
             } else {
