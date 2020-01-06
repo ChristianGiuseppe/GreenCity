@@ -1,5 +1,6 @@
 package com.example.greencity.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -59,6 +60,7 @@ class SignIn : AppCompatActivity() {
                     this.spinnerRegioni?.selectedItem.toString(),
                     this.spinnerComuni?.selectedItem.toString()
                 )
+
             }
         }
     }
@@ -71,10 +73,10 @@ class SignIn : AppCompatActivity() {
         regione: String,
         capoluogo: String
     ) {
-        val user = Utente(nome, cognome, email, password, regione, capoluogo,"false")
+        val user = Utente(nome,cognome,email,password,regione,capoluogo,"false")
         DBFirebase.getDbFirebase().signIn(user)
-        finish()
-    }
+
+}
 
 
     private fun isValidPassword(password: String?): Boolean {

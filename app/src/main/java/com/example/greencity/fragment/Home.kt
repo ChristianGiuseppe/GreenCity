@@ -57,102 +57,54 @@ class Home : Fragment() {
         val idUsSP = sharedPreferences?.getString("IDUSER","").toString()
         val editor = sharedPreferences?.edit()
         val editor2 = sharedPreferences2?.edit()
+        var idKey = InformazioniGenerali.getInformazioniGenerali().idUs
         inAttesaTextCountReports =  view.findViewById(R.id.inAttesaCountText)
         ConfermatoTextCountReports = view.findViewById(R.id.inConfermaCountText)
         RifiutatoTextCountReports = view.findViewById(R.id.inRifiutoCountText)
         var countAttes = 0
         var countRifiuto = 0
         var countConferma = 0
-        DBFirebase.getDbFirebase().databaseReference.addValueEventListener(object :
-            ValueEventListener {
+        var listMarkers: ArrayList<Markers> = ArrayList()
+        val reportsListener: ValueEventListener = object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
 
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                if(InformazioniGenerali.getInformazioniGenerali().idUs != null){
-                    val snapshotIterator = dataSnapshot.child("users").child(InformazioniGenerali.getInformazioniGenerali().idUs).children
-                    val iterator = snapshotIterator.iterator()
-                    while (iterator.hasNext()) {
-                        var isValid = false
-                        var nextIt = iterator.next()
-                        var finishMarkCognome = nextIt.key?.equals("cognome")
-                        var finishMarkNome = nextIt.key?.equals("nome")
-                        var finishMarkEmail = nextIt.key?.equals("email")
-                        var finishMarkPassword = nextIt.key?.equals("password")
-                        var finishMarkAdmin =  nextIt.key?.equals("admin")
-                        var finishMarkCapoluogo =  nextIt.key?.equals("capoluogo")
-                        var finishMarkRegione =  nextIt.key?.equals("regione")
-
-                        if(finishMarkCognome == true || finishMarkCapoluogo ==  true || finishMarkRegione == true  || finishMarkNome == true || finishMarkEmail == true || finishMarkPassword == true || finishMarkAdmin == true){
-                            isValid = true
-                        }
-
-
-                        if(isValid == false){
-                            var marker: Markers? = nextIt.getValue(Markers::class.java)
-                            var reportsState = marker?.stato
-                            if(reportsState != ""){
-                                if (reportsState == "WAIT") {
-                                    countAttes ++
-                                    inAttesaTextCountReports?.text = countAttes.toString()
-                                }
-                                else if(reportsState == "Confermato"){
-                                    countConferma ++
-                                    inConfermaCountText?.text = countConferma.toString()
-                                }
-                                else if(reportsState == "Rifutato"){
-                                    countRifiuto ++
-                                    inRifiutoCountText?.text = countRifiuto.toString()
-                                }
+                    for (reportSnapshot in dataSnapshot.getChildren()) {
+                        var mark: Markers = reportSnapshot.getValue(Markers::class.java)!!
+                        if(mark.stato != null  && mark.stato != ""){
+                            if(mark.stato.equals("WAIT")){
+                                countAttes ++
+                                inAttesaTextCountReports?.text = countAttes.toString()
                             }
-                            //  InformazioniGenerali.getInformazioniGenerali().markers = arrayListOf(marker)
+                            else if(mark.stato.equals( "Confermato")){
+                                countConferma ++
+                                inConfermaCountText?.text = countConferma.toString()
+                            }
+                            else if(mark.stato.equals( "Rifutato")){
+                                countRifiuto ++
+                                inRifiutoCountText?.text = countRifiuto.toString()
+                            }
                         }
                     }
-                }
-                else{
-                    val snapshotIterator = dataSnapshot.child("users").child(idUsSP.toString()).children
-                    val iterator = snapshotIterator.iterator()
-                    while (iterator.hasNext()) {
-                        var isValid = false
-                        var nextIt = iterator.next()
-                        var finishMarkCognome = nextIt.key?.equals("cognome")
-                        var finishMarkNome = nextIt.key?.equals("nome")
-                        var finishMarkEmail = nextIt.key?.equals("email")
-                        var finishMarkPassword = nextIt.key?.equals("password")
-                        var finishMarkAdmin =  nextIt.key?.equals("admin")
-                        var finishMarkCapoluogo =  nextIt.key?.equals("capoluogo")
-                        var finishMarkRegione =  nextIt.key?.equals("regione")
-
-                        if(finishMarkCognome == true || finishMarkCapoluogo ==  true || finishMarkRegione == true  || finishMarkNome == true || finishMarkEmail == true || finishMarkPassword == true || finishMarkAdmin == true){
-                            isValid = true
-                        }
-
-
-                        if(isValid == false){
-                            var marker: Markers? = nextIt.getValue(Markers::class.java)
-                            var reportsState = marker?.stato
-                            if(reportsState != ""){
-                                if(reportsState == "In Attesa"){
-                                    countAttes ++
-                                    inAttesaTextCountReports?.text = countAttes.toString()
-                                }
-                                else if(reportsState == "Confermato"){
-                                    countConferma ++
-                                    inConfermaCountText?.text = countConferma.toString()
-                                }
-                                else if(reportsState == "Rifutato"){
-                                    countRifiuto ++
-                                    inRifiutoCountText?.text = countRifiuto.toString()
-                                }
-                            }
-                            //       InformazioniGenerali.getInformazioniGenerali().markers = arrayListOf(marker)
-                        }
-                    }
-                }
             }
 
-        })
+        }
+
+        if( idKey != null){
+
+            DBFirebase.getDbFirebase().databaseReference.child("users").child(idKey)
+                .child("lista_report").addValueEventListener(reportsListener)
+            DBFirebase.getDbFirebase().databaseReference.removeEventListener(reportsListener)
+
+        }else{
+
+            DBFirebase.getDbFirebase().databaseReference.child("users").child(idUsSP)
+                .child("lista_report").addValueEventListener(reportsListener)
+            DBFirebase.getDbFirebase().databaseReference.removeEventListener(reportsListener)
+
+        }
         var textWelcomeSP = sharedPreferences?.getString("WELCOMEUSER","").toString()
 
         textWelcomeUser =  view.findViewById(R.id.textViewWelcomeUs)

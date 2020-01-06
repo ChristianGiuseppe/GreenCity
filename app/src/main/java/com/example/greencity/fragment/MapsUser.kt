@@ -57,6 +57,8 @@ class MapsUser : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener
     }
 
 
+
+
     /**
      * @callback onMapReady: viene invocata nel momento in cui la mappa può' essere visualizzata
      * in questo caso nel momento in cui è pronta vengono settati i paramentri necessari
@@ -96,8 +98,9 @@ class MapsUser : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener
                         var finishMarkAdmin =  nextIt.key?.equals("admin")
                         var finishMarkCapoluogo =  nextIt.key?.equals("capoluogo")
                         var finishMarkRegione =  nextIt.key?.equals("regione")
+                        var finishMarklista_report = nextIt.key?.equals("lista_report")
 
-                        if(finishMarkCognome == true || finishMarkCapoluogo ==  true || finishMarkRegione == true  || finishMarkNome == true || finishMarkEmail == true || finishMarkPassword == true || finishMarkAdmin == true){
+                        if(finishMarkCognome == true || finishMarklista_report ==  true || finishMarkCapoluogo ==  true || finishMarkRegione == true  || finishMarkNome == true || finishMarkEmail == true || finishMarkPassword == true || finishMarkAdmin == true){
                             isValid = true
                         }
 
@@ -127,8 +130,9 @@ class MapsUser : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener
                         var finishMarkAdmin =  nextIt.key?.equals("admin")
                         var finishMarkCapoluogo =  nextIt.key?.equals("capoluogo")
                         var finishMarkRegione =  nextIt.key?.equals("regione")
+                        var finishMarklista_report = nextIt.key?.equals("lista_report")
 
-                        if(finishMarkCognome == true || finishMarkCapoluogo ==  true || finishMarkRegione == true  || finishMarkNome == true || finishMarkEmail == true || finishMarkPassword == true || finishMarkAdmin == true){
+                        if(finishMarkCognome == true || finishMarklista_report == true || finishMarkCapoluogo ==  true || finishMarkRegione == true  || finishMarkNome == true || finishMarkEmail == true || finishMarkPassword == true || finishMarkAdmin == true){
                             isValid = true
                         }
 

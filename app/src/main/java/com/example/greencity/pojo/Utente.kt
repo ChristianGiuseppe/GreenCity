@@ -17,8 +17,8 @@ class Utente {
 
     constructor(
         nome: String?,
-        email: String?,
         cognome: String?,
+        email: String?,
         password: String?,
         regione: String?,
         capoluogo: String?,
