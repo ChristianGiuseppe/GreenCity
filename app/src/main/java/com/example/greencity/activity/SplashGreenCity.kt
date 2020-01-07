@@ -17,6 +17,7 @@ import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.util.Log
+import com.google.firebase.database.FirebaseDatabase
 
 
 class SplashGreenCity : AppCompatActivity() {
@@ -26,9 +27,63 @@ class SplashGreenCity : AppCompatActivity() {
         setContentView(com.example.greencity.R.layout.activity_splash_green_city)
             val iLogin = Intent(this, Navbar::class.java)
             var listMarkers: ArrayList<Markers> = ArrayList()
+            var list_done: ArrayList<Markers> = ArrayList()
+            var list_reject: ArrayList<Markers> = ArrayList()
+            var list_wait: ArrayList<Markers> = ArrayList()
             var idKey = InformazioniGenerali.getInformazioniGenerali().idUs
             val sharedPreferences = getSharedPreferences("SP_INFO", Context.MODE_PRIVATE)
             val idUsSP = sharedPreferences?.getString("IDUSER","").toString()
+
+
+            // CICLO LISTA WAITING
+            val reportsListenerWaiting: ValueEventListener = object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) { // Get Post object and use the values to update the UI
+                for (reportSnapshot in dataSnapshot.getChildren()) {
+                    var rep_wait: Markers = reportSnapshot.getValue(Markers::class.java)!!
+                    list_wait.add(rep_wait)
+                    }
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) { // Getting Post failed, log a message
+
+                }
+            }
+            DBFirebase.getDbFirebase().databaseReference.child("lista_wait").addValueEventListener(reportsListenerWaiting)
+
+        // CICLO LISTA DONE
+        val reportsListenerDone: ValueEventListener = object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) { // Get Post object and use the values to update the UI
+                for (reportSnapshot in dataSnapshot.getChildren()) {
+                    var rep_done: Markers = reportSnapshot.getValue(Markers::class.java)!!
+                    list_done.add(rep_done)
+                }
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) { // Getting Post failed, log a message
+
+            }
+        }
+        DBFirebase.getDbFirebase().databaseReference.child("lista_done").addValueEventListener(reportsListenerDone)
+
+
+        // CICLO LISTA REJECT
+        val reportsListenerReject: ValueEventListener = object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) { // Get Post object and use the values to update the UI
+                for (reportSnapshot in dataSnapshot.getChildren()) {
+                    var rep_reject: Markers = reportSnapshot.getValue(Markers::class.java)!!
+                    list_reject.add(rep_reject)
+                }
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) { // Getting Post failed, log a message
+
+            }
+        }
+        DBFirebase.getDbFirebase().databaseReference.child("lista_reject").addValueEventListener(reportsListenerReject)
+
+
+
+
 
             val reportsListener: ValueEventListener = object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) { // Get Post object and use the values to update the UI
