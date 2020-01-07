@@ -1,10 +1,8 @@
 package com.example.greencity;
 
 import android.app.Dialog;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
@@ -13,10 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
-import com.example.greencity.fragment.MapsUser;
 import com.example.greencity.pojo.InformazioniGenerali;
 import com.example.greencity.pojo.Markers;
 
@@ -52,11 +47,11 @@ public class CustomDialog extends Dialog {
                 Date currentTime = Calendar.getInstance().getTime();
                 if (isNetworkConnected()) {
                     //Passare l oggetto Marker che viene creato dalla Dialog
-                    Markers m = new Markers(titoloText.getText().toString(), descrizioneText.getText().toString(), "arancione", lat, longi, "WAIT", currentTime.toString());
+                    Markers m = new Markers(idUser, titoloText.getText().toString(), descrizioneText.getText().toString(), lat, longi, "WAIT", currentTime.toString());
                     if (idUsSP == null || idUsSP == "") {
-                        DBFirebase.getDbFirebase().getDatabaseReference().child("users").child(idUser).child("lista_report").push().setValue(m);
+                        DBFirebase.getDbFirebase().getDatabaseReference().child("lista_wait").push().setValue(m);
                     } else {
-                        DBFirebase.getDbFirebase().getDatabaseReference().child("users").child(idUsSP).child("lista_report").push().setValue(m);
+                        DBFirebase.getDbFirebase().getDatabaseReference().child("lista_wait").push().setValue(m);
 
                     }
                     dismiss();
