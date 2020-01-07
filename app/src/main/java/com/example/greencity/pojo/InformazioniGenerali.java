@@ -10,10 +10,18 @@ public class InformazioniGenerali {
     private String idUs = null;
     private List<Regioni> regioni;
     private ArrayList<Markers> markers;
+    private ArrayList<Markers> listaDone;
+    private ArrayList<Markers> listaWait;
+    private ArrayList<Markers> listaReject;
+
+
 
     public InformazioniGenerali() {
         regioni = new ArrayList<>();
         markers = new ArrayList<>();
+        listaWait = new ArrayList<>();
+        listaDone = new ArrayList<>();
+        listaReject = new ArrayList<>();
         request_gps = false;
     }
 
@@ -60,7 +68,32 @@ public class InformazioniGenerali {
     }
 
     public void setMarkers(ArrayList<Markers> markers) {
+
         this.markers = markers;
+    }
+
+    public ArrayList<Markers> getListaDone() {
+        return listaDone;
+    }
+
+    public void setListaDone(ArrayList<Markers> listaDone) {
+        this.listaDone = listaDone;
+    }
+
+    public ArrayList<Markers> getListaWait() {
+        return listaWait;
+    }
+
+    public void setListaWait(ArrayList<Markers> listaWait) {
+        this.listaWait = listaWait;
+    }
+
+    public ArrayList<Markers> getListaReject() {
+        return listaReject;
+    }
+
+    public void setListaReject(ArrayList<Markers> listaReject) {
+        this.listaReject = listaReject;
     }
 
 

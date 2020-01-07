@@ -41,6 +41,7 @@ class SplashGreenCity : AppCompatActivity() {
                 for (reportSnapshot in dataSnapshot.getChildren()) {
                     var rep_wait: Markers = reportSnapshot.getValue(Markers::class.java)!!
                     list_wait.add(rep_wait)
+                    InformazioniGenerali.getInformazioniGenerali().listaWait = list_wait
                     }
                 }
 
@@ -56,6 +57,7 @@ class SplashGreenCity : AppCompatActivity() {
                 for (reportSnapshot in dataSnapshot.getChildren()) {
                     var rep_done: Markers = reportSnapshot.getValue(Markers::class.java)!!
                     list_done.add(rep_done)
+                    InformazioniGenerali.getInformazioniGenerali().listaDone = list_done
                 }
             }
 
@@ -72,6 +74,7 @@ class SplashGreenCity : AppCompatActivity() {
                 for (reportSnapshot in dataSnapshot.getChildren()) {
                     var rep_reject: Markers = reportSnapshot.getValue(Markers::class.java)!!
                     list_reject.add(rep_reject)
+                    InformazioniGenerali.getInformazioniGenerali().listaReject = list_reject
                 }
             }
 

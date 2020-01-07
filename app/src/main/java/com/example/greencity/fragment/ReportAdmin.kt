@@ -7,9 +7,11 @@ import android.view.ViewGroup
 import android.widget.ListView
 import androidx.fragment.app.Fragment
 import com.example.greencity.Adapters.MarkersUserAdapter
+import com.example.greencity.DBFirebase
 import com.example.greencity.R
 import com.example.greencity.pojo.InformazioniGenerali
 import com.example.greencity.pojo.Markers
+import com.google.firebase.database.FirebaseDatabase
 
 class ReportAdmin : Fragment() {
 
@@ -20,8 +22,11 @@ class ReportAdmin : Fragment() {
     //private var listaReportUserTemp: List<Markers> ?= null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        listaReportUser = InformazioniGenerali.getInformazioniGenerali()
-            .markers.filter { markers -> markers.stato.equals("WAIT") }
+
+
+        listaReportUser = InformazioniGenerali.getInformazioniGenerali().listaWait
+
+
     }
 
     override fun onCreateView(
