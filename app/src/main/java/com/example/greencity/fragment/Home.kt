@@ -14,16 +14,12 @@ import com.example.greencity.R
 import com.example.greencity.activity.MainActivity
 import com.example.greencity.pojo.InformazioniGenerali
 import com.example.greencity.pojo.Markers
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.ValueEventListener
-import kotlinx.android.synthetic.main.fragment_home.*
 
 class Home : Fragment() {
     private var textWelcomeUser: TextView? = null
     private var inAttesaTextCountReports: TextView? = null
-    private var ConfermatoTextCountReports: TextView? = null
-    private var RifiutatoTextCountReports: TextView? = null
+    private var confermatoTextCountReports: TextView? = null
+    private var rifiutatoTextCountReports: TextView? = null
     private var logOutImg : ImageView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,59 +48,27 @@ class Home : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val sharedPreferences = context?.getSharedPreferences("SP_INFO", Context.MODE_PRIVATE)
-        val sharedPreferences2 = context?.getSharedPreferences("SP_INFO2", Context.MODE_PRIVATE)
-        val idUsSP = sharedPreferences?.getString("IDUSER","").toString()
-        val editor = sharedPreferences?.edit()
-        val editor2 = sharedPreferences2?.edit()
         var idKey = InformazioniGenerali.getInformazioniGenerali().idUs
         inAttesaTextCountReports =  view.findViewById(R.id.inAttesaCountText)
-        ConfermatoTextCountReports = view.findViewById(R.id.inConfermaCountText)
-        RifiutatoTextCountReports = view.findViewById(R.id.inRifiutoCountText)
-        var countAttes = 0
-        var countRifiuto = 0
-        var countConferma = 0
-        var listMarkers: ArrayList<Markers> = ArrayList()
-        val reportsListener: ValueEventListener = object : ValueEventListener {
-            override fun onCancelled(p0: DatabaseError) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
+        confermatoTextCountReports = view.findViewById(R.id.inConfermaCountText)
+        rifiutatoTextCountReports = view.findViewById(R.id.inRifiutoCountText)
 
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    for (reportSnapshot in dataSnapshot.getChildren()) {
-                        var mark: Markers = reportSnapshot.getValue(Markers::class.java)!!
-                        if(mark.stato != null  && mark.stato != ""){
-                            if(mark.stato.equals("WAIT")){
-                                countAttes ++
-                                inAttesaTextCountReports?.text = countAttes.toString()
-                            }
-                            else if(mark.stato.equals( "Confermato")){
-                                countConferma ++
-                                inConfermaCountText?.text = countConferma.toString()
-                            }
-                            else if(mark.stato.equals( "Rifutato")){
-                                countRifiuto ++
-                                inRifiutoCountText?.text = countRifiuto.toString()
-                            }
-                        }
-                    }
-            }
+        val sharedPreferences = context?.getSharedPreferences("SP_INFO", Context.MODE_PRIVATE)
+        val editor = sharedPreferences?.edit()
 
-        }
 
-        if( idKey != null){
+        var listaWait: ArrayList<Markers> = ArrayList()
+        var listaDone: ArrayList<Markers> = ArrayList()
+        var listaReject: ArrayList<Markers> = ArrayList()
 
-            DBFirebase.getDbFirebase().databaseReference.child("users").child(idKey)
-                .child("lista_report").addValueEventListener(reportsListener)
-            DBFirebase.getDbFirebase().databaseReference.removeEventListener(reportsListener)
+        listaWait = InformazioniGenerali.getInformazioniGenerali().listaWait
+        listaDone = InformazioniGenerali.getInformazioniGenerali().listaDone
+        listaReject = InformazioniGenerali.getInformazioniGenerali().listaReject
 
-        }else{
+        inAttesaTextCountReports?.text = listaWait.size.toString()
+        confermatoTextCountReports?.text = listaDone.size.toString()
+        rifiutatoTextCountReports?.text = listaReject.size.toString()
 
-            DBFirebase.getDbFirebase().databaseReference.child("users").child(idUsSP)
-                .child("lista_report").addValueEventListener(reportsListener)
-            DBFirebase.getDbFirebase().databaseReference.removeEventListener(reportsListener)
-
-        }
         var textWelcomeSP = sharedPreferences?.getString("WELCOMEUSER","").toString()
 
         textWelcomeUser =  view.findViewById(R.id.textViewWelcomeUs)
@@ -117,8 +81,6 @@ class Home : Fragment() {
             DBFirebase.setDbFirebaseNull()
             editor?.clear()
             editor?.commit()
-            editor2?.clear()
-            editor2?.commit()
             val iLogin = Intent (context, MainActivity::class.java)
             iLogin.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP )
             activity?.finish()
