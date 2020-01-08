@@ -19,7 +19,9 @@ class ReportUser : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        listaReportUser = InformazioniGenerali.getInformazioniGenerali().markers;
+        listaReportUser.addAll(InformazioniGenerali.getInformazioniGenerali().listaDone)
+        listaReportUser.addAll(InformazioniGenerali.getInformazioniGenerali().listaWait)
+        listaReportUser.addAll(InformazioniGenerali.getInformazioniGenerali().listaReject)
     }
 
     override fun onCreateView(
