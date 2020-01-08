@@ -36,6 +36,8 @@ public class MarkersAdminAdapter extends ArrayAdapter<Markers> {
         TextView dateReport = (TextView) convertView.findViewById(R.id.report_date_admin);
         ImageButton imageButtonDone = (ImageButton) convertView.findViewById(R.id.btn_done);
         ImageButton imageButtonReject = (ImageButton) convertView.findViewById(R.id.btn_reject);
+        titleReport.setText(markersList.get(position).getTitolo());
+        dateReport.setText(markersList.get(position).getDataOra());
 
         imageButtonDone.setOnClickListener(view -> {
 
