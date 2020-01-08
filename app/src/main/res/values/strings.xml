@@ -45,4 +45,5 @@
     <string name="inbox">inbox</string>
     <string name="title_activity_pie_">Pie_Activity</string>
     <string name="segnalazioni">REPORTS</string>
+    <string name="title_activity_back_home">BackHome</string>
 </resources>
