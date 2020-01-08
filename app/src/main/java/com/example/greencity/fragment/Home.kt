@@ -9,11 +9,16 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import com.anychart.AnyChart.pie
+import com.anychart.AnyChartView
+import com.anychart.chart.common.dataentry.DataEntry
+import com.anychart.chart.common.dataentry.ValueDataEntry
 import com.example.greencity.DBFirebase
 import com.example.greencity.R
 import com.example.greencity.activity.MainActivity
 import com.example.greencity.pojo.InformazioniGenerali
 import com.example.greencity.pojo.Markers
+
 
 class Home : Fragment() {
     private var textWelcomeUser: TextView? = null
@@ -64,6 +69,24 @@ class Home : Fragment() {
         listaWait = InformazioniGenerali.getInformazioniGenerali().listaWait
         listaDone = InformazioniGenerali.getInformazioniGenerali().listaDone
         listaReject = InformazioniGenerali.getInformazioniGenerali().listaReject
+
+        val anyChartView: AnyChartView = view.findViewById(R.id.chart_dashboard)
+
+        val pie = pie()
+
+        val data: ArrayList<DataEntry> = ArrayList()
+        data.add(ValueDataEntry("In Attesa", listaWait.size))
+        data.add(ValueDataEntry("Confermate", listaDone.size))
+        data.add(ValueDataEntry("Rifiutate", listaReject.size))
+
+        pie.data(data)
+        pie.legend().title().enabled(false);
+        pie.legend().enabled(false)
+        pie.background("#30d930")
+
+        anyChartView.setBackgroundResource(android.R.color.transparent)
+        anyChartView.setChart(pie)
+
 
         inAttesaTextCountReports?.text = listaWait.size.toString()
         confermatoTextCountReports?.text = listaDone.size.toString()

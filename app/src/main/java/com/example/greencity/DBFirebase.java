@@ -1,6 +1,5 @@
 package com.example.greencity;
 
-import com.example.greencity.pojo.Markers;
 import com.example.greencity.pojo.Utente;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -42,8 +41,5 @@ public class DBFirebase {
 
     }
 
-    public void insertReport(Markers m, String idUser) {
-        databaseReference.child("users").child(idUser).child("lista_report").push().setValue(m);
-    }
 
 }
