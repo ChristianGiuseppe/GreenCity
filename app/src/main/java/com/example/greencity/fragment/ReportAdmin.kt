@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
 import androidx.fragment.app.Fragment
-import com.example.greencity.Adapters.MarkersAdminAdapter
 import com.example.greencity.Adapters.MarkersUserAdapter
 import com.example.greencity.R
 import com.example.greencity.pojo.InformazioniGenerali
@@ -38,10 +37,10 @@ class ReportAdmin : Fragment() {
         // Inflate the layout for this fragment
         // Inflate the layout for this fragment
         val v: View = inflater.inflate(R.layout.fragment_report_admin, container, false)
-        listViewMarkers = v.findViewById(R.id.lista_report_admin)
+        listViewMarkers = v.findViewById(R.id.lista_report)
 
-        var markersAdapter: MarkersAdminAdapter =
-            MarkersAdminAdapter(context!!, R.layout.report_admin_item, listaReportUser)
+        var markersAdapter: MarkersUserAdapter =
+            MarkersUserAdapter(context!!, R.layout.report_admin_item, listaReportUser)
         listViewMarkers?.adapter = markersAdapter
         return v
     }
