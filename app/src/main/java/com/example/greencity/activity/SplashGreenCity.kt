@@ -62,7 +62,6 @@ class SplashGreenCity : AppCompatActivity() {
 
             DBFirebase.getDbFirebase().databaseReference.child("users").child(idUsSP)
                 .addValueEventListener(reportsListener)
-            DBFirebase.getDbFirebase().databaseReference.removeEventListener(reportsListener)
 
         }
 
@@ -92,7 +91,7 @@ class SplashGreenCity : AppCompatActivity() {
         }
 
         DBFirebase.getDbFirebase().databaseReference.child("lista_wait").orderByChild("keyUser").equalTo(idUsSP.toString())
-            .addValueEventListener(reportsListenerWaiting)
+            .addListenerForSingleValueEvent(reportsListenerWaiting)
 
     }
 
@@ -116,7 +115,7 @@ class SplashGreenCity : AppCompatActivity() {
         }
 
         DBFirebase.getDbFirebase().databaseReference.child("lista_done").orderByChild("keyUser").equalTo(idUsSP.toString())
-            .addValueEventListener(reportsListenerWaiting)
+            .addListenerForSingleValueEvent(reportsListenerWaiting)
 
     }
 
@@ -140,13 +139,14 @@ class SplashGreenCity : AppCompatActivity() {
         }
 
         DBFirebase.getDbFirebase().databaseReference.child("lista_reject").orderByChild("keyUser").equalTo(idUsSP.toString())
-            .addValueEventListener(reportsListenerWaiting)
+            .addListenerForSingleValueEvent(reportsListenerWaiting)
 
     }
 
 
     private fun adminListReportWait(list_wait :  ArrayList<Markers>){
         // CICLO LISTA WAITING
+
         val reportsListenerWaiting: ValueEventListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) { // Get Post object and use the values to update the UI
                 for (reportSnapshot in dataSnapshot.getChildren()) {
@@ -162,10 +162,11 @@ class SplashGreenCity : AppCompatActivity() {
             override fun onCancelled(databaseError: DatabaseError) { // Getting Post failed, log a message
 
             }
+
         }
 
         DBFirebase.getDbFirebase().databaseReference.child("lista_wait")
-            .addValueEventListener(reportsListenerWaiting)
+            .addListenerForSingleValueEvent(reportsListenerWaiting)
 
     }
 

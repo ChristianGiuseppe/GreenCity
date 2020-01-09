@@ -10,9 +10,9 @@ public class InformazioniGenerali {
     private String idUs = null;
     private List<Regioni> regioni;
     private ArrayList<Markers> markers;
-    private ArrayList<Markers> listaDone;
-    private ArrayList<Markers> listaWait;
-    private ArrayList<Markers> listaReject;
+    public ArrayList<Markers> listaDone;
+    public ArrayList<Markers> listaWait;
+    public ArrayList<Markers> listaReject;
 
 
 

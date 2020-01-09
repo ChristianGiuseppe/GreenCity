@@ -43,6 +43,7 @@ class ReportAdmin : Fragment() {
         var markersAdapter: MarkersAdminAdapter =
             MarkersAdminAdapter(context!!, R.layout.report_admin_item, listaReportUser)
         listViewMarkers?.adapter = markersAdapter
+
         return v
     }
 
