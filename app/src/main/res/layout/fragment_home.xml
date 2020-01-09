@@ -57,7 +57,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="24dp"
             android:background="@drawable/background_home"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -91,8 +90,8 @@
                     android:layout_height="wrap_content"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
-                    android:layout_marginTop="32dp"
                     android:layout_marginStart="8dp"
+                    android:layout_marginTop="32dp"
                     android:layout_marginBottom="32dp"
                     android:backgroundTint="@color/primary_color"
                     app:cardCornerRadius="16dp"
@@ -105,6 +104,7 @@
 
                     <TextView
                             android:id="@+id/report_confermati"
+                            style="@style/GreenCItyTextTitleCards"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
@@ -116,22 +116,21 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.0"
-                            style="@style/GreenCItyTextTitleCards" />
+                            app:layout_constraintVertical_bias="0.0" />
 
                     <TextView
+                            android:id="@+id/inConfermaCountText"
+                            style="@style/GreenCityTextTitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
                             android:layout_marginBottom="8dp"
                             android:text=""
-                            android:id="@+id/inConfermaCountText"
                             android:textColor="@android:color/white"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="@+id/report_confermati"
                             app:layout_constraintStart_toStartOf="@+id/report_confermati"
-                            app:layout_constraintTop_toBottomOf="@id/report_confermati"
-                            style="@style/GreenCityTextTitle">
+                            app:layout_constraintTop_toBottomOf="@id/report_confermati">
 
                     </TextView>
 
@@ -150,8 +149,8 @@
                     android:layout_height="wrap_content"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
-                    android:layout_marginTop="32dp"
                     android:layout_marginStart="8dp"
+                    android:layout_marginTop="32dp"
                     android:layout_marginBottom="32dp"
                     android:backgroundTint="@color/wait_report"
                     app:cardCornerRadius="16dp"
@@ -164,6 +163,7 @@
 
                     <TextView
                             android:id="@+id/report_in_attesa"
+                            style="@style/GreenCItyTextTitleCards"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
@@ -175,11 +175,11 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.0"
-                            style="@style/GreenCItyTextTitleCards" />
+                            app:layout_constraintVertical_bias="0.0" />
 
                     <TextView
                             android:id="@+id/inAttesaCountText"
+                            style="@style/GreenCityTextTitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
@@ -189,8 +189,7 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="@+id/report_in_attesa"
                             app:layout_constraintStart_toStartOf="@+id/report_in_attesa"
-                            app:layout_constraintTop_toBottomOf="@id/report_in_attesa"
-                            style="@style/GreenCityTextTitle">
+                            app:layout_constraintTop_toBottomOf="@id/report_in_attesa">
 
                     </TextView>
 
@@ -206,8 +205,8 @@
                     android:layout_height="wrap_content"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
-                    android:layout_marginTop="32dp"
                     android:layout_marginStart="8dp"
+                    android:layout_marginTop="32dp"
                     android:layout_marginBottom="32dp"
                     android:backgroundTint="@color/red_state"
                     app:cardCornerRadius="16dp"
@@ -220,6 +219,7 @@
 
                     <TextView
                             android:id="@+id/report_rifiutati"
+                            style="@style/GreenCItyTextTitleCards"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
@@ -233,22 +233,21 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.0"
-                            style="@style/GreenCItyTextTitleCards" />
+                            app:layout_constraintVertical_bias="0.0" />
 
                     <TextView
+                            android:id="@+id/inRifiutoCountText"
+                            style="@style/GreenCityTextTitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
                             android:layout_marginBottom="8dp"
                             android:text=""
-                            android:id="@+id/inRifiutoCountText"
                             android:textColor="@android:color/white"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="@+id/report_rifiutati"
                             app:layout_constraintStart_toStartOf="@+id/report_rifiutati"
-                            app:layout_constraintTop_toBottomOf="@id/report_rifiutati"
-                            style="@style/GreenCityTextTitle">
+                            app:layout_constraintTop_toBottomOf="@id/report_rifiutati">
 
                     </TextView>
 
@@ -258,6 +257,26 @@
             </androidx.cardview.widget.CardView>
 
         </GridLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/grid_reject_and_done">
+
+            <com.anychart.AnyChartView
+                    android:id="@+id/chart_dashboard"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
