@@ -68,6 +68,8 @@ public class MarkersAdminAdapter extends ArrayAdapter<Markers> {
                         String keyMark = postSnapshot.getKey();
                         fromPath.child(keyMark).setValue(null);
                         toPath.child(keyMark).setValue(markers);
+
+
                         
                         break;
                         }

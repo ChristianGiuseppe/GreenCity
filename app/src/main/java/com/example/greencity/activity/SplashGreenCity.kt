@@ -154,6 +154,8 @@ class SplashGreenCity : AppCompatActivity() {
                         list_wait.add(rep_wait)
                         InformazioniGenerali.getInformazioniGenerali().listaWait = list_wait
 
+
+
                 }
             }
 
