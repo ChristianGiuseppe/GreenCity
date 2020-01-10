@@ -41,6 +41,7 @@ public class MarkersAdminAdapter extends ArrayAdapter<Markers> {
     public MarkersAdminAdapter(@NonNull Context context, int resource, @NonNull List<Markers> objects) {
         super(context, resource, objects);
         markersList = objects;
+
     }
 
     @NonNull
@@ -103,7 +104,7 @@ public class MarkersAdminAdapter extends ArrayAdapter<Markers> {
 
 
 
-
+            notifyDataSetChanged();
 
 
         });
@@ -151,7 +152,7 @@ public class MarkersAdminAdapter extends ArrayAdapter<Markers> {
             DBFirebase.getDbFirebase().getDatabaseReference().child("lista_wait").orderByChild("keyUser").equalTo(idkeyUserMarkerClick[0].toString())
                     .addValueEventListener(reportListener);
 
-
+            notifyDataSetChanged();
 
         });
         return convertView;

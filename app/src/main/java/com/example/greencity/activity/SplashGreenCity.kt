@@ -11,6 +11,12 @@ import com.google.firebase.database.ValueEventListener
 import android.content.Context
 
 
+
+
+
+
+
+
 class SplashGreenCity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -172,18 +178,31 @@ class SplashGreenCity : AppCompatActivity() {
 
     private fun adminListReportDone(list_done :  ArrayList<Markers>){
         // CICLO LISTA DONE
+        val set = HashSet<Markers>()
+        var flag = true
         val reportsListenerWaiting: ValueEventListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) { // Get Post object and use the values to update the UI
                 for (reportSnapshot in dataSnapshot.getChildren()) {
                     var rep_done: Markers = reportSnapshot.getValue(Markers::class.java)!!
                     list_done.add(rep_done)
-                    InformazioniGenerali.getInformazioniGenerali().listaDone = list_done
+                    for (i in 0 until list_done.size) {
+                        flag = set.add(list_done.get(i))
+                        if (!flag) {
+                            list_done.remove(list_done.get(i))
+                            InformazioniGenerali.getInformazioniGenerali().listaDone = list_done
+                            flag = true
+                            break
+                        }
+                    }
+
                 }
+                InformazioniGenerali.getInformazioniGenerali().listaDone = list_done
             }
 
             override fun onCancelled(databaseError: DatabaseError) { // Getting Post failed, log a message
 
             }
+
         }
 
         DBFirebase.getDbFirebase().databaseReference.child("lista_done")
@@ -193,13 +212,25 @@ class SplashGreenCity : AppCompatActivity() {
 
     private fun adminListReportReject(list_reject :  ArrayList<Markers>){
         // CICLO LISTA REJECT
+        val set = HashSet<Markers>()
+        var flag = true
         val reportsListenerWaiting: ValueEventListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) { // Get Post object and use the values to update the UI
                 for (reportSnapshot in dataSnapshot.getChildren()) {
                     var rep_reject: Markers = reportSnapshot.getValue(Markers::class.java)!!
                     list_reject.add(rep_reject)
-                    InformazioniGenerali.getInformazioniGenerali().listaReject = list_reject
+                    for (i in 0 until list_reject.size) {
+                        flag = set.add(list_reject.get(i))
+                        if (!flag) {
+                            list_reject.remove(list_reject.get(i))
+                            InformazioniGenerali.getInformazioniGenerali().listaReject = list_reject
+                            flag = true
+                            break
+                        }
+                    }
+
                 }
+                InformazioniGenerali.getInformazioniGenerali().listaReject = list_reject
             }
 
             override fun onCancelled(databaseError: DatabaseError) { // Getting Post failed, log a message
