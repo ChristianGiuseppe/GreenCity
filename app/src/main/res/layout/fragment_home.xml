@@ -270,10 +270,23 @@
                     android:id="@+id/chart_dashboard"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+            <ProgressBar
+                    android:id="@+id/progress_bar_admin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                   android:indeterminateTint="@android:color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_gravity="center"
+                    />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
