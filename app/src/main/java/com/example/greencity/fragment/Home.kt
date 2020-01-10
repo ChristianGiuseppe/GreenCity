@@ -71,7 +71,7 @@ class Home : Fragment() {
         listaReject = InformazioniGenerali.getInformazioniGenerali().listaReject
 
         val anyChartView: AnyChartView = view.findViewById(R.id.chart_dashboard)
-
+        anyChartView.setProgressBar(view.findViewById(R.id.progress_bar_admin))
         val pie = pie()
 
         val data: ArrayList<DataEntry> = ArrayList()
@@ -83,7 +83,9 @@ class Home : Fragment() {
         pie.legend().title().enabled(false);
         pie.legend().enabled(false)
         pie.background("#30d930")
-
+        val paletteColor = arrayOf<String>("#ff6d00","#4caf50","#e40719")
+        pie.palette(paletteColor)
+        anyChartView.setBackgroundColor("#30d930")
         anyChartView.setBackgroundResource(android.R.color.transparent)
         anyChartView.setChart(pie)
 
