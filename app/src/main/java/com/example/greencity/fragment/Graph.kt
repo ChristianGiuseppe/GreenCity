@@ -5,15 +5,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.greencity.R
+import com.example.greencity.activity.ColumnChart_Activity
 import com.example.greencity.activity.Pie_Activity
-import com.example.greencity.activity.SplashGreenCity
 
 class Graph : Fragment() {
     private var textApriCakeChart: TextView? = null
+    private var columnApriCakeChart: TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +30,8 @@ class Graph : Fragment() {
         // Inflate the layout for this fragment
         val v: View = inflater.inflate(R.layout.fragment_graph, container, false)
         textApriCakeChart = v.findViewById(R.id.cakeChartText)
+        columnApriCakeChart = v.findViewById(R.id.columnChartText)
+
         return v
     }
 
@@ -37,6 +39,14 @@ class Graph : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         textApriCakeChart?.setOnClickListener {
             val iChart = Intent(context, Pie_Activity::class.java)
+            iChart?.addFlags(
+                Intent.FLAG_ACTIVITY_CLEAR_TOP or
+                        Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(iChart)
+        }
+
+        columnApriCakeChart?.setOnClickListener {
+            val iChart = Intent(context, ColumnChart_Activity::class.java)
             iChart?.addFlags(
                 Intent.FLAG_ACTIVITY_CLEAR_TOP or
                         Intent.FLAG_ACTIVITY_NEW_TASK)

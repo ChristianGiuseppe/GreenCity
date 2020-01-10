@@ -16,6 +16,7 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".activity.ColumnChart_Activity"></activity>
         <activity
                 android:name=".activity.Pie_Activity"
                 android:label="@string/title_activity_pie_"

@@ -17,6 +17,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 
 import com.example.greencity.R;
+import com.example.greencity.pojo.InformazioniGenerali;
+import com.example.greencity.pojo.Markers;
 
 public class Pie_Activity extends AppCompatActivity {
 
@@ -31,23 +33,29 @@ public class Pie_Activity extends AppCompatActivity {
 
         Pie pie = AnyChart.pie();
 
+        ArrayList <Markers>listaWait =  new  ArrayList();
+        ArrayList <Markers>listaDone =  new  ArrayList();
+        ArrayList <Markers>listaReject =  new  ArrayList();
+
+        listaWait = InformazioniGenerali.getInformazioniGenerali().listaWait;
+        listaDone = InformazioniGenerali.getInformazioniGenerali().listaDone;
+        listaReject = InformazioniGenerali.getInformazioniGenerali().listaReject;
+
 
         List<DataEntry> data = new ArrayList<>();
-        data.add(new ValueDataEntry("Apples", 6371664));
-        data.add(new ValueDataEntry("Pears", 789622));
-        data.add(new ValueDataEntry("Bananas", 7216301));
-        data.add(new ValueDataEntry("Grapes", 1486621));
-        data.add(new ValueDataEntry("Oranges", 1200000));
+        data.add(new ValueDataEntry("In Attesa", listaWait.size()));
+        data.add(new ValueDataEntry("Confermato", listaDone.size()));
+        data.add(new ValueDataEntry("Rifiutato", listaReject.size()));
 
         pie.data(data);
 
-        pie.title("Fruits imported in 2015 (in kg)");
+        pie.title("Status Report Utenti");
 
         pie.labels().position("outside");
 
         pie.legend().title().enabled(true);
         pie.legend().title()
-                .text("Retail channels")
+                //.text("Retail channels")
                 .padding(0d, 0d, 10d, 0d);
 
         pie.legend()
