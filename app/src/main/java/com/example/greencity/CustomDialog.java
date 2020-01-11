@@ -3,6 +3,7 @@ package com.example.greencity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
@@ -13,9 +14,12 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 
+import com.example.greencity.activity.SplashGreenCity;
 import com.example.greencity.pojo.InformazioniGenerali;
 import com.example.greencity.pojo.Markers;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -47,17 +51,33 @@ public class CustomDialog extends Dialog {
             @Override
             public void onClick(View v) {
                 Date currentTime = Calendar.getInstance().getTime();
+                String DateT = getCurrentTime();
                 if (isNetworkConnected()) {
                     if(checkTitle() && checkDescription()) {
                         //Passare l oggetto Marker che viene creato dalla Dialog
-                        Markers m = new Markers(idUser, titoloText.getText().toString(), descrizioneText.getText().toString(), lat, longi, "WAIT", new UtilsDate(currentTime).toString());
                         if (idUsSP == null || idUsSP == "") {
+                            Markers m = new Markers(idUser, titoloText.getText().toString(), descrizioneText.getText().toString(), lat, longi, "WAIT", DateT);
                             DBFirebase.getDbFirebase().getDatabaseReference().child("lista_wait").push().setValue(m);
                         } else {
+                            Markers m = new Markers(idUsSP, titoloText.getText().toString(), descrizioneText.getText().toString(), lat, longi, "WAIT", DateT);
                             DBFirebase.getDbFirebase().getDatabaseReference().child("lista_wait").push().setValue(m);
 
                         }
                         dismiss();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                        builder.setTitle("Complimenti!");
+                        builder.setMessage("Report inserito con Successo. Premi OK per tornare alla Home")
+                                .setCancelable(false)
+                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        Intent i = new Intent(getContext(), SplashGreenCity.class);
+                                        getContext().startActivity(i);
+                                        dismiss();
+                                    }
+                                });
+                        AlertDialog alert = builder.create();
+                        alert.show();
+
                     }
                 }
                 else{
@@ -112,4 +132,16 @@ public class CustomDialog extends Dialog {
         }
         return true;
     }
+
+    /**
+     * getCurrentTime() it will return system time
+     *
+     * @return
+     */
+    public static String getCurrentTime() {
+        //date output format
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Calendar cal = Calendar.getInstance();
+        return dateFormat.format(cal.getTime());
+    }// end of getCurrentTime()
 }

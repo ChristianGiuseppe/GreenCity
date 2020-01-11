@@ -17,35 +17,10 @@
             android:layout_margin="16dp"
             android:background="@drawable/ic_location_on_road"
             android:contentDescription="@string/marker_image"
-            app:layout_constraintBottom_toTopOf="@+id/tipologia_markers_title"
+            app:layout_constraintBottom_toTopOf="@+id/titolo_markers"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-            android:id="@+id/tipologia_markers_title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="@string/tipologia_marker"
-            android:textAlignment="center"
-            android:textColor="@android:color/white"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@+id/tipologia_markers"
-            app:layout_constraintEnd_toEndOf="@+id/tipologia_markers"
-            app:layout_constraintStart_toStartOf="@+id/tipologia_markers" />
-
-    <Spinner
-            android:id="@+id/tipologia_markers"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@android:color/white"
-            app:layout_constraintBottom_toTopOf="@+id/titolo_markers"
-            app:layout_constraintEnd_toEndOf="@+id/title_markers"
-            app:layout_constraintHorizontal_bias="1.0"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintStart_toStartOf="@+id/title_markers" />
-
     <TextView
             android:id="@+id/titolo_markers"
             android:layout_width="0dp"

@@ -191,7 +191,7 @@ class Navbar : AppCompatActivity() {
         val transaction = supportFragmentManager.beginTransaction()
 //        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
         transaction.replace(R.id.fragments_container, fragment)
-        transaction.commit()
+        transaction.commitAllowingStateLoss()
     }
 
     fun buildDialog(c: Context): AlertDialog.Builder {

@@ -1,6 +1,8 @@
 package com.example.greencity.Adapters;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,10 +13,12 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.greencity.DBFirebase;
 import com.example.greencity.R;
+import com.example.greencity.activity.SplashGreenCity;
 import com.example.greencity.pojo.InformazioniGenerali;
 import com.example.greencity.pojo.Markers;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -44,6 +48,7 @@ public class MarkersAdminAdapter extends ArrayAdapter<Markers> {
 
     }
 
+
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -70,7 +75,7 @@ public class MarkersAdminAdapter extends ArrayAdapter<Markers> {
                     for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
                         Markers markers = postSnapshot.getValue(Markers.class);
                         if(idkeyUserMarkerClick[0] != "" ){
-                            idkeyUserMarkerClick[0] = "";
+                           idkeyUserMarkerClick[0] = "";
                         markers.setStato("DONE");
                         String keyMark = postSnapshot.getKey();
                         fromPath.child(keyMark).setValue(null);
@@ -100,6 +105,7 @@ public class MarkersAdminAdapter extends ArrayAdapter<Markers> {
             };
             DBFirebase.getDbFirebase().getDatabaseReference().child("lista_wait").orderByChild("keyUser").equalTo(idkeyUserMarkerClick[0].toString())
                     .addValueEventListener(reportListener);
+
 
 
 

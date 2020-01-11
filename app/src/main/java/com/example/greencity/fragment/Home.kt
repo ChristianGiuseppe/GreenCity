@@ -60,6 +60,7 @@ class Home : Fragment() {
 
         val sharedPreferences = context?.getSharedPreferences("SP_INFO", Context.MODE_PRIVATE)
         val editor = sharedPreferences?.edit()
+        val idUsSP = sharedPreferences?.getString("IDUSER","").toString()
 
 
         var listaWait: ArrayList<Markers> = ArrayList()
@@ -105,7 +106,9 @@ class Home : Fragment() {
         logOutImg?.setOnClickListener {
             DBFirebase.setDbFirebaseNull()
             editor?.clear()
+            editor?.remove("IDUSER")
             editor?.commit()
+
             val iLogin = Intent (context, MainActivity::class.java)
             iLogin.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP )
             activity?.finish()

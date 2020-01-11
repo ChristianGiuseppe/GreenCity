@@ -96,8 +96,16 @@ class SplashGreenCity : AppCompatActivity() {
             }
         }
 
+        for (i in 0 until InformazioniGenerali.getInformazioniGenerali().listaWait.size) {
+            var check = InformazioniGenerali.getInformazioniGenerali().listaWait.get(i).keyUser.equals(idUsSP)
+            if(!check){
+                InformazioniGenerali.getInformazioniGenerali().listaWait.remove(InformazioniGenerali.getInformazioniGenerali().listaWait.get(i))
+                break
+            }
+        }
+
         DBFirebase.getDbFirebase().databaseReference.child("lista_wait").orderByChild("keyUser").equalTo(idUsSP.toString())
-            .addListenerForSingleValueEvent(reportsListenerWaiting)
+            .addValueEventListener(reportsListenerWaiting)
 
     }
 
@@ -119,9 +127,17 @@ class SplashGreenCity : AppCompatActivity() {
 
             }
         }
+        for (i in 0 until InformazioniGenerali.getInformazioniGenerali().listaDone.size) {
+            var check = InformazioniGenerali.getInformazioniGenerali().listaDone.get(i).keyUser.equals(idUsSP)
+            if(!check){
+                InformazioniGenerali.getInformazioniGenerali().listaDone.remove(InformazioniGenerali.getInformazioniGenerali().listaDone.get(i))
+                break
+            }
+        }
 
         DBFirebase.getDbFirebase().databaseReference.child("lista_done").orderByChild("keyUser").equalTo(idUsSP.toString())
-            .addListenerForSingleValueEvent(reportsListenerWaiting)
+            .addValueEventListener(reportsListenerWaiting)
+
 
     }
 
@@ -144,8 +160,16 @@ class SplashGreenCity : AppCompatActivity() {
             }
         }
 
+        for (i in 0 until InformazioniGenerali.getInformazioniGenerali().listaReject.size) {
+            var check = InformazioniGenerali.getInformazioniGenerali().listaReject.get(i).keyUser.equals(idUsSP)
+            if(!check){
+                InformazioniGenerali.getInformazioniGenerali().listaReject.remove(InformazioniGenerali.getInformazioniGenerali().listaReject.get(i))
+                break
+            }
+        }
+
         DBFirebase.getDbFirebase().databaseReference.child("lista_reject").orderByChild("keyUser").equalTo(idUsSP.toString())
-            .addListenerForSingleValueEvent(reportsListenerWaiting)
+            .addValueEventListener(reportsListenerWaiting)
 
     }
 
@@ -159,9 +183,6 @@ class SplashGreenCity : AppCompatActivity() {
                     var rep_wait: Markers = reportSnapshot.getValue(Markers::class.java)!!
                         list_wait.add(rep_wait)
                         InformazioniGenerali.getInformazioniGenerali().listaWait = list_wait
-
-
-
                 }
             }
 
@@ -185,16 +206,17 @@ class SplashGreenCity : AppCompatActivity() {
                 for (reportSnapshot in dataSnapshot.getChildren()) {
                     var rep_done: Markers = reportSnapshot.getValue(Markers::class.java)!!
                     list_done.add(rep_done)
-                    for (i in 0 until list_done.size) {
-                        flag = set.add(list_done.get(i))
-                        if (!flag) {
-                            list_done.remove(list_done.get(i))
-                            InformazioniGenerali.getInformazioniGenerali().listaDone = list_done
-                            flag = true
-                            break
-                        }
-                    }
 
+
+                }
+                for (i in 0 until list_done.size) {
+                    flag = set.add(list_done.get(i))
+                    if (!flag) {
+                        list_done.remove(list_done.get(i))
+                        InformazioniGenerali.getInformazioniGenerali().listaDone = list_done
+                        flag = true
+                        break
+                    }
                 }
                 InformazioniGenerali.getInformazioniGenerali().listaDone = list_done
             }
@@ -206,7 +228,7 @@ class SplashGreenCity : AppCompatActivity() {
         }
 
         DBFirebase.getDbFirebase().databaseReference.child("lista_done")
-            .addValueEventListener(reportsListenerWaiting)
+            .addListenerForSingleValueEvent(reportsListenerWaiting)
 
     }
 
@@ -219,16 +241,17 @@ class SplashGreenCity : AppCompatActivity() {
                 for (reportSnapshot in dataSnapshot.getChildren()) {
                     var rep_reject: Markers = reportSnapshot.getValue(Markers::class.java)!!
                     list_reject.add(rep_reject)
-                    for (i in 0 until list_reject.size) {
-                        flag = set.add(list_reject.get(i))
-                        if (!flag) {
-                            list_reject.remove(list_reject.get(i))
-                            InformazioniGenerali.getInformazioniGenerali().listaReject = list_reject
-                            flag = true
-                            break
-                        }
-                    }
 
+
+                }
+                for (i in 0 until list_reject.size) {
+                    flag = set.add(list_reject.get(i))
+                    if (!flag) {
+                        list_reject.remove(list_reject.get(i))
+                        InformazioniGenerali.getInformazioniGenerali().listaReject = list_reject
+                        flag = true
+                        break
+                    }
                 }
                 InformazioniGenerali.getInformazioniGenerali().listaReject = list_reject
             }
