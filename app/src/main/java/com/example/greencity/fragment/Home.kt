@@ -105,6 +105,9 @@ class Home : Fragment() {
 
         logOutImg?.setOnClickListener {
             DBFirebase.setDbFirebaseNull()
+            InformazioniGenerali.getInformazioniGenerali().listaDone.clear()
+            InformazioniGenerali.getInformazioniGenerali().listaReject.clear()
+            InformazioniGenerali.getInformazioniGenerali().listaWait.clear()
             editor?.clear()
             editor?.remove("IDUSER")
             editor?.commit()
